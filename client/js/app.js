@@ -1,5 +1,5 @@
-var NavBar = require('NavBar');
-var VideoChat = require('VideoChat');
+var NavBar = require('./navBar');
+var VideoChat = require('./videoChat');
 
 var Main = React.createClass({
   render: function() {
