@@ -43,7 +43,24 @@ gulp.task('watch', function(){
     .pipe(gulp.dest(path.DEST_SRC));
 });
 
+gulp.task('build', function(){
+  browserify({
+    entries: [path.ENTRY_POINT],
+    transform: [reactify],
+  })
+  .bundle()
+  .pipe(source(path.MINIFIED_OUT))
+  .pipe(streamify(uglify(path.MINIFIED_OUT)))
+  .pipe(gulp.dest(path.DEST_BUILD));
+});
 
+gulp.task('replaceHTML', function(){
+  gulp.src(path.HTML)
+    .pipe(htmlreplace({
+      'js': 'build/' + path.MINIFIED_OUT
+    }))
+    .pipe(gulp.dest(path.DEST));
+});
 
 gulp.task('default', [ 'watch' ]);
-gulp.task('production', [ 'build' ]);
+gulp.task('production', [ 'replaceHTML', 'build' ]);
