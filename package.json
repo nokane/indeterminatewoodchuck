@@ -23,9 +23,7 @@
   "homepage": "https://github.com/indeterminatewoodchuck/indeterminatewoodchuck#readme",
   "dependencies": {
     "body-parser": "^1.13.2",
-    "express": "^4.13.1"
-  },
-  "devDependencies": {
+    "express": "^4.13.1",
     "browserify": "^10.2.6",
     "gulp": "^3.9.0",
     "gulp-html-replace": "^1.5.1",
