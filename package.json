@@ -23,12 +23,12 @@
   "homepage": "https://github.com/indeterminatewoodchuck/indeterminatewoodchuck#readme",
   "dependencies": {
     "body-parser": "^1.13.2",
-    "express": "^4.13.1",
     "browserify": "^10.2.6",
+    "express": "^4.13.1",
     "gulp": "^3.9.0",
     "gulp-html-replace": "^1.5.1",
     "gulp-streamify": "0.0.5",
-    "gulp-uglify": "^1.1.0",
+    "gulp-uglify": "1.1.0",
     "reactify": "^1.1.1",
     "vinyl-source-stream": "^1.1.0",
     "watchify": "^3.2.3"
