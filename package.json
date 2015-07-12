@@ -3,9 +3,13 @@
   "version": "1.0.0",
   "description": "> Pithy project description",
   "main": "index.js",
+  "engines": {
+    "node": "~0.12.7"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon index.js"
+    "start": "nodemon index.js",
+    "postinstall": "gulp production"
   },
   "repository": {
     "type": "git",
@@ -19,6 +23,14 @@
   "homepage": "https://github.com/indeterminatewoodchuck/indeterminatewoodchuck#readme",
   "dependencies": {
     "body-parser": "^1.13.2",
-    "express": "^4.13.1"
+    "browserify": "^10.2.6",
+    "express": "^4.13.1",
+    "gulp": "^3.9.0",
+    "gulp-html-replace": "^1.5.1",
+    "gulp-streamify": "0.0.5",
+    "gulp-uglify": "1.1.0",
+    "reactify": "^1.1.1",
+    "vinyl-source-stream": "^1.1.0",
+    "watchify": "^3.2.3"
   }
 }
