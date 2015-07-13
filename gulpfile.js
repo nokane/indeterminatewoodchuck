@@ -17,13 +17,16 @@ var path = {
   ENTRY_POINT: './client/js/app.js'
 };
 
-gulp.task('copy', function(){
+gulp.task('htmlReplaceDev', function(){
   gulp.src(path.HTML)
+  .pipe(htmlreplace({
+    'js': 'src/' + path.OUT
+  }))
     .pipe(gulp.dest(path.DEST));
 });
 
 gulp.task('watch', function(){
-  gulp.watch(path.HTML, [ 'copy' ]);
+  gulp.watch(path.HTML, [ 'htmlReplaceDev' ]);
 
   var watcher = watchify(browserify({
     entries: [path.ENTRY_POINT],
