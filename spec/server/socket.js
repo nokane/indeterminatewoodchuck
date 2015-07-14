@@ -80,4 +80,24 @@ describe('Socket.io Server Routing', function() {
     });
   });
 
+  it('Room names of disconnected staff from previous test are removed from socketroute.rooms array', function(done) {
+    var customerSocket1 = io.connect(socketTestURL, options);
+    customerSocket1.on('connect', function(data){
+      customerSocket1.emit('customerRequest', 'roomname1')
+    });
+    var staffSocket1 = io.connect(socketTestURL, options);
+    staffSocket1.on('connect', function(data){
+      staffSocket1.emit('staffReady', 'roomname1')
+    });
+    staffSocket1.on('staffRoom', function(name) {
+      expect(name).to.equal('room5');
+    });
+    customerSocket1.on('customerRoom', function(name) {
+      expect(name).to.equal('room5');
+      staffSocket1.disconnect();
+      customerSocket1.disconnect();
+      done();
+    });
+  });
+
 });
