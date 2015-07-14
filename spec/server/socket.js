@@ -8,15 +8,45 @@ var options = {
   'force new connection': true
 };
 
-var server = require('../../index.js');
 describe('Socket.io Server Routing', function() {
+
+  var server;
+
+  beforeEach(function() {
+    server = require('../../index.js');
+  });
+
+  afterEach(function() {
+    server = undefined;
+  });
+
+  it('Should send staffRoom event and customerRoom event when staff member connects after customer', function(done) {
+    var customerSocket1 = io.connect(socketTestURL, options);
+    customerSocket1.on('connect', function(data){
+      customerSocket1.emit('customerRequest', 'roomname1')
+    });
+    var staffSocket1 = io.connect(socketTestURL, options);
+    staffSocket1.on('connect', function(data){
+      staffSocket1.emit('staffReady', 'roomname1')
+    });
+    staffSocket1.on('staffRoom', function(name) {
+      expect(name).to.equal('room1');
+    });
+    customerSocket1.on('customerRoom', function(name) {
+      expect(name).to.equal('room1');
+      staffSocket1.disconnect();
+      customerSocket1.disconnect();
+      done(); 
+    });
+  });
+
   it('Should create new room on "staffReady"', function(done) {
     var staffSocket = io.connect(socketTestURL, options);
     staffSocket.on('connect', function(data){
       staffSocket.emit('staffReady', 'roomname1')
     });
     staffSocket.on('staffRoom', function(name) {
-      expect(name).to.equal('room1');
+      expect(name).to.equal('room2');
       staffSocket.disconnect();
       done();
     });
@@ -25,10 +55,10 @@ describe('Socket.io Server Routing', function() {
   it('Second roomname should equal "room2"', function(done) {
     var staffSocket1 = io.connect(socketTestURL, options);
     staffSocket1.on('connect', function(data){
-      staffSocket1.emit('staffReady', 'roomname1')
+      staffSocket1.emit('staffReady', 'roomname2')
     });
     staffSocket1.on('staffRoom', function(name) {
-      expect(name).to.equal('room2');
+      expect(name).to.equal('room3');
       staffSocket1.disconnect();
       done();
     });
@@ -42,11 +72,12 @@ describe('Socket.io Server Routing', function() {
     });
     staffSocket1.on('staffRoom', function(name) {
       expect(Constructor).to.throw(Error);
-      console.log("ERROR");
     });
     staffSocket2.on('staffRoom', function(name) {
+      staffSocket1.disconnect();
+      staffSocket2.disconnect();      
       done();
-    });    
+    });
   });
 
 });
