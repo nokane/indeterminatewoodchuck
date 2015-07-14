@@ -24,3 +24,23 @@ var createChatSession = function() {
     setupVideoChatListeners(comm, chatWindow, data);
   });
 };
+
+var setupVideoChatListeners = function(comm, chatWindow, data){
+  comm.on('connected', function(peer) {
+    chatWindow.appendChild(peer.getVideo());
+  });
+
+  comm.on('local', function(self) {
+    chatWindow.appendChild(self.getVideo());
+  });
+
+  comm.on('disconnect', function() {
+    comm.leave(true);
+    chatWindow.remove();
+  });
+
+  // figure out what format data is being sent back with
+  comm.connect(data.SOMETHING);
+};
+
+chatButton.addEventListener('click', createChatSession, false);
