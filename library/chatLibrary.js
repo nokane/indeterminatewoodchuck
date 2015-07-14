@@ -5,3 +5,22 @@ socketScript.src = 'https://cdn.socket.io/socket.io-1.3.5.js';
 icecommScript.src = 'https://cdn.icecomm.io/icecomm.js';
 head.appendChild(socketScript);
 head.appendChild(icecommScript);
+
+var chatButton = document.getElementById('chat-button');
+
+var createChatSession = function() {
+  // should we pass in company name or other identifier?
+  var comm = new Icecomm('ZZ2RA1DsHd9xdCqdoeJ8Wwra5A5fUKipAVrvzX6vOGHlLiAdO');
+  var chatWindow = document.createElement('div');
+  chatButton.parentNode.appendChild(chatWindow);
+
+  // Change this to our server url
+  var socket = io('http://localhost:3000');
+
+  // will need to emit some kind of customer number?
+  socket.emit('customerRequest');
+
+  socket.on('joinRoom', function(data) {
+    setupVideoChatListeners(comm, chatWindow, data);
+  });
+};
