@@ -4,6 +4,7 @@ var htmlreplace = require('gulp-html-replace');
 var source = require('vinyl-source-stream');
 var browserify = require('browserify');
 var watchify = require('watchify');
+var mocha = require('gulp-mocha');
 var reactify = require('reactify');
 var streamify = require('gulp-streamify');
 
@@ -14,7 +15,8 @@ var path = {
   DEST: 'client/dist',
   DEST_BUILD: 'client/dist/build',
   DEST_SRC: 'client/dist/src',
-  ENTRY_POINT: './client/js/app.js'
+  ENTRY_POINT: './client/js/app.js',
+  TEST_DIR: ['spec/*.js', 'spec/**/*.js']
 };
 
 gulp.task('htmlReplaceDev', function(){
@@ -44,6 +46,11 @@ gulp.task('watch', function(){
     .bundle()
     .pipe(source(path.OUT))
     .pipe(gulp.dest(path.DEST_SRC));
+});
+
+gulp.task('test', function(){
+  return gulp.src(path.TEST_DIR, {read: false})
+          .pipe(mocha({reporter: 'nyan'}));
 });
 
 gulp.task('build', function(){
