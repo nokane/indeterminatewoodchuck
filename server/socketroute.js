@@ -8,6 +8,6 @@ socket.socketroute = function(io, user) {
     socket.num += 1;
     var roomname = "room" + socket.num;
     socket.rooms.push(roomname);
-    io.emit('staffRoom', roomname);
+    io.to(user.id).emit('staffRoom', roomname);
   });
 };
