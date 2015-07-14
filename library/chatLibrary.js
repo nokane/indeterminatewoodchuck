@@ -6,6 +6,7 @@ icecommScript.src = 'https://cdn.icecomm.io/icecomm.js';
 head.appendChild(socketScript);
 head.appendChild(icecommScript);
 
+// Client will need to add a button with an ID of 'chat-button' for library to work
 var chatButton = document.getElementById('chat-button');
 
 var createChatSession = function() {
@@ -14,7 +15,7 @@ var createChatSession = function() {
   var chatWindow = document.createElement('div');
   chatButton.parentNode.appendChild(chatWindow);
 
-  // Change this to our server url
+  // Change this to our production server url
   var socket = io('http://localhost:3000');
 
   // will need to emit some kind of customer number?
