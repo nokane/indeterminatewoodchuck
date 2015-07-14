@@ -10,6 +10,7 @@ var io = require('socket.io')(server);
 app.use(bodyParser.json());
 
 app.use(express.static(__dirname + '/../client/dist'));
+app.use('/library', express.static(__dirname + '/../library'));
 
 server.socketroute = require('./socketroute.js');
 
