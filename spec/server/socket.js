@@ -34,4 +34,19 @@ describe('Socket.io Server Routing', function() {
     });
   });
 
+  it('"staffRoom" should only be sent to socket connection that sent "staffReady"', function(done) {
+    var staffSocket1 = io.connect(socketTestURL, options);
+    var staffSocket2 = io.connect(socketTestURL, options);
+    staffSocket2.on('connect', function(data){
+      staffSocket2.emit('staffReady', 'roomname1')
+    });
+    staffSocket1.on('staffRoom', function(name) {
+      expect(Constructor).to.throw(Error);
+      console.log("ERROR");
+    });
+    staffSocket2.on('staffRoom', function(name) {
+      done();
+    });    
+  });
+
 });
