@@ -2,11 +2,26 @@ var NavBar = require('./navBar');
 var VideoChat = require('./videoChat');
 
 var Main = React.createClass({
+  getInitialState: function(){
+    return { roomname: 'room_lky' };
+  },
+
+  componentDidMount: function(){
+    this.setUpEventListeners();
+  },
+
+  setUpEventListeners: function(){
+    socket.on('staffRoom', function(msg) {
+      console.log('this is the room name', msg);
+      this.setState({ roomname: 'msg' });
+    });
+  },
+
   render: function() {
     return (
       <div>
         <NavBar />
-        <VideoChat />
+        <VideoChat roomname={ this.state.roomname } />
       </div>
     );
   }
