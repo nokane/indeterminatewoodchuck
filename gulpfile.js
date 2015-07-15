@@ -50,7 +50,10 @@ gulp.task('watch', function(){
 
 gulp.task('test', function(){
   return gulp.src(path.TEST_DIR, {read: false})
-          .pipe(mocha({reporter: 'nyan'}));
+          .pipe(mocha({reporter: 'nyan'}))
+          .once('end', function() {
+            process.exit();
+          });
 });
 
 gulp.task('build', function(){
