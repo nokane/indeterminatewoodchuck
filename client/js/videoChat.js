@@ -5,7 +5,6 @@ var VideoChat = React.createClass({
 
   setUpEventListeners: function(){
     var comm = new Icecomm('ZZ2RA1DsHd9xdCqdoeJ8Wwra5A5fUKipAVrvzX6vOGHlLiAdO');
-    var customerVideo;
 
     comm.on('connected', function(peer) {
       document.getElementById('customerVideo').appendChild(peer.getVideo());
@@ -18,15 +17,13 @@ var VideoChat = React.createClass({
     comm.on('disconnect', function(peer) {
       document.getElementById(peer.ID).remove();
     });
-    
-    comm.connect(this.props.roomname, {audio: true});
   },
 
   componentWillReceiveProps: function(){
-    comm.connect(this.props.roomname, {audio: true});
+    comm.connect(this.props.roomname, { audio: true });
   },
 
-  render: function() {
+  render: function(){
     return (
       <div>
         This is the Video Chat Hooray Hooray Hooray!
