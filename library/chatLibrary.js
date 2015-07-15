@@ -8,17 +8,17 @@ head.appendChild(icecommScript);
 
 // Client will need to add a button with an ID of 'chat-button' for library to work
 var chatButton = document.getElementById('chat-button');
+var comm;
 
 var createChatSession = function() {
   // should we pass in company name or other identifier?
-  var comm = new Icecomm('ZZ2RA1DsHd9xdCqdoeJ8Wwra5A5fUKipAVrvzX6vOGHlLiAdO');
+  comm = new Icecomm('ZZ2RA1DsHd9xdCqdoeJ8Wwra5A5fUKipAVrvzX6vOGHlLiAdO');
   var chatWindow = document.createElement('div');
   chatButton.parentNode.appendChild(chatWindow);
 
   // Change this to our production server url
-  var socket = io('http://localhost:3000');
-  
-  setupVideoChatListeners(comm, chatWindow, data);
+  var socket = io('http://6d8226a.ngrok.com');
+  setupVideoChatListeners(comm, chatWindow);
 
   // will need to emit some kind of customer number?
   socket.emit('customerRequest');
@@ -28,7 +28,7 @@ var createChatSession = function() {
   });
 };
 
-var setupVideoChatListeners = function(comm, chatWindow, data){
+var setupVideoChatListeners = function(comm, chatWindow){
   comm.on('connected', function(peer) {
     chatWindow.appendChild(peer.getVideo());
   });
