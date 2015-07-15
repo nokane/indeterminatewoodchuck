@@ -8,16 +8,15 @@ head.appendChild(icecommScript);
 
 // Client will need to add a button with an ID of 'chat-button' for library to work
 var chatButton = document.getElementById('chat-button');
-var comm;
 
 var createChatSession = function() {
   // should we pass in company name or other identifier?
-  comm = new Icecomm('ZZ2RA1DsHd9xdCqdoeJ8Wwra5A5fUKipAVrvzX6vOGHlLiAdO');
+  var comm = new Icecomm('ZZ2RA1DsHd9xdCqdoeJ8Wwra5A5fUKipAVrvzX6vOGHlLiAdO');
   var chatWindow = document.createElement('div');
   chatButton.parentNode.appendChild(chatWindow);
 
-  // Change this to our production server url
-  var socket = io('http://6d8226a.ngrok.com');
+  // need to change io connection point if want to test locally
+  var socket = io('http://hidden-sands-2214.herokuapp.com/');
   setupVideoChatListeners(comm, chatWindow);
 
   // will need to emit some kind of customer number?
