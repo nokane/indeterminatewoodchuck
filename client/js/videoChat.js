@@ -4,14 +4,15 @@ var VideoChat = React.createClass({
   },
 
   setUpEventListeners: function(){
-    var comm = new Icecomm('ZZ2RA1DsHd9xdCqdoeJ8Wwra5A5fUKipAVrvzX6vOGHlLiAdO');
-
     comm.on('connected', function(peer) {
       document.getElementById('customerVideo').appendChild(peer.getVideo());
     });
 
     comm.on('local', function(peer) {
+      console.log('local video started');
       localVideo.src = peer.stream;
+      console.log('peer is this', peer);
+      console.log(localVideo);
     });
 
     comm.on('disconnect', function(peer) {
@@ -19,15 +20,16 @@ var VideoChat = React.createClass({
     });
   },
 
-  componentWillReceiveProps: function(){
-    comm.connect(this.props.roomname, { audio: true });
+  componentWillReceiveProps: function(nextProps){
+    console.log('videoChat is receiving properties');
+    comm.connect(nextProps.roomname, { audio: true });
   },
 
   render: function(){
     return (
       <div>
         This is the Video Chat Hooray Hooray Hooray!
-        <video id='localVideo' autoplay></video>
+        <video id='localVideo' autoPlay></video>
         <div id='customerVideo'></div>
       </div>
     );

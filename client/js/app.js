@@ -16,7 +16,7 @@ var Main = React.createClass({
     socket.on('staffRoom', function(msg) {
       console.log('this is the room name', msg);
       this.setState({ roomname: msg });
-    });
+    }.bind(this));
   },
 
   render: function() {

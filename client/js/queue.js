@@ -6,8 +6,10 @@ var Queue = React.createClass({
 
   render: function(){
     return (
-      <button onclick={ this.handleReady }></button>
+      <button onClick={ this.handleReady }>This is the queue button</button>
     );
   }
 
 });
+
+module.exports = Queue;
