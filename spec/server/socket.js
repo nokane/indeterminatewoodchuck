@@ -82,12 +82,12 @@ describe('Socket.io Server Routing', function() {
 
   it('Room names of disconnected staff from previous test are removed from socketroute.rooms array', function(done) {
     var customerSocket1 = io.connect(socketTestURL, options);
-    customerSocket1.on('connect', function(data){
-      customerSocket1.emit('customerRequest', 'roomname1')
+    customerSocket1.on('connect', function(){
+      customerSocket1.emit('customerRequest', 'roomname1');
     });
     var staffSocket1 = io.connect(socketTestURL, options);
-    staffSocket1.on('connect', function(data){
-      staffSocket1.emit('staffReady', 'roomname1')
+    staffSocket1.on('connect', function(){
+      staffSocket1.emit('staffReady', 'roomname1');
     });
     staffSocket1.on('staffRoom', function(name) {
       expect(name).to.equal('room5');
@@ -96,6 +96,33 @@ describe('Socket.io Server Routing', function() {
       expect(name).to.equal('room5');
       staffSocket1.disconnect();
       customerSocket1.disconnect();
+      done();
+    });
+  });
+
+  it('Should send customerRoom event to second customer if first customer disconnects before staff member connects', function(done) {
+    var customerSocket1 = io.connect(socketTestURL, options);
+    var customerSocket2 = io.connect(socketTestURL, options);
+
+    customerSocket1.on('connect', function() {
+      customerSocket1.emit('customerRequest', 'roomname1');
+    });
+    customerSocket2.on('connect', function() {
+      customerSocket2.emit('customerRequest', 'roomname2');
+      customerSocket1.disconnect();
+    });
+
+    var staffSocket1 = io.connect(socketTestURL, options);
+    staffSocket1.on('connect', function() {
+      staffSocket1.emit('staffReady', 'roomname1');
+    });
+    staffSocket1.on('staffRoom', function(name) {
+      expect(name).to.equal('room6');
+    });
+    customerSocket2.on('customerRoom', function(name) {
+      expect(name).to.equal('room6');
+      staffSocket1.disconnect();
+      customerSocket2.disconnect();
       done();
     });
   });

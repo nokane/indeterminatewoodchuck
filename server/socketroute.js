@@ -21,6 +21,7 @@ socket.socketroute = function(io, user) {
   });
 
   user.on('customerRequest', function() {
+    user.category = "customer";
     socket.customerQueue.push(user.id);
     if (socket.rooms.length > 0) {
       io.to(user.id).emit('customerRoom', socket.rooms.shift());
@@ -34,6 +35,11 @@ socket.socketroute = function(io, user) {
       if (roomIndex != -1) {
         socket.rooms.splice(roomIndex, 1);
       }
-    } 
+    } else if (user.category === "customer") {
+      var customerIndex = socket.customerQueue.indexOf(user.id);
+      if (customerIndex !== -1) {
+        socket.customerQueue.splice(customerIndex, 1);
+      }
+    }
   });
 };
