@@ -1,3 +1,5 @@
+var React = require('react');
+
 var Queue = React.createClass({
   
   handleReady: function(){

@@ -1,3 +1,4 @@
+var React = require('react');
 var NavBar = require('./navBar');
 var VideoChat = require('./videoChat');
 var Queue = require('./queue');

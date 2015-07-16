@@ -1,3 +1,5 @@
+var React = require('react');
+
 var VideoChat = React.createClass({
   componentDidMount: function(){
     this.setUpEventListeners();
