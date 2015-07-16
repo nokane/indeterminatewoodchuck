@@ -22,7 +22,7 @@ var VideoChat = React.createClass({
 
   componentWillReceiveProps: function(nextProps){
     console.log('videoChat is receiving properties');
-    comm.connect(nextProps.roomname, { audio: true });
+    comm.connect(nextProps.roomname, { audio: true, limit: 2 });
   },
 
   render: function(){
