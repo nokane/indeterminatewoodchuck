@@ -7,6 +7,8 @@ var watchify = require('watchify');
 var mocha = require('gulp-mocha');
 var reactify = require('reactify');
 var streamify = require('gulp-streamify');
+var file = require('gulp-file');
+var argv = require('yargs').argv;
 
 var path = {
   HTML: 'client/index.html',
@@ -54,6 +56,31 @@ gulp.task('test', function(){
           .once('end', function() {
             process.exit();
           });
+});
+
+gulp.task('write-personal-config', function() {
+  var user = argv.user;
+
+  var json = {
+    "development": {
+      "username": user,
+      "password": null,
+      "database": "dev",
+      "host": "127.0.0.1",
+      "dialect": "postgres"
+    },
+    "test": {
+      "username": user,
+      "password": null,
+      "database": "test",
+      "host": "127.0.0.1",
+      "dialect": "postgres"
+    }
+  };
+
+  var stringify = JSON.stringify(json);
+  return file('personal_config.json', stringify)
+    .pipe(gulp.dest('server/config'));
 });
 
 gulp.task('build', function(){
