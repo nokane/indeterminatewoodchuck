@@ -18,6 +18,9 @@ coverage
 # Grunt intermediate storage (http://gruntjs.com/creating-plugins#storing-task-files)
 .grunt
 
+# Config file for dev postgres DB
+server/config/personal_config.json
+
 # Compiled Dirs (http://nodejs.org/api/addons.html)
 build/
 dist/
