@@ -18,7 +18,7 @@ var path = {
   DEST: 'client/dist',
   DEST_BUILD: 'client/dist/build',
   DEST_SRC: 'client/dist/src',
-  ENTRY_POINT: './client/js/app.js',
+  ENTRY_POINT: './client/js/components/app.js',
   TEST_DIR: ['spec/*.js', 'spec/**/*.js']
 };
 
