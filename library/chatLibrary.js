@@ -30,7 +30,6 @@ Supportal.prototype.init = function(){
 };
 
 Supportal.prototype.createChatSession = function() {
-  console.log('this in createChatSEssion ', this);
   this.setupVideoChatListeners();
 
   this.chatButton.parentNode.appendChild(this.chatWindow);
@@ -40,7 +39,6 @@ Supportal.prototype.createChatSession = function() {
 
   // should we pass in company name or other identifier?
   this.socket.on('customerRoom', function(data) {
-    console.log('I am in room: ', data);
     this.comm.connect(data);
   }.bind(this));
 };
