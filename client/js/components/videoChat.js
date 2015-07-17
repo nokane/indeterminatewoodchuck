@@ -1,24 +1,40 @@
 var React = require('react');
+var videoChatStore = require('../stores/videoChatStore');
 
 var VideoChat = React.createClass({
+  getInitialState: function(){
+    return { 
+      localStream: '',
+      remoteStream: ''
+    };
+  },
+
   componentDidMount: function(){
-
+    videoChatStore.addChangeListener(this._onChange);
   },
 
-  setUpEventListeners: function(){
-
+  componentWillUnmount: function(){
+    videoChatStore.removeChangeListener(this._onChange);    
   },
 
-  componentWillReceiveProps: function(nextProps){
-
+  _onChange: function() {
+    this.setState({
+      localStream: videoChatStore.getLocalStream(),
+      remoteStream: videoChatStore.getRemoteStream()
+    });
   },
 
   render: function(){
+    var videoNodes = this.state.map(function(src, key) {
+      if (src) {
+        return (<video id={key} src={src} autoPlay></video>);
+      }
+    })
+
     return (
       <div>
-        This is the Video Chat Hooray Hooray Hooray!
-        <video id='localVideo' autoPlay></video>
-        <div id='customerVideo'></div>
+        <div>This is the Video Chat Hooray Hooray Hooray!</div>
+        {videoNodes}
       </div>
     );
   }
