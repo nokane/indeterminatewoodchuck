@@ -65,6 +65,11 @@ gulp.task('shell-db-create', shell.task([
   'psql postgres -c "CREATE DATABASE test_supportal"'
 ]));
 
+gulp.task('shell-local-migrate', shell.task([
+  'sequelize db:migrate --config config/personal_config.json',
+  // 'sequelize db:migrate --config config/personal_config.json'
+], process.chdir('server')));
+
 gulp.task('write-personal-config', function() {
   var user = argv.user;
 
