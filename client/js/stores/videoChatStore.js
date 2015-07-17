@@ -34,14 +34,13 @@ var videoChatStore = objectAssign({}, EventEmitter.prototype, {
 });
 
 videoChatStore.dispatchToken = AppDispatcher.register(function(payload) {
-  var action = payload.action;
-  if (action.actionType === appConstants.START_LOCAL_CONN) {
-    setLocalStream(action.peer);
+  if (payload.actionType === appConstants.START_LOCAL_CONN) {
+    setLocalStream(payload.peer);
     videoChatStore.emit(CHANGE);
-  } else if (action.actionType === appConstants.START_REMOTE_CONN) {
-    setRemoteStream(action.peer);
+  } else if (payload.actionType === appConstants.START_REMOTE_CONN) {
+    setRemoteStream(payload.peer);
     videoChatStore.emit(CHANGE);
-  } else if (action.actionType === appConstants.STOP_REMOTE_CONN) {
+  } else if (payload.actionType === appConstants.STOP_REMOTE_CONN) {
     setRemoteStream(null);
     videoChatStore.emit(CHANGE);
   } 

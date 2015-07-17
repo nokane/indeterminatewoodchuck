@@ -7,7 +7,7 @@ var socket = io();
 socket.on('staffRoom', function(data) {
   console.log('Received socket response with roomname: ', data);
   AppDispatcher.dispatch({
-    type: appConstants.JOIN_ROOM,
+    actionType: appConstants.JOIN_ROOM,
     data: data
   });
   icecommActions.setIcecommRoom(data);

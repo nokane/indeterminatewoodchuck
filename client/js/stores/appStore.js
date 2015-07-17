@@ -24,9 +24,8 @@ var appStore = objectAssign({}, EventEmitter.prototype, {
 });
 
 appStore.dispatchToken = AppDispatcher.register(function(payload) {
-  var action = payload.action;
-  if (action.actionType === appConstants.JOIN_ROOM) {
-    setRoom(action.data);
+  if (payload.actionType === appConstants.JOIN_ROOM) {
+    setRoom(payload.data);
     appStore.emit(ROOM_CHANGE);
   }
 

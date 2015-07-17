@@ -5,21 +5,21 @@ var comm = new Icecomm('ZZ2RA1DsHd9xdCqdoeJ8Wwra5A5fUKipAVrvzX6vOGHlLiAdO', { de
 
 comm.on('local', function(peer) {
   AppDispatcher.dispatch({
-    type: appConstants.START_LOCAL_CONN,
+    actionType: appConstants.START_LOCAL_CONN,
     peer: peer
   });
 });
 
 comm.on('connected', function(peer) {
   AppDispatcher.dispatch({
-    type: appConstants.START_REMOTE_CONN,
+    actionType: appConstants.START_REMOTE_CONN,
     peer: peer
   });
 });
 
 comm.on('disconnect', function(peer) {
   AppDispatcher.dispatch({
-    type: appConstants.STOP_REMOTE_CONN,
+    actionType: appConstants.STOP_REMOTE_CONN,
     peer: peer
   });
 });
