@@ -95,6 +95,12 @@ gulp.task('write-personal-config', function(cb) {
   var stringify = JSON.stringify(json);
   file('personal_config.json', stringify)
     .pipe(gulp.dest('server/config'));
+
+  var environment = 'DATABASE_URL=postgres://'+user+'@localhost:5432/dev_supportal\nTEST_DATABASE_URL=postgres://'+user+'@localhost:5432/test_supportal\n';
+
+  file('.env', environment)
+    .pipe(gulp.dest(''));
+
   cb()
 });
 
