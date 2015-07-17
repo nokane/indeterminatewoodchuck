@@ -11,7 +11,6 @@ var file = require('gulp-file');
 var argv = require('yargs').argv;
 var shell = require('gulp-shell');
 
-
 var path = {
   HTML: 'client/index.html',
   MINIFIED_OUT: 'build.min.js',
@@ -60,12 +59,20 @@ gulp.task('test', function(){
           });
 });
 
-gulp.task('shell-db-create', shell.task([
+gulp.task('shell-db-create', ['write-personal-config'], shell.task([
   'psql postgres -c "CREATE DATABASE dev_supportal"',
   'psql postgres -c "CREATE DATABASE test_supportal"'
 ]));
 
-gulp.task('write-personal-config', function() {
+gulp.task('shell-local-migrate', ['shell-db-create'], shell.task([
+  'sequelize db:migrate --config server/config/personal_config.json --migrations-path server/migrations'
+]));
+
+gulp.task('shell-test-migrate', ['shell-db-create'], shell.task([
+  'sequelize db:migrate --config server/config/personal_config.json --migrations-path server/migrations --env test'
+]));
+
+gulp.task('write-personal-config', function(cb) {
   var user = argv.user;
 
   var json = {
@@ -86,8 +93,9 @@ gulp.task('write-personal-config', function() {
   };
 
   var stringify = JSON.stringify(json);
-  return file('personal_config.json', stringify)
+  file('personal_config.json', stringify)
     .pipe(gulp.dest('server/config'));
+  cb()
 });
 
 gulp.task('build', function(){
@@ -110,4 +118,10 @@ gulp.task('replaceHTML', function(){
 });
 
 gulp.task('default', [ 'watch' ]);
+
 gulp.task('production', [ 'replaceHTML', 'build' ]);
+
+gulp.task('setup', [ 'write-personal-config',
+    'shell-db-create',
+    'shell-local-migrate',
+    'shell-test-migrate' ]);

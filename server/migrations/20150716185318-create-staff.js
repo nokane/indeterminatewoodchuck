@@ -2,39 +2,29 @@
 
 module.exports = {
   up: function (queryInterface, Sequelize) {
-    return queryInterface.createTable('organizations', {
+    return queryInterface.createTable('staff', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      name: {
-        type: Sequelize.STRING,
-        allowNull: false,
-        unique: true
+      org_id: {
+        type: Sequelize.INTEGER,
+        allowNull: false
       },
-      address: {
+      first_name: {
         type: Sequelize.STRING,
         allowNull: false
       },
-      city: {
+      last_name: {
         type: Sequelize.STRING,
         allowNull: false
       },
-      state: {
-        type: Sequelize.STRING,
-        allowNull: false
+      title: {
+        type: Sequelize.STRING
       },
-      zip: {
-        type: Sequelize.STRING,
-        allowNull: false
-      },
-      country: {
-        type: Sequelize.STRING,
-        allowNull: false
-      },
-      industry: {
+      email: {
         type: Sequelize.STRING,
         allowNull: false
       },
@@ -53,6 +43,6 @@ module.exports = {
   },
 
   down: function (queryInterface, Sequelize) {
-    return queryInterface.dropTable('organizations');
+    return queryInterface.dropTable('staff');
   }
 };
