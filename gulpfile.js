@@ -9,6 +9,8 @@ var reactify = require('reactify');
 var streamify = require('gulp-streamify');
 var file = require('gulp-file');
 var argv = require('yargs').argv;
+var shell = require('gulp-shell');
+
 
 var path = {
   HTML: 'client/index.html',
@@ -58,6 +60,11 @@ gulp.task('test', function(){
           });
 });
 
+gulp.task('shell-db-create', shell.task([
+  'psql postgres -c "CREATE DATABASE dev_supportal"',
+  'psql postgres -c "CREATE DATABASE test_supportal"'
+]));
+
 gulp.task('write-personal-config', function() {
   var user = argv.user;
 
@@ -65,14 +72,14 @@ gulp.task('write-personal-config', function() {
     "development": {
       "username": user,
       "password": null,
-      "database": "dev",
+      "database": "dev_supportal",
       "host": "127.0.0.1",
       "dialect": "postgres"
     },
     "test": {
       "username": user,
       "password": null,
-      "database": "test",
+      "database": "test_supportal",
       "host": "127.0.0.1",
       "dialect": "postgres"
     }
