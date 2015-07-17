@@ -25,16 +25,20 @@ var VideoChat = React.createClass({
   },
 
   render: function(){
-    var videoNodes = this.state.map(function(peer, key) {
-      if (peer) {
-        return (<video id={key} src={peer.src} autoPlay></video>);
+    var videoNodes = function() {
+      var nodes = [];
+      for (var key in this.state) {
+        if (this.state[key]) {
+          nodes.push(<video id={key} src={this.state[key].src} autoPlay></video>)
+        }
       }
-    })
+      return nodes;
+    };
 
     return (
       <div>
         <div>This is the Video Chat Hooray Hooray Hooray!</div>
-        {videoNodes}
+        {videoNodes()}
       </div>
     );
   }
