@@ -11,8 +11,10 @@ comm.on('local', function(peer) {
 });
 
 comm.on('connected', function(peer) {
-  
-  document.getElementById('customerVideo').appendChild(peer.getVideo());
+  AppDispatcher.dispatch({
+    type: appConstants.START_REMOTE_STREAM,
+    peer: peer
+  });
 });
 
 comm.on('disconnect', function(peer) {

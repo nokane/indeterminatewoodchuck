@@ -36,8 +36,11 @@ var videoChatStore = objectAssign({}, EventEmitter.prototype, {
 videoChatStore.dispatchToken = AppDispatcher.register(function(payload) {
   var action = payload.action;
   if (action.actionType === appConstants.START_LOCAL_VIDEO_STREAM) {
-    setRoom(action.data);
-    videoChatStore.emit(ROOM_CHANGE);
+    setLocalStream(action.peer.stream);
+    videoChatStore.emit(CHANGE);
+  } else if (action.actionType === appConstants.START_REMOTE_VIDEO_STREAM) {
+    setRemoteStream(action.peer.stream);
+    videoChatStore.emit(CHANGE);
   }
 
   return true;
