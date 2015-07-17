@@ -4,6 +4,7 @@ var objectAssign = require('react/lib/Object.assign');
 var EventEmitter = require('events').EventEmitter;
 
 var CHANGE_EVENT = 'change';
+var SOCKET_LISTENER = 'SOCKET_LISTENER';
 
 var _connections = {
   // should we require socket and icecomm with Browserify?
@@ -27,7 +28,13 @@ var appStore = objectAssign({}, EventEmitter.prototype, {
 });
 
 AppDispatcher.register(function(payload) {
-
+  var action = payload.action;
+  if (action.actionType === appConstants.START_SOCKET_LISTENER) {
+    startSocketListener();
+    appStore.emit(SOCKET_LISTENER);
+  } else {
+    return true;
+  }
 });
 
 module.exports = appStore;
