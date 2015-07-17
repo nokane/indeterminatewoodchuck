@@ -1,14 +1,16 @@
 var React = require('react');
+var socketActions = require('../actions/socketActions');
 
 var Queue = React.createClass({
   
-  handleReady: function(){
-    socket.emit('staffReady');
+  handleStaffReady: function(){
+    socketActions.staffReady();
+    // socket.emit('staffReady');
   },
 
   render: function(){
     return (
-      <button onClick={ this.handleReady }>This is the queue button</button>
+      <button onClick={ this.handleStaffReady }>This is the queue button</button>
     );
   }
 

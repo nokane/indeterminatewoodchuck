@@ -11,4 +11,10 @@ socket.on('staffRoom', function(data) {
   });
 });
 
+var socketActions = {
+  staffReady: function() {
+    socket.emit('staffReady');
+  }
+};
 
+module.exports = socketActions;
