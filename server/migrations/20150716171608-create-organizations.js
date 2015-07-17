@@ -7,7 +7,7 @@ module.exports = {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER,
+        type: Sequelize.INTEGER
       },
       name: {
         type: Sequelize.STRING,
@@ -41,7 +41,6 @@ module.exports = {
       password_hash: {
         type: Sequelize.STRING
       },
-
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE
