@@ -17,5 +17,17 @@ var setUpEventListeners = function(){
   _connections.socket.on('staffRoom', function(msg) {
     console.log('Staff connected to room with name: ', msg);
     _room = msg;
-  }.bind(this));
+  });
 };
+
+var appStore = objectAssign({}, EventEmitter.prototype, {
+  getRoom: function() {
+    return _room;
+  }
+});
+
+AppDispatcher.register(function(payload) {
+
+});
+
+module.exports = appStore;
