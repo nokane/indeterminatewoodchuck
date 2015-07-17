@@ -4,8 +4,8 @@ var videoChatStore = require('../stores/videoChatStore');
 var VideoChat = React.createClass({
   getInitialState: function(){
     return { 
-      localStream: '',
-      remoteStream: ''
+      localStream: null,
+      remoteStream: null
     };
   },
 
@@ -25,9 +25,9 @@ var VideoChat = React.createClass({
   },
 
   render: function(){
-    var videoNodes = this.state.map(function(src, key) {
-      if (src) {
-        return (<video id={key} src={src} autoPlay></video>);
+    var videoNodes = this.state.map(function(peer, key) {
+      if (peer) {
+        return (<video id={key} src={peer.src} autoPlay></video>);
       }
     })
 

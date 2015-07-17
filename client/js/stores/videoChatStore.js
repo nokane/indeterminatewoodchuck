@@ -6,8 +6,8 @@ var EventEmitter = require('events').EventEmitter;
 var CHANGE = 'CHANGE';
 
 var _videoStreams = {
-  local: {},
-  remote: {}
+  local: null,
+  remote: null
 };
 
 var setLocalStream = function(peer) {
@@ -41,7 +41,10 @@ videoChatStore.dispatchToken = AppDispatcher.register(function(payload) {
   } else if (action.actionType === appConstants.START_REMOTE_CONN) {
     setRemoteStream(action.peer);
     videoChatStore.emit(CHANGE);
-  }
+  } else if (action.actionType === appConstants.STOP_REMOTE_CONN) {
+    setRemoteStream(null);
+    videoChatStore.emit(CHANGE);
+  } 
 
   return true;
 });
