@@ -27,6 +27,7 @@
     "browserify": "^10.2.6",
     "chai": "^3.0.0",
     "express": "^4.13.1",
+    "flux": "^2.0.3",
     "gulp": "^3.9.0",
     "gulp-file": "^0.2.0",
     "gulp-html-replace": "^1.5.1",
