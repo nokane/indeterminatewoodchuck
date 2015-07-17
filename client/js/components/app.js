@@ -13,15 +13,15 @@ var Main = React.createClass({
     };
   },
 
-  componentWillMount: function(){
-    appActions.startSocketListener();
+  componentDidMount: function(){
+    appStore.addRoomChangeListener(this._onRoomChange);
   },
 
-  componentDidMount: function() {
-    appStore.addChangeListener(this._onChange);
+  componentWillUnmount: function() {
+    appStore.removeRoomChangeListener(this._onRoomChange);    
   },
 
-  _onChange: function() {
+  _onRoomChange: function() {
     this.setState({
       roomname: appStore.getRoom()
     });
