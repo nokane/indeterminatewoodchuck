@@ -49,3 +49,5 @@ module.exports = VideoChat;
 // 4. componentWillReceiveProps is called whenever there is a change to props.
 // Used to react to a prop change before render is called
 // 5. componentWillUnmount is invoked immediately beore a component is unmounted from the DOM
+
+// document.getElementById(peer.ID).remove();
