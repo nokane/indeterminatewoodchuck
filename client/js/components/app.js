@@ -2,22 +2,19 @@ var React = require('react');
 var NavBar = require('./navBar');
 var VideoChat = require('./videoChat');
 var Queue = require('./queue');
+var appStore = require('../stores/appStore');
+var appActions = require('../actions/appActions');
 
 var Main = React.createClass({
 
   getInitialState: function(){
-    return { roomname: 'room_lky' };
+    return { 
+      roomname: appStore.getRoom()
+    };
   },
 
-  componentDidMount: function(){
-    this.setUpEventListeners();
-  },
-
-  setUpEventListeners: function(){
-    socket.on('staffRoom', function(msg) {
-      console.log('this is the room name', msg);
-      this.setState({ roomname: msg });
-    }.bind(this));
+  componentWillMount: function(){
+    appActions.startSocketListener();
   },
 
   render: function() {

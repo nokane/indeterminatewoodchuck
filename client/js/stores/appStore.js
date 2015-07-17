@@ -13,9 +13,9 @@ var _connections = {
 
 var _room = '';
 
-var setUpEventListeners = function(){
+var startSocketListener = function(){
   _connections.socket.on('staffRoom', function(msg) {
-    console.log('Staff connected to room with name: ', msg);
+    console.log('Staff connecting to room with name: ', msg);
     _room = msg;
   });
 };
