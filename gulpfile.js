@@ -66,9 +66,8 @@ gulp.task('shell-db-create', shell.task([
 ]));
 
 gulp.task('shell-local-migrate', shell.task([
-  'sequelize db:migrate --config config/personal_config.json',
-  // 'sequelize db:migrate --config config/personal_config.json'
-], process.chdir('server')));
+  'sequelize db:migrate --config server/config/personal_config.json --migrations-path server/migrations'
+]));
 
 gulp.task('write-personal-config', function() {
   var user = argv.user;
