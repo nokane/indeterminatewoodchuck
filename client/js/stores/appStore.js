@@ -16,10 +16,10 @@ var setRoom = function(room) {
 };
 
 var appStore = objectAssign({}, EventEmitter.prototype, {
-  addChangeListener: function(cb){
+  addRoomChangeListener: function(cb){
     this.on(ROOM_CHANGE, cb);
   },
-  removeChangeListener: function(cb){
+  removeRoomChangeListener: function(cb){
     this.removeListener(ROOM_CHANGE, cb);
   },
   getRoom: function() {
