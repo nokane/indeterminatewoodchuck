@@ -42,6 +42,33 @@ npm install
 bower install
 ```
 
+### Server Environment Setup
+
+#### Description
+
+Follow the below directions to use Postgres for the development and test environments.
+
+#### Install Postgres
+
+Install the Postgres App from the following location: [http://postgresapp.com](http://postgresapp.com/)
+
+Follow the list of directions at [http://postgresapp.com/documentation/cli-tools.html](http://postgresapp.com/documentation/cli-tools.html) to setup your $PATH
+
+#### Install Sequelize-CLI
+
+```shell
+npm install -g sequelize-cli
+```
+
+### Migrate Postgres DB for the development and test environments.
+
+Run the below command:
+```shell
+grunt setup —user MAC_USERNAME
+```
+
+Make sure to switch out MAC_USERNAME with your computer's Mac username
+
 ### Roadmap
 
 View the project roadmap [here](LINK_TO_PROJECT_ISSUES)
