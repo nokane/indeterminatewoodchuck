@@ -5,7 +5,6 @@ var Queue = React.createClass({
   
   handleStaffReady: function(){
     socketActions.staffReady();
-    // socket.emit('staffReady');
   },
 
   render: function(){
