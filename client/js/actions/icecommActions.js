@@ -8,7 +8,6 @@ comm.on('local', function(peer) {
     type: appConstants.START_LOCAL_STREAM,
     peer: peer
   });
-  // localVideo.src = peer.stream;
 });
 
 comm.on('connected', function(peer) {
