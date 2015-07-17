@@ -14,18 +14,19 @@ var _connections = {
 
 var _room = '';
 
-var startSocketListener = function(){
-  _connections.socket.on('staffRoom', function(msg) {
-    console.log('Staff connecting to room with name: ', msg);
-    _room = msg;
-  });
-};
-
 var appStore = objectAssign({}, EventEmitter.prototype, {
   getRoom: function() {
     return _room;
   }
 });
+
+var startSocketListener = function(){
+  _connections.socket.on('staffRoom', function(msg) {
+    console.log('Staff connecting to room with name: ', msg);
+    _room = msg;
+    appStore.emit(CHANGE_EVENT);
+  });
+};
 
 AppDispatcher.register(function(payload) {
   var action = payload.action;

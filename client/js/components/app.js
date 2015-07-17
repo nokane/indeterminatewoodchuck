@@ -17,6 +17,16 @@ var Main = React.createClass({
     appActions.startSocketListener();
   },
 
+  componentDidMount: function() {
+    appStore.addChangeListener(this._onChange);
+  },
+
+  _onChange: function() {
+    this.setState({
+      roomname: appStore.getRoom()
+    });
+  },
+
   render: function() {
     return (
       <div>
