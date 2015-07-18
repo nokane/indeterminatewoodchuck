@@ -39,7 +39,6 @@ module.exports = function(sequelize, DataTypes) {
         });
       },
       checkPassword: function(password, cb) {
-        var user = this;
         return bcrypt.compare(password, this.password_hash, function(err, result) {
           if(err){
             return cb(err);
