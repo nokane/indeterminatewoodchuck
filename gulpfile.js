@@ -10,6 +10,7 @@ var streamify = require('gulp-streamify');
 var file = require('gulp-file');
 var argv = require('yargs').argv;
 var shell = require('gulp-shell');
+var env = require('gulp-env')
 
 var path = {
   HTML: 'client/index.html',
@@ -52,7 +53,13 @@ gulp.task('watch', function(){
 });
 
 gulp.task('test', function(){
-  return gulp.src(path.TEST_DIR, {read: false})
+  env({
+    vars: {
+        NODE_ENV: "test",
+
+    }
+  });
+  gulp.src(path.TEST_DIR, {read: false})
           .pipe(mocha({reporter: 'nyan'}))
           .once('end', function() {
             process.exit();
