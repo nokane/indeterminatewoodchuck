@@ -1,9 +1,19 @@
 var Supportal = function(){
   this.init();
 
-  // Client will need to add a button with an ID of 'chat-button' for library to work
-  this.chatButton = document.getElementById('chat-button');
-  this.chatWindow = document.createElement('div');
+  // Client will need to add a button and div with these IDs for library to work
+  this.chatButton = document.getElementById('supportal-init-button');
+  this.chatWindow = document.getElementById('supportal-window');
+  this.localVideo = document.createElement('video');
+  this.remoteVideo = document.createElement('video');
+  this.textChat = document.createElement('div');
+
+  this.localVideo.autoplay = true;
+  this.localVideo.id = 'supportal-local-video';
+  this.remoteVideo.autoplay = true;
+  this.remoteVideo.id = 'supportal-remote-video';
+  this.textChat.id = 'supportal-text-chat';
+
   this.chatButton.addEventListener('click', function(){
     this.createChatSession();
   }.bind(this), false);
@@ -30,8 +40,8 @@ Supportal.prototype.init = function(){
 };
 
 Supportal.prototype.createChatSession = function() {
-  this.setupVideoChatListeners();
-
+  this.setupPeerConnListeners();
+  
   this.chatButton.parentNode.appendChild(this.chatWindow);
 
   // will need to emit some kind of customer number?
@@ -43,7 +53,7 @@ Supportal.prototype.createChatSession = function() {
   }.bind(this));
 };
 
-Supportal.prototype.setupVideoChatListeners = function(){
+Supportal.prototype.setupPeerConnListeners = function(){
   // listener to start peer video stream when a peer connects
   this.comm.on('connected', function(peer) {
     this.chatWindow.appendChild(peer.getVideo());
