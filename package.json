@@ -7,7 +7,6 @@
     "node": "~0.12.7"
   },
   "scripts": {
-    "test": "gulp test",
     "start": "nodemon index.js",
     "postinstall": "gulp production"
   },
