@@ -33,6 +33,14 @@ module.exports = function(sequelize, DataTypes) {
             return cb();
           });
         });
+      },
+      checkPassword: function(password, cb) {
+        return bcrypt.compare(password, this.password_hash, function(err, result) {
+          if(err){
+            return cb(err);
+          }
+          return cb(result);
+        });
       }
     }
   });
