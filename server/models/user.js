@@ -9,6 +9,13 @@ module.exports = function(sequelize, DataTypes) {
     email: DataTypes.STRING,
     password_hash: DataTypes.STRING
   }, {
+    hooks: {
+      beforeCreate: function(user, options, fn) {
+        user.hashPassword(user.password_hash, function(){
+          fn();
+        });
+      }
+    },
     classMethods: {
       associate: function(models) {
         User.belongsTo(models.Organization);
