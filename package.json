@@ -22,6 +22,7 @@
   "homepage": "https://github.com/indeterminatewoodchuck/indeterminatewoodchuck#readme",
   "dependencies": {
     "assert": "^1.3.0",
+    "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.13.2",
     "browserify": "^10.2.6",
     "chai": "^3.0.0",
