@@ -25,20 +25,25 @@ var TextChat = React.createClass({
 
   handleSubmit: function(event) {
     event.preventDefault();
-    icecommActions.sendTextMessage();
+    var message = event.target[0].value;
+    icecommActions.sendTextMessage(message);
   },
 
   render: function() {
+    var messages = this.state.messages.map(function(message, index) {
+      return (<div key={index}>{message}</div>);
+    });
+
     return (
       <div>
         <div className='send-chat'>
           <form onSubmit={this.handleSubmit}>
-            <input type='text' placeholder='Type your message here' />
+            <input name='message-input' type='text' placeholder='Type your message here' />
             <input type='submit' />
           </form>
         </div>
         <div className='message-log'>
-          
+          {messages}
         </div>
       </div>
       )
