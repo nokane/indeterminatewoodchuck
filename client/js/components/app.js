@@ -2,6 +2,7 @@ var React = require('react');
 var NavBar = require('./navBar');
 var VideoChat = require('./videoChat');
 var Queue = require('./queue');
+var TextChat = require('./textChat');
 var appStore = require('../stores/appStore');
 var appActions = require('../actions/appActions');
 
@@ -33,6 +34,7 @@ var Main = React.createClass({
         <NavBar />
         <VideoChat />
         <Queue />
+        <TextChat />
       </div>
     );
   }

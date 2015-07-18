@@ -24,10 +24,30 @@ comm.on('disconnect', function(peer) {
   });
 });
 
+comm.on('data', function(message) {
+  AppDispatcher.dispatch({
+    actionType: appConstants.SEND_TEXT_MESSAGE,
+    // Change to reflect customer name
+    user: 'customer',
+    message: message
+  });
+});
+
 var icecommActions = {
   setIcecommRoom: function(data) {
     console.log('Icecomm about to connect to roomname: ', data);
     comm.connect(data, {audio: true, limit: 2});
+  },
+
+  sendTextMessage: function(message) {
+    console.log('Icecomm is about to send message: ', message);
+    comm.send(message);
+    AppDispatcher.dispatch({
+      actionType: appConstants.SEND_TEXT_MESSAGE,
+      // Change to reflect staff name
+      user: 'staff',
+      message: message
+    });
   }
 };
 
