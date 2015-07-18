@@ -21,6 +21,8 @@ coverage
 # Config file for dev postgres DB
 server/config/personal_config.json
 
+.env
+
 # Compiled Dirs (http://nodejs.org/api/addons.html)
 build/
 dist/

@@ -1,38 +1,37 @@
 'use strict';
-
 module.exports = {
-  up: function (queryInterface, Sequelize) {
-    return queryInterface.createTable('sessions', {
+  up: function(queryInterface, Sequelize) {
+    return queryInterface.createTable('Sessions', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      staff_id: {
+      UserId: {
         type: Sequelize.INTEGER,
-        allowNull: false
+        model: 'Users',
+        key: 'id'
       },
-      org_id: {
+      OrganizationId: {
         type: Sequelize.INTEGER,
-        allowNull: false
+        model: 'Organizations',
+        key: 'id'
       },
       room_name: {
-        type: Sequelize.STRING,
-        allowNull: false
+        type: Sequelize.STRING
       },
-      created_at: {
+      createdAt: {
         allowNull: false,
         type: Sequelize.DATE
       },
-      updated_at: {
+      updatedAt: {
         allowNull: false,
         type: Sequelize.DATE
       }
     });
   },
-
-  down: function (queryInterface, Sequelize) {
-    return queryInterface.dropTable('sessions');
+  down: function(queryInterface, Sequelize) {
+    return queryInterface.dropTable('Sessions');
   }
 };
