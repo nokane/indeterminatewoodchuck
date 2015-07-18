@@ -28,6 +28,15 @@ var icecommActions = {
   setIcecommRoom: function(data) {
     console.log('Icecomm about to connect to roomname: ', data);
     comm.connect(data, {audio: true, limit: 2});
+  },
+
+  sendTextMessage: function(message) {
+    console.log('Icecomm is about to send message: ', message);
+    comm.send(message);
+    AppDispatcher.dispatch({
+      actionType: appConstants.SEND_TEXT_MESSAGE,
+      message: message
+    });
   }
 };
 
