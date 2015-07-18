@@ -42,4 +42,35 @@ describe("User Model", function(){
     });
   });
 
+  it("Create a new User and find that User with Organization.getUsers()", function(done){
+    var newOrg = db.Organization.build({name:"Dog Clothes",
+                    address: "123 fake street",
+                    city: "San Francisco",
+                    state: "CA",
+                    zip: "94122",
+                    country: "USA",
+                    industry: "apparel",
+                    password_hash: "bla"});
+    newOrg.save().then(function(x){
+      var find = db.Organization.findOne({name:"Dog Clothes"})
+      .then(function(org){
+        expect(org.city).to.equal("San Francisco");
+        expect(org.state).to.equal("CA");
+        var user = db.User.build({first_name: "john",
+                      last_name: "doe",
+                      OrganizationId: org.id,
+                      title: "boss",
+                      email: "thefella@boss.com",
+                      password_hash: "righton"});
+        user.save().then(function() {
+          org.getUsers().then(function(users) {
+            expect(users[0].first_name).to.equal("john");
+            expect(users[0].title).to.equal("boss")
+            done();
+          });
+        });
+      });
+    });
+  });
+
 });
