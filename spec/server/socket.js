@@ -43,10 +43,10 @@ describe('Socket.io Server Routing', function() {
   it('Should create new room on "staffReady"', function(done) {
     var staffSocket = io.connect(socketTestURL, options);
     staffSocket.on('connect', function(data){
-      staffSocket.emit('staffReady', 'roomname1')
+      staffSocket.emit('staffReady', 'ShoeLocker')
     });
     staffSocket.on('staffRoom', function(name) {
-      expect(name).to.equal('room2');
+      expect(name).to.equal('room_ShoeLocker_2');
       staffSocket.disconnect();
       done();
     });
