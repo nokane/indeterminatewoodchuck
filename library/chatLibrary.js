@@ -71,6 +71,20 @@ Supportal.prototype.setupPeerConnListeners = function(){
     this.chatWindow.appendChild(this.remoteVideo);
     this.remoteVideo.src = peer.stream;
     this.chatWindow.appendChild(this.textChat);
+
+    // after connecting, set up listener for text chat submit
+    var submitForm = this.textChat.firstChild;
+    var handleSubmit = function(event) {
+      var message = event.target[0].value;
+      event.preventDefault();
+      this.comm.send(message);
+      appendTextMessage(message);
+    };
+    if(submitForm.addEventListener) { // for modern browsers
+      submitForm.addEventListener("submit", handleSubmit, false);
+    } else if(submitForm.attachEvent) { // for older browsers
+      submitForm.attachEvent('onsubmit', handleSubmit);
+    }
   }.bind(this));
 
   // listener to start local video when iceComm gets a room name
