@@ -31,8 +31,8 @@ describe("Session Model", function(){
                       password_hash: "righton"});
         user.save().then(function() {
           org.getUsers().then(function(users) {
-            var session = db.Session.build({room_name: "blue_room", 
-                            OrganizationId: org.id, 
+            var session = db.Session.build({room_name: "blue_room",
+                            OrganizationId: org.id,
                             UserId: users[0].id});
             session.save().then(function() {
               db.Session.findOne({id: 1}).then(function(foundSession) {
@@ -66,8 +66,8 @@ describe("Session Model", function(){
                       password_hash: "righton"});
         user.save().then(function() {
           org.getUsers().then(function(users) {
-            var session = db.Session.build({room_name: "blue_room", 
-                            OrganizationId: org.id, 
+            var session = db.Session.build({room_name: "blue_room",
+                            OrganizationId: org.id,
                             UserId: users[0].id});
             session.save().then(function() {
               org.getSessions().then(function(orgSession) {
