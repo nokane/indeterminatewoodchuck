@@ -1,10 +1,11 @@
 var React = require('react');
 var textChatStore = require('../stores/textChatStore');
+var icecommActions = require('../actions/icecommActions');
 
 var TextChat = React.createClass({
   getInitialState: function() {
     return {
-      messages: [];
+      messages: []
     }
   },
 
@@ -19,19 +20,26 @@ var TextChat = React.createClass({
   _onChange: function() {
     this.setState({
       messages: textChatStore.getMessages()
-    })
+    });
+  },
+
+  handleSubmit: function(event) {
+    event.preventDefault();
+    icecommActions.sendTextMessage();
   },
 
   render: function() {
     return (
-      <div className='send-chat'>
-        <form>
-          <input type='text' placeholder='Type your message here'>
-          <input type='submit'>
-        </form>
-      </div>
-      <div className='message-log'>
-
+      <div>
+        <div className='send-chat'>
+          <form onSubmit={this.handleSubmit}>
+            <input type='text' placeholder='Type your message here' />
+            <input type='submit' />
+          </form>
+        </div>
+        <div className='message-log'>
+          
+        </div>
       </div>
       )
   }
