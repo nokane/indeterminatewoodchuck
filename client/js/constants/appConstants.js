@@ -1,0 +1,8 @@
+var appConstants = {
+  JOIN_ROOM: 'JOIN_ROOM',
+  START_LOCAL_CONN: 'START_LOCAL_CONN',
+  START_REMOTE_CONN: 'START_REMOTE_CONN',
+  STOP_REMOTE_CONN: 'STOP_REMOTE_CONN',
+};
+
+module.exports = appConstants;
