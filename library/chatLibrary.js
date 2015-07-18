@@ -35,7 +35,7 @@ Supportal.prototype.init = function(){
 
   socketScript.onload = function(){
     // need to change io connection point if want to test locally
-    this.socket = io('http://hidden-sands-2214.herokuapp.com/');
+    this.socket = io('https://6ba84954.ngrok.com');
   }.bind(this);
 
   icecommScript.onload = function(){
@@ -60,9 +60,9 @@ Supportal.prototype.createChatSession = function() {
 
 Supportal.prototype.setupPeerConnListeners = function(){
   // helper function to append message node to supportal-message-log element
-  var appendTextMessage = function(message) {
+  var appendTextMessage = function(user, message) {
     var messageNode = document.createElement('div');
-    messageNode.textContent = message;
+    messageNode.textContent = user + ': ' + message;
     document.getElementById('supportal-message-log').appendChild(messageNode);
   };
 
@@ -78,8 +78,9 @@ Supportal.prototype.setupPeerConnListeners = function(){
       var message = event.target[0].value;
       event.preventDefault();
       this.comm.send(message);
-      appendTextMessage(message);
-    };
+      appendTextMessage('customer', message);
+    }.bind(this);
+
     if(submitForm.addEventListener) { // for modern browsers
       submitForm.addEventListener("submit", handleSubmit, false);
     } else if(submitForm.attachEvent) { // for older browsers
@@ -90,11 +91,11 @@ Supportal.prototype.setupPeerConnListeners = function(){
   // listener to start local video when iceComm gets a room name
   this.comm.on('local', function(self) {
     this.chatWindow.appendChild(this.localVideo);
-    this.remoteVideo.src = self.stream;
+    this.localVideo.src = self.stream;
   }.bind(this));
 
   this.comm.on('data', function(message) {
-    appendTextMessage(message);
+    appendTextMessage('staff', message.data);
   });
 
   // listener to close video streams and leave room when peer disconnects
