@@ -31,7 +31,7 @@ var VideoChat = React.createClass({
         if (this.state[key]) {
           // must pass unique key property to each child for React to render properly
           nodes.push(<video id={key} key={this.state[key].ID}
-          src={this.state[key].stream} autoPlay></video>)
+          src={this.state[key].stream} autoPlay></video>);
         }
       }
       return nodes;

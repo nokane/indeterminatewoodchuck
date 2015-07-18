@@ -6,7 +6,7 @@ var TextChat = React.createClass({
   getInitialState: function() {
     return {
       messages: []
-    }
+    };
   },
 
   componentDidMount: function(){
@@ -48,7 +48,7 @@ var TextChat = React.createClass({
           {messages}
         </div>
       </div>
-      )
+      );
   }
 });
 
