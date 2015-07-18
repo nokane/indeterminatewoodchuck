@@ -30,4 +30,23 @@ describe("Organization Model", function(){
     });
   });
 
+  it("Create a new Organization and use Organization.checkPassword() to verify password is correct", function(done){
+    var newOrg = db.Organization.build({name:"Shoe Locker",
+                    address: "123 fake street",
+                    city: "San Francisco",
+                    state: "CA",
+                    zip: "94122",
+                    country: "USA",
+                    industry: "apparel",
+                    password_hash: "bla"});
+    newOrg.save().then(function(x){
+      db.Organization.findOne({name:"Shoe Locker"}).then(function(org){
+        org.checkPassword("bla", function(val) {
+          expect(val).to.equal(true)
+          done();
+        });
+      });
+    });
+  });
+
 });

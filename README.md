@@ -64,7 +64,7 @@ npm install -g sequelize-cli
 
 Run the below command:
 ```shell
-grunt setup —user MAC_USERNAME
+gulp setup —user MAC_USERNAME
 ```
 
 Make sure to switch out MAC_USERNAME with your computer's Mac username
