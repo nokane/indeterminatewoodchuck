@@ -151,4 +151,39 @@ describe("Session Model", function(){
     });
   });
 
+  it("Create a new Session and find the corresponding User with Session.getUser()", function(done){
+    var newOrg = db.Organization.build({name:"Bait Shop",
+                    address: "123 fake street",
+                    city: "San Francisco",
+                    state: "CA",
+                    zip: "94122",
+                    country: "USA",
+                    industry: "apparel",
+                    password_hash: "bla"});
+    newOrg.save().then(function(x){
+      db.Organization.findOne({name:"Bait Shop"})
+        .then(function(org){
+        var user = db.User.build({first_name: "john",
+                      last_name: "doe",
+                      OrganizationId: org.id,
+                      title: "boss",
+                      email: "thefella@boss.com",
+                      password_hash: "righton"});
+        user.save().then(function() {
+          org.getUsers().then(function(users) {
+            var session = db.Session.build({room_name: "blue_room",
+                            OrganizationId: org.id,
+                            UserId: users[0].id});
+            session.save().then(function() {
+              session.getUser().then(function(foundUser) {
+                expect(foundUser.first_name).to.equal("john");
+                done();
+              });
+            });
+          });
+        });
+      });
+    });
+  });
+
 });
