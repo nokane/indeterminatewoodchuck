@@ -59,6 +59,13 @@ Supportal.prototype.createChatSession = function() {
 };
 
 Supportal.prototype.setupPeerConnListeners = function(){
+  // helper function to append message node to supportal-message-log element
+  var appendTextMessage = function(message) {
+    var messageNode = document.createElement('div');
+    messageNode.textContent = message;
+    document.getElementById('supportal-message-log').appendChild(messageNode);
+  };
+
   // listener to start peer video stream when a peer connects
   this.comm.on('connected', function(peer) {
     this.chatWindow.appendChild(this.remoteVideo);
@@ -73,7 +80,7 @@ Supportal.prototype.setupPeerConnListeners = function(){
   }.bind(this));
 
   this.comm.on('data', function(message) {
-
+    appendTextMessage(message);
   });
 
   // listener to close video streams and leave room when peer disconnects
