@@ -12,6 +12,13 @@ module.exports = function(sequelize, DataTypes) {
     industry: DataTypes.STRING,
     password_hash: DataTypes.STRING
   }, {
+    hooks: {
+      beforeCreate: function(org, options, fn) {
+        org.hashPassword(org.password_hash, function(){
+          fn();
+        });
+      }
+    },
     classMethods: {
       associate: function(models) {
         Organization.hasMany(models.User);
