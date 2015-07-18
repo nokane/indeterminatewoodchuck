@@ -25,7 +25,7 @@ var textChatStore = objectAssign({}, EventEmitter.prototype, {
 
 textChatStore.dispatchToken = AppDispatcher.register(function(payload) {
   if (payload.actionType === appConstants.SEND_TEXT_MESSAGE) {
-    _messages.push(payload.message);
+    _messages.push([payload.user, payload.message]);
     textChatStore.emit(CHANGE);
   }
 

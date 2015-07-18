@@ -31,7 +31,9 @@ var TextChat = React.createClass({
 
   render: function() {
     var messages = this.state.messages.map(function(message, index) {
-      return (<div key={index}>{message}</div>);
+      var user = message[0];
+      var text = message[1];
+      return (<div key={index}>{user}: {text}</div>);
     });
 
     return (

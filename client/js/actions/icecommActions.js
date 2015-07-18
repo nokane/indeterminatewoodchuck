@@ -24,6 +24,15 @@ comm.on('disconnect', function(peer) {
   });
 });
 
+comm.on('data', function(message) {
+  AppDispatcher.dispatch({
+    actionType: appConstants.SEND_TEXT_MESSAGE,
+    // Change to reflect customer name
+    user: 'customer',
+    message: message
+  });
+});
+
 var icecommActions = {
   setIcecommRoom: function(data) {
     console.log('Icecomm about to connect to roomname: ', data);
@@ -35,6 +44,8 @@ var icecommActions = {
     comm.send(message);
     AppDispatcher.dispatch({
       actionType: appConstants.SEND_TEXT_MESSAGE,
+      // Change to reflect staff name
+      user: 'staff',
       message: message
     });
   }
