@@ -61,13 +61,20 @@ Supportal.prototype.createChatSession = function() {
 Supportal.prototype.setupPeerConnListeners = function(){
   // listener to start peer video stream when a peer connects
   this.comm.on('connected', function(peer) {
-    this.chatWindow.appendChild(peer.getVideo());
+    this.chatWindow.appendChild(this.remoteVideo);
+    this.remoteVideo.src = peer.stream;
+    this.chatWindow.appendChild(this.textChat);
   }.bind(this));
 
   // listener to start local video when iceComm gets a room name
   this.comm.on('local', function(self) {
-    this.chatWindow.appendChild(self.getVideo());
+    this.chatWindow.appendChild(this.localVideo);
+    this.remoteVideo.src = self.stream;
   }.bind(this));
+
+  this.comm.on('data', function(message) {
+
+  });
 
   // listener to close video streams and leave room when peer disconnects
   this.comm.on('disconnect', function(peer) {
