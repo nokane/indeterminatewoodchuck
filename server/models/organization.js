@@ -1,4 +1,6 @@
 'use strict';
+var bcrypt = require('bcrypt-nodejs');
+
 module.exports = function(sequelize, DataTypes) {
   var Organization = sequelize.define('Organization', {
     name: DataTypes.STRING,
@@ -14,6 +16,23 @@ module.exports = function(sequelize, DataTypes) {
       associate: function(models) {
         Organization.hasMany(models.User);
         Organization.hasMany(models.Session);
+      }
+    },
+    instanceMethods: {
+      hashPassword: function(password, cb) {
+        var org = this;
+        return bcrypt.genSalt(10, function(err, salt) {
+          if (err) {
+            return cb(err);
+          }
+          return bcrypt.hash(password, salt, null, function(error, hash) {
+            if (err) {
+              return cb(err);
+            }
+            org.password_hash = hash;
+            return cb();
+          });
+        });
       }
     }
   });
