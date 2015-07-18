@@ -4,6 +4,8 @@ var Supportal = function(){
   // Client will need to add a button and div with these IDs for library to work
   this.chatButton = document.getElementById('supportal-init-button');
   this.chatWindow = document.getElementById('supportal-window');
+  
+  // Elements to be appended on icecomm connect
   this.localVideo = document.createElement('video');
   this.remoteVideo = document.createElement('video');
   this.textChat = document.createElement('div');
@@ -13,6 +15,11 @@ var Supportal = function(){
   this.remoteVideo.autoplay = true;
   this.remoteVideo.id = 'supportal-remote-video';
   this.textChat.id = 'supportal-text-chat';
+  this.textChat.innerHTML = '<form onSubmit="this.sendTextMessage">' +
+      '<input type=text placeholder="Type your message here" />' +
+      '<input type=submit />' +
+    '</form>' +
+    '<div id="supportal-message-log"></div>';
 
   this.chatButton.addEventListener('click', function(){
     this.createChatSession();
@@ -41,8 +48,6 @@ Supportal.prototype.init = function(){
 
 Supportal.prototype.createChatSession = function() {
   this.setupPeerConnListeners();
-  
-  this.chatButton.parentNode.appendChild(this.chatWindow);
 
   // will need to emit some kind of customer number?
   this.socket.emit('customerRequest');
