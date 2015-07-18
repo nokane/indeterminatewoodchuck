@@ -24,16 +24,10 @@ var textChatStore = objectAssign({}, EventEmitter.prototype, {
 });
 
 textChatStore.dispatchToken = AppDispatcher.register(function(payload) {
-  // if (payload.actionType === appConstants.START_LOCAL_CONN) {
-  //   setLocalStream(payload.peer);
-  //   textChatStore.emit(CHANGE);
-  // } else if (payload.actionType === appConstants.START_REMOTE_CONN) {
-  //   setRemoteStream(payload.peer);
-  //   textChatStore.emit(CHANGE);
-  // } else if (payload.actionType === appConstants.STOP_REMOTE_CONN) {
-  //   setRemoteStream(null);
-  //   textChatStore.emit(CHANGE);
-  // } 
+  if (payload.actionType === appConstants.SEND_TEXT_MESSAGE) {
+    _messages.push(payload.message);
+    textChatStore.emit(CHANGE);
+  }
 
   return true;
 });
