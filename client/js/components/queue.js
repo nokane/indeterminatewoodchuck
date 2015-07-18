@@ -2,8 +2,8 @@ var React = require('react');
 var socketActions = require('../actions/socketActions');
 
 var Queue = React.createClass({
-  
   handleStaffReady: function(){
+    // Need to pass down org name and send with staffReady
     socketActions.staffReady();
   },
 
