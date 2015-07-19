@@ -25,12 +25,14 @@ socket.socketroute = function(io, user) {
     }
   });
 
-  user.on('customerRequest', function() {
+  user.on('customerRequest', function(orgName) {
     user.category = "customer";
-    socket.customerQueue.push(user.id);
-    if (socket.rooms.length > 0) {
-      io.to(user.id).emit('customerRoom', socket.rooms.shift());
-      socket.customerQueue.shift();
+    user.organizationName = orgName;
+    socket.customerQueue[orgName] = socket.customerQueue[orgName] || []; 
+    socket.customerQueue[orgName].push(user.id);
+    if (socket.rooms[orgName] && socket.rooms[orgName].length > 0) {
+      io.to(user.id).emit('customerRoom', socket.rooms[orgName].shift());
+      socket.customerQueue[orgName].shift();
     }
   });
 
