@@ -38,14 +38,15 @@ socket.socketroute = function(io, user) {
 
   user.on('disconnect', function() {
     if (user.category === "staff") {
-      var roomIndex = socket.rooms.indexOf(socket.staff[user.id])
+      var roomIndex = socket.rooms[user.organizationName].indexOf(socket.staff[user.organizationName][user.id]);
       if (roomIndex != -1) {
-        socket.rooms.splice(roomIndex, 1);
+        delete socket.rooms[user.organizationName][user.id];
+        socket.rooms[user.organizationName].splice(roomIndex, 1);
       }
     } else if (user.category === "customer") {
-      var customerIndex = socket.customerQueue.indexOf(user.id);
+      var customerIndex = socket.customerQueue[user.organizationName].indexOf(user.id);
       if (customerIndex !== -1) {
-        socket.customerQueue.splice(customerIndex, 1);
+        socket.customerQueue[user.organizationName].splice(customerIndex, 1);
       }
     }
   });
