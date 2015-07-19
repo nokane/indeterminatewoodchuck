@@ -29,7 +29,7 @@ comm.on('data', function(message) {
     actionType: appConstants.SEND_TEXT_MESSAGE,
     // Change to reflect customer name
     user: 'customer',
-    message: message
+    message: message.data
   });
 });
 

@@ -1,9 +1,26 @@
 var Supportal = function(){
   this.init();
 
-  // Client will need to add a button with an ID of 'chat-button' for library to work
-  this.chatButton = document.getElementById('chat-button');
-  this.chatWindow = document.createElement('div');
+  // Client will need to add a button and div with these IDs for library to work
+  this.chatButton = document.getElementById('supportal-init-button');
+  this.chatWindow = document.getElementById('supportal-window');
+  
+  // Elements to be appended on icecomm connect
+  this.localVideo = document.createElement('video');
+  this.remoteVideo = document.createElement('video');
+  this.textChat = document.createElement('div');
+
+  this.localVideo.autoplay = true;
+  this.localVideo.id = 'supportal-local-video';
+  this.remoteVideo.autoplay = true;
+  this.remoteVideo.id = 'supportal-remote-video';
+  this.textChat.id = 'supportal-text-chat';
+  this.textChat.innerHTML = '<form onSubmit="this.sendTextMessage">' +
+      '<input type=text placeholder="Type your message here" />' +
+      '<input type=submit />' +
+    '</form>' +
+    '<div id="supportal-message-log"></div>';
+
   this.chatButton.addEventListener('click', function(){
     this.createChatSession();
   }.bind(this), false);
@@ -30,9 +47,7 @@ Supportal.prototype.init = function(){
 };
 
 Supportal.prototype.createChatSession = function() {
-  this.setupVideoChatListeners();
-
-  this.chatButton.parentNode.appendChild(this.chatWindow);
+  this.setupPeerConnListeners();
 
   // will need to emit some kind of customer number?
   this.socket.emit('customerRequest');
@@ -43,16 +58,45 @@ Supportal.prototype.createChatSession = function() {
   }.bind(this));
 };
 
-Supportal.prototype.setupVideoChatListeners = function(){
+Supportal.prototype.setupPeerConnListeners = function(){
+  // helper function to append message node to supportal-message-log element
+  var appendTextMessage = function(user, message) {
+    var messageNode = document.createElement('div');
+    messageNode.textContent = user + ': ' + message;
+    document.getElementById('supportal-message-log').appendChild(messageNode);
+  };
+
   // listener to start peer video stream when a peer connects
   this.comm.on('connected', function(peer) {
-    this.chatWindow.appendChild(peer.getVideo());
+    this.chatWindow.appendChild(this.remoteVideo);
+    this.remoteVideo.src = peer.stream;
+    this.chatWindow.appendChild(this.textChat);
+
+    // after connecting, set up listener for text chat submit
+    var submitForm = this.textChat.firstChild;
+    var handleSubmit = function(event) {
+      var message = event.target[0].value;
+      event.preventDefault();
+      this.comm.send(message);
+      appendTextMessage('customer', message);
+    }.bind(this);
+
+    if(submitForm.addEventListener) { // for modern browsers
+      submitForm.addEventListener("submit", handleSubmit, false);
+    } else if(submitForm.attachEvent) { // for older browsers
+      submitForm.attachEvent('onsubmit', handleSubmit);
+    }
   }.bind(this));
 
   // listener to start local video when iceComm gets a room name
   this.comm.on('local', function(self) {
-    this.chatWindow.appendChild(self.getVideo());
+    this.chatWindow.appendChild(this.localVideo);
+    this.localVideo.src = self.stream;
   }.bind(this));
+
+  this.comm.on('data', function(message) {
+    appendTextMessage('staff', message.data);
+  });
 
   // listener to close video streams and leave room when peer disconnects
   this.comm.on('disconnect', function(peer) {

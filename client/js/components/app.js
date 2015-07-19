@@ -8,6 +8,8 @@ var appActions = require('../actions/appActions');
 
 var Main = React.createClass({
 
+  // Ask server for org name, employee name / ID, other employee info
+
   getInitialState: function(){
     return { 
       roomname: appStore.getRoom()
