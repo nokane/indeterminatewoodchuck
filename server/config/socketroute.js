@@ -1,22 +1,27 @@
 var socket = module.exports = {};
 
-socket.rooms = [];
+socket.rooms = {};
 socket.num = 0;
-socket.customerQueue = [];
+socket.customerQueue = {};
 socket.staff = {};
 
 socket.socketroute = function(io, user) {
   user.category = undefined;
-  user.on('staffReady', function() {
+  user.organizationName = undefined;
+  user.on('staffReady', function(orgName) {
     user.category = "staff";
     socket.num += 1;
-    var roomname = "room" + socket.num;
-    socket.rooms.push(roomname);
-    socket.staff[user.id] = roomname;
+    user.organizationName = orgName;
+    var roomname = "room_" + orgName + "_" + socket.num;
+    socket.rooms[orgName] = socket.rooms[orgName] || []; 
+    socket.rooms[orgName].push(roomname);
+
+    socket.staff[orgName] = socket.staff[orgName] || {};
+    socket.staff[orgName][user.id] = roomname;
     io.to(user.id).emit('staffRoom', roomname);
-    if (socket.customerQueue.length > 0) {
-      var customerId = socket.customerQueue.shift();
-      io.to(customerId).emit('customerRoom', socket.rooms.shift());
+    if (socket.customerQueue[orgName] && socket.customerQueue[orgName].length > 0) {
+      var customerId = socket.customerQueue[orgName].shift();
+      io.to(customerId).emit('customerRoom', socket.rooms[orgName].shift());
     }
   });
 
