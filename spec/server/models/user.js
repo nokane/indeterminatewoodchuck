@@ -42,7 +42,7 @@ describe("User Model", function(){
     });
   });
 
-  it("Create a new User and find that User with Organization.getUsers()", function(done){
+  it("Create two Users and find those Users with Organization.getUsers()", function(done){
     var newOrg = db.Organization.build({name:"Dog Clothes",
                     address: "123 fake street",
                     city: "San Francisco",
@@ -63,10 +63,20 @@ describe("User Model", function(){
                       email: "thefella@boss.com",
                       password_hash: "righton"});
         user.save().then(function() {
-          org.getUsers().then(function(users) {
-            expect(users[0].first_name).to.equal("john");
-            expect(users[0].title).to.equal("boss")
-            done();
+          var secondUser = db.User.build({first_name: "mike",
+                      last_name: "lee",
+                      OrganizationId: org.id,
+                      title: "manager",
+                      email: "mike@lee.com",
+                      password_hash: "here"});
+          secondUser.save().then(function() {
+            org.getUsers().then(function(users) {
+              expect(users[0].first_name).to.equal("john");
+              expect(users[0].title).to.equal("boss");
+              expect(users[1].first_name).to.equal("mike");
+              expect(users[1].title).to.equal("manager");
+              done();
+            });
           });
         });
       });
