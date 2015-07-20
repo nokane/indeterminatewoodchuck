@@ -10,13 +10,12 @@ module.exports = function(sequelize, DataTypes) {
     zip: DataTypes.STRING,
     country: DataTypes.STRING,
     industry: DataTypes.STRING,
-    password_hash: DataTypes.STRING
+    password_hash: DataTypes.STRING,
+    web_name: DataTypes.STRING
   }, {
     hooks: {
       beforeCreate: function(org, options, fn) {
-        org.hashPassword(org.password_hash, function(){
-          fn();
-        });
+        org.hashPassword(org.password_hash, org.createWebName, fn);
       }
     },
     classMethods: {
@@ -26,7 +25,7 @@ module.exports = function(sequelize, DataTypes) {
       }
     },
     instanceMethods: {
-      hashPassword: function(password, cb) {
+      hashPassword: function(password, cb, fn) {
         var org = this;
         return bcrypt.genSalt(10, function(err, salt) {
           if (err) {
@@ -37,7 +36,7 @@ module.exports = function(sequelize, DataTypes) {
               return cb(err);
             }
             org.password_hash = hash;
-            return cb();
+            return cb(org, fn);
           });
         });
       },
@@ -48,6 +47,11 @@ module.exports = function(sequelize, DataTypes) {
           }
           return cb(result);
         });
+      },
+      createWebName: function(org, fn) {
+        var org_name = org.name;
+        org.web_name = org_name.replace(/ /g,'');
+        fn();
       }
     }
   });
