@@ -23,12 +23,31 @@ var path = {
   TEST_DIR: ['spec/*.js', 'spec/**/*.js']
 };
 
+var path2 = {
+  HTML: 'client/login.html',
+  MINIFIED_OUT: 'login.build.min.js',
+  OUT: 'login.build.js',
+  DEST: 'client/dist',
+  DEST_BUILD: 'client/dist/build',
+  DEST_SRC: 'client/dist/src',
+  ENTRY_POINT: './client/js/components/login/login.js',
+  TEST_DIR: ['spec/*.js', 'spec/**/*.js']
+};
+
 gulp.task('htmlReplaceDev', function(){
   gulp.src(path.HTML)
   .pipe(htmlreplace({
     'js': 'src/' + path.OUT
   }))
     .pipe(gulp.dest(path.DEST));
+});
+
+gulp.task('htmlReplaceDev2', function(){
+  gulp.src(path2.HTML)
+  .pipe(htmlreplace({
+    'js': 'src/' + path2.OUT
+  }))
+    .pipe(gulp.dest(path2.DEST));
 });
 
 gulp.task('watch', function(){
@@ -122,12 +141,32 @@ gulp.task('build', function(){
   .pipe(gulp.dest(path.DEST_BUILD));
 });
 
+gulp.task('build2', function(){
+  browserify({
+    entries: [path2.ENTRY_POINT],
+    transform: [reactify],
+  })
+  .bundle()
+  .pipe(source(path2.MINIFIED_OUT))
+  .pipe(streamify(uglify(path2.MINIFIED_OUT)))
+  .pipe(gulp.dest(path2.DEST_BUILD));
+});
+
+
 gulp.task('replaceHTML', function(){
   gulp.src(path.HTML)
     .pipe(htmlreplace({
       'js': 'build/' + path.MINIFIED_OUT
     }))
     .pipe(gulp.dest(path.DEST));
+});
+
+gulp.task('replaceHTML2', function(){
+  gulp.src(path2.HTML)
+    .pipe(htmlreplace({
+      'js': 'build/' + path2.MINIFIED_OUT
+    }))
+    .pipe(gulp.dest(path2.DEST));
 });
 
 gulp.task('default', [ 'watch' ]);
