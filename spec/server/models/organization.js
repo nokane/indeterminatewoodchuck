@@ -25,6 +25,7 @@ describe("Organization Model", function(){
       .then(function(org){
         expect(org.city).to.equal("San Francisco");
         expect(org.state).to.equal("CA");
+        expect(org.web_name).to.equal("ShoeLocker");
         done();
       });
     });
