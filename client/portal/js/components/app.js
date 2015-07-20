@@ -11,23 +11,25 @@ var Main = React.createClass({
   // Ask server for org name, employee name / ID, other employee info
 
   getInitialState: function(){
-    return { 
-      roomname: appStore.getRoom()
-    };
+    return appStore.getState();
   },
 
   componentDidMount: function(){
-    appStore.addRoomChangeListener(this._onRoomChange);
+    appStore.addChangeListener(this._onChange);
+    this.getEmployeeData();
   },
 
   componentWillUnmount: function() {
-    appStore.removeRoomChangeListener(this._onRoomChange);    
+    appStore.removeChangeListener(this._onChange);    
   },
 
-  _onRoomChange: function() {
-    this.setState({
-      roomname: appStore.getRoom()
-    });
+  getEmployeeData: function() {
+    // Could check local storage first?
+    appActions.getEmployeeData();
+  },
+
+  _onChange: function() {
+    this.setState(appStore.getState());
   },
 
   render: function() {

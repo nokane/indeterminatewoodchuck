@@ -3,30 +3,38 @@ var appConstants = require('../constants/appConstants');
 var objectAssign = require('react/lib/Object.assign');
 var EventEmitter = require('events').EventEmitter;
 
-var ROOM_CHANGE = 'ROOM_CHANGE';
+var CHANGE = 'CHANGE';
 
-var _room = '';
+var _state = {
+  room: '',
+  orgName: '',
+  employeeId: '',
+  employeeFirstName: '',
+  employeeLastName: '',
+  employeeTitle: '',
+  employeeEmail: ''
+};
 
 var setRoom = function(room) {
-  _room = room;
+  _state.room = room;
 };
 
 var appStore = objectAssign({}, EventEmitter.prototype, {
-  addRoomChangeListener: function(cb){
-    this.on(ROOM_CHANGE, cb);
+  addChangeListener: function(cb){
+    this.on(CHANGE, cb);
   },
-  removeRoomChangeListener: function(cb){
-    this.removeListener(ROOM_CHANGE, cb);
+  removeChangeListener: function(cb){
+    this.removeListener(CHANGE, cb);
   },
-  getRoom: function() {
-    return _room;
+  getState: function() {
+    return _state;
   }
 });
 
 appStore.dispatchToken = AppDispatcher.register(function(payload) {
   if (payload.actionType === appConstants.JOIN_ROOM) {
     setRoom(payload.data);
-    appStore.emit(ROOM_CHANGE);
+    appStore.emit(CHANGE);
   }
 
   return true;
