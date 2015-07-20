@@ -46,24 +46,14 @@ describe('User Controller', function(){
   });
 
   it('Should not authenticate users that provide invalid passwords', function(done){
-    var newUser = db.User.build({
-      first_name: 'Arnold',
-      last_name: 'Schwarzennegger',
-      OrganizationId: 50,
-      title: 'T-1000',
-      email: 'governator@california.gov',
-      password_hash: 'terminator'
-    });
-    newUser.save().then(function(user){
-      request(app)
-        .post('/api/users/signin')
-        .send({ email: 'governator@california.gov', password: 'terminate' })
-        .end(function(err, res){
-          expect(res.body.success).to.equal(false);
-          expect(res.body.message).to.equal('Invalid password.')
-          done();
-        });
-    });
+    request(app)
+      .post('/api/users/signin')
+      .send({ email: 'governator@california.gov', password: 'terminate' })
+      .end(function(err, res){
+        expect(res.body.success).to.equal(false);
+        expect(res.body.message).to.equal('Invalid password.')
+        done();
+      });
   });
 
   it('Should issue a token upon successful sign in', function(done){
