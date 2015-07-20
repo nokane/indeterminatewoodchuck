@@ -96,38 +96,18 @@ describe('User Controller', function(){
   });
 
   it('Should not allow users to sign up with an existing email address', function(done){
-    var newOrg = db.Organization.build({
-      name: 'lollercopter',
-      password_hash: 'lollerblades'
-    });
-    newOrg.save().then(function(x){
-      var newUser = db.User.build({
-        first_name: 'Rick',
-        last_name: 'Astley',
-        OrganizationId: 21,
-        title: 'Rick Roll',
-        email: 'rick@roll.com',
-        password_hash: 'rickrolld'
+    request(app)
+      .post('/api/users/signup')
+      .send({
+        email: 'governator@california.gov',
+        businessName: 'Skynet',
+        businessPassword: 'T-1000'
+      })
+      .end(function(err, res){
+        expect(res.body.success).to.equal(false);
+        expect(res.body.message).to.equal('User already exists.');
+        done();
       });
-      newUser.save().then(function(user){
-        request(app)
-          .post('/api/users/signup')
-          .send({
-            firstName: 'i',
-            lastName: 'don\'t',
-            jobTitle: 'really',
-            email: 'rick@roll.com',
-            password: 'about',
-            businessName: 'lollercopter',
-            businessPassword: 'lollerblades'
-          })
-          .end(function(err, res){
-            expect(res.body.success).to.equal(false);
-            expect(res.body.message).to.equal('User already exists.');
-            done();
-          });
-      });
-    });
   });
 
   it('Should issue a token upon successful sign up', function(done){
