@@ -1,12 +1,11 @@
 var AppDispatcher = require('../dispatchers/appDispatcher');
 var appConstants = require('../constants/appConstants');
+var apiUtil = require('./apiUtil');
 
 var appActions = {
-  // startSocketListener: function() {
-  //   AppDispatcher.handleAction({
-  //     actionType: appConstants.START_SOCKET_LISTENER
-  //   });
-  // }
+  getEmployeeData: function() {
+    apiUtil.getEmployeeData();
+  }
 };
 
 module.exports = appActions;
