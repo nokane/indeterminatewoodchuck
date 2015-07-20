@@ -131,19 +131,14 @@ describe('User Controller', function(){
   });
 
   it('Should not be able to sign up an existing organization', function(done){
-    var newOrg = db.Organization.build({
-      name: 'testing123',
-    });
-    newOrg.save().then(function(org){
-      request(app)
-        .post('/api/users/signupwithorg')
-        .send({ businessName: 'testing123' })
-        .end(function(err, res){
-          expect(res.body.success).to.equal(false);
-          expect(res.body.message).to.equal('Organization already exists.');
-          done();
-        });
-    });
+    request(app)
+      .post('/api/users/signupwithorg')
+      .send({ businessName: 'Skynet' })
+      .end(function(err, res){
+        expect(res.body.success).to.equal(false);
+        expect(res.body.message).to.equal('Organization already exists.');
+        done();
+      });
   });
 
   it('Should not be able to sign up an existing user', function(done){
