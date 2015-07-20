@@ -23,17 +23,17 @@ describe('Socket.io Server Routing', function() {
   it('Should send staffRoom event and customerRoom event when staff member connects after customer', function(done) {
     var customerSocket1 = io.connect(socketTestURL, options);
     customerSocket1.on('connect', function(data){
-      customerSocket1.emit('customerRequest', 'roomname1')
+      customerSocket1.emit('customerRequest', 'ShoeLocker')
     });
     var staffSocket1 = io.connect(socketTestURL, options);
     staffSocket1.on('connect', function(data){
-      staffSocket1.emit('staffReady', 'roomname1')
+      staffSocket1.emit('staffReady', 'ShoeLocker')
     });
     staffSocket1.on('staffRoom', function(name) {
-      expect(name).to.equal('room1');
+      expect(name).to.equal('room_ShoeLocker_1');
     });
     customerSocket1.on('customerRoom', function(name) {
-      expect(name).to.equal('room1');
+      expect(name).to.equal('room_ShoeLocker_1');
       staffSocket1.disconnect();
       customerSocket1.disconnect();
       done(); 
@@ -43,22 +43,22 @@ describe('Socket.io Server Routing', function() {
   it('Should create new room on "staffReady"', function(done) {
     var staffSocket = io.connect(socketTestURL, options);
     staffSocket.on('connect', function(data){
-      staffSocket.emit('staffReady', 'roomname1')
+      staffSocket.emit('staffReady', 'ShoeLocker')
     });
     staffSocket.on('staffRoom', function(name) {
-      expect(name).to.equal('room2');
+      expect(name).to.equal('room_ShoeLocker_2');
       staffSocket.disconnect();
       done();
     });
   });
 
-  it('Second roomname should equal "room2"', function(done) {
+  it('Third roomname should equal "room_ShoeLocker_3"', function(done) {
     var staffSocket1 = io.connect(socketTestURL, options);
     staffSocket1.on('connect', function(data){
-      staffSocket1.emit('staffReady', 'roomname2')
+      staffSocket1.emit('staffReady', 'ShoeLocker')
     });
     staffSocket1.on('staffRoom', function(name) {
-      expect(name).to.equal('room3');
+      expect(name).to.equal('room_ShoeLocker_3');
       staffSocket1.disconnect();
       done();
     });
@@ -83,44 +83,48 @@ describe('Socket.io Server Routing', function() {
   it('Room names of disconnected staff from previous test are removed from socketroute.rooms array', function(done) {
     var customerSocket1 = io.connect(socketTestURL, options);
     customerSocket1.on('connect', function(){
-      customerSocket1.emit('customerRequest', 'roomname1');
+      customerSocket1.emit('customerRequest', 'ShoeLocker');
     });
     var staffSocket1 = io.connect(socketTestURL, options);
     staffSocket1.on('connect', function(){
-      staffSocket1.emit('staffReady', 'roomname1');
+      staffSocket1.emit('staffReady', 'ShoeLocker');
     });
     staffSocket1.on('staffRoom', function(name) {
-      expect(name).to.equal('room5');
+      expect(name).to.equal('room_ShoeLocker_5');
     });
     customerSocket1.on('customerRoom', function(name) {
-      expect(name).to.equal('room5');
+      expect(name).to.equal('room_ShoeLocker_5');
       staffSocket1.disconnect();
       customerSocket1.disconnect();
       done();
     });
   });
 
-  xit('Should send customerRoom event to second customer if first customer disconnects before staff member connects', function(done) {
+  it('Should send customerRoom event to second customer if first customer disconnects before staff member connects', function(done) {
     var customerSocket1 = io.connect(socketTestURL, options);
     var customerSocket2 = io.connect(socketTestURL, options);
 
     customerSocket1.on('connect', function() {
-      customerSocket1.emit('customerRequest', 'roomname1');
+      customerSocket1.emit('customerRequest', 'ShoeLocker');
     });
     customerSocket2.on('connect', function() {
-      customerSocket2.emit('customerRequest', 'roomname2');
+      customerSocket2.emit('customerRequest', 'ShoeLocker');
       customerSocket1.disconnect();
+      staffSocket1 = io.connect(socketTestURL, options)
     });
 
     var staffSocket1 = io.connect(socketTestURL, options);
     staffSocket1.on('connect', function() {
-      staffSocket1.emit('staffReady', 'roomname1');
+      staffSocket1.emit('staffReady', 'ShoeLocker');
     });
     staffSocket1.on('staffRoom', function(name) {
-      expect(name).to.equal('room6');
+      expect(name).to.equal('room_ShoeLocker_6');
+    });
+    customerSocket1.on('customerRoom', function(name) {
+      expect(Constructor).to.throw(Error);
     });
     customerSocket2.on('customerRoom', function(name) {
-      expect(name).to.equal('room6');
+      expect(name).to.equal('room_ShoeLocker_6');
       staffSocket1.disconnect();
       customerSocket2.disconnect();
       done();
