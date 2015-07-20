@@ -15,7 +15,7 @@ var apiUtil = {
           console.log('Error with getEmployeeData: ', err);
           return;
         }
-        appActions.setEmployeeData(res);
+        appActions.setEmployeeData(res.body);
       });
   }
 };
