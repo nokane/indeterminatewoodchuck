@@ -142,14 +142,14 @@ describe('User Controller', function(){
   });
 
   it('Should not be able to sign up an existing user', function(done){
-      request(app)
-        .post('/api/users/signupwithorg')
-        .send({ businessName: 'Skynet', email: 'governator@california.gov' })
-        .end(function(err, res){
-          expect(res.body.success).to.equal(false);
-          expect(res.body.message).to.equal('User already exists.');
-          done();
-        });
+    request(app)
+      .post('/api/users/signupwithorg')
+      .send({ businessName: 'The Resistance', email: 'governator@california.gov' })
+      .end(function(err, res){
+        expect(res.body.success).to.equal(false);
+        expect(res.body.message).to.equal('User already exists.');
+        done();
+      });
   });
 
   it('Should issue a token upon successful sign up', function(done){
