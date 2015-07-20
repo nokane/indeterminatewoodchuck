@@ -16,7 +16,7 @@ var Supportal = function(){
   this.remoteVideo.id = 'supportal-remote-video';
   this.textChat.id = 'supportal-text-chat';
   this.textChat.innerHTML = '<form onSubmit="this.sendTextMessage">' +
-      '<input type=text placeholder="Type your message here" />' +
+      '<input id="supportal-text-chat-input" type=text placeholder="Type your message here" />' +
       '<input type=submit />' +
     '</form>' +
     '<div id="supportal-message-log"></div>';
@@ -79,6 +79,7 @@ Supportal.prototype.setupPeerConnListeners = function(){
       event.preventDefault();
       this.comm.send(message);
       appendTextMessage('customer', message);
+      document.getElementById('supportal-text-chat-input').value = '';
     }.bind(this);
 
     if(submitForm.addEventListener) { // for modern browsers

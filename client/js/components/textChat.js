@@ -27,6 +27,7 @@ var TextChat = React.createClass({
     event.preventDefault();
     var message = event.target[0].value;
     icecommActions.sendTextMessage(message);
+    React.findDOMNode(this.refs.messageInput).value = '';
   },
 
   render: function() {
@@ -40,7 +41,7 @@ var TextChat = React.createClass({
       <div>
         <div className='send-chat'>
           <form onSubmit={this.handleSubmit}>
-            <input name='message-input' type='text' placeholder='Type your message here' />
+            <input ref='messageInput' type='text' placeholder='Type your message here' />
             <input type='submit' />
           </form>
         </div>
