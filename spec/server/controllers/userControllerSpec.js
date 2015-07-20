@@ -111,29 +111,23 @@ describe('User Controller', function(){
   });
 
   it('Should issue a token upon successful sign up', function(done){
-    var newOrg = db.Organization.build({
-      name: 'holy',
-      password_hash: 'moly'
-    });
-    newOrg.save().then(function(org){
-      request(app)
-        .post('/api/users/signup')
-        .send({
-          firstName: 'i',
-          lastName: 'don\'t',
-          jobTitle: 'really',
-          email: 'rick@roll.com',
-          password: 'about',
-          businessName: 'holy',
-          businessPassword: 'moly'
-        })
-        .end(function(err, res){
-          expect(res.body.success).to.equal(true);
-          expect(res.body.message).to.equal('Enjoy your token!');
-          expect(res.body.token).to.exist;
-          done();
-        });
-    });
+    request(app)
+      .post('/api/users/signup')
+      .send({
+        firstName: 'Bad',
+        lastName: 'Guy',
+        jobTitle: 'Terminator',
+        email: 'badguy@skynet.com',
+        password: 'killjohnconnor',
+        businessName: 'Skynet',
+        businessPassword: 'T-1000'
+      })
+      .end(function(err, res){
+        expect(res.body.success).to.equal(true);
+        expect(res.body.message).to.equal('Enjoy your token!');
+        expect(res.body.token).to.exist;
+        done();
+      });
   });
 
   it('Should not be able to sign up an existing organization', function(done){
