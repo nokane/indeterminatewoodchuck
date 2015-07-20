@@ -32,7 +32,7 @@ module.exports = {
                 var orgUser = db.User.build({
                   first_name: req.body.firstName,
                   last_name: req.body.lastName,
-                  OrganizationID: org.id,
+                  OrganizationId: org.id,
                   title: req.body.jobTitle,
                   email: req.body.email,
                   password_hash: req.body.password
@@ -70,7 +70,7 @@ module.exports = {
               var userBuild = db.User.build({
                 first_name: req.body.firstName,
                 last_name: req.body.lastName,
-                OrganizationID: newOrg.id,
+                OrganizationId: newOrg.id,
                 title: req.body.jobTitle,
                 email: req.body.email,
                 password_hash: req.body.password

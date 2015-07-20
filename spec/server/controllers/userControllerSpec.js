@@ -27,7 +27,7 @@ describe('User Controller', function(){
     var newUser = db.User.build({
       first_name: 'Arnold',
       last_name: 'Schwarzennegger',
-      OrganizationID: 50,
+      OrganizationId: 50,
       title: 'T-1000',
       email: 'governator@california.gov',
       password_hash: 'terminator'
@@ -48,7 +48,7 @@ describe('User Controller', function(){
     var newUser = db.User.build({
       first_name: 'Jackie',
       last_name: 'Chan',
-      OrganizationID: 20,
+      OrganizationId: 20,
       title: 'Inspector Lee',
       email: 'jackie@chan.com',
       password_hash: 'supercop'
@@ -125,7 +125,7 @@ describe('User Controller', function(){
       var newUser = db.User.build({
         first_name: 'Rick',
         last_name: 'Astley',
-        OrganizationID: 21,
+        OrganizationId: 21,
         title: 'Rick Roll',
         email: 'rick@roll.com',
         password_hash: 'rickrolld'
