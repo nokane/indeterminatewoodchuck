@@ -10,7 +10,8 @@ var streamify = require('gulp-streamify');
 var file = require('gulp-file');
 var argv = require('yargs').argv;
 var shell = require('gulp-shell');
-var env = require('gulp-env')
+var minifyCss = require('gulp-minify-css');
+var env = require('gulp-env');
 
 var path = {
   HTML: 'client/index.html',
@@ -33,6 +34,12 @@ var path2 = {
   ENTRY_POINT: './client/js/components/login/login.js',
   TEST_DIR: ['spec/*.js', 'spec/**/*.js']
 };
+
+gulp.task('minify-css', function() {
+  return gulp.src('client/styles/*.css')
+    .pipe(minifyCss({compatibility: 'ie8'}))
+    .pipe(gulp.dest('client/dist/styles'));
+});
 
 gulp.task('htmlReplaceDev', function(){
   gulp.src(path.HTML)
@@ -171,7 +178,9 @@ gulp.task('replaceHTML2', function(){
 
 gulp.task('default', [ 'watch' ]);
 
-gulp.task('production', [ 'replaceHTML', 'build' ]);
+//gulp.task('production', [ 'replaceHTML', 'build' ]);
+
+gulp.task('production', [ 'replaceHTML', 'build', 'replaceHTML2', 'build2', 'minify-css' ]);
 
 gulp.task('setup', [ 'write-personal-config',
     'shell-db-create',
