@@ -72,13 +72,7 @@ describe('User Controller', function(){
     request(app)
       .post('/api/users/signup')
       .send({
-        firstName: 'i',
-        lastName: 'don\'t',
-        jobTitle: 'really',
-        email: 'care',
-        password: 'about',
-        businessName: 'this',
-        businessPassword: 'one'
+        businessName: 'Galactic Empire',
       })
       .end(function(err, res){
         expect(res.body.success).to.equal(false);
