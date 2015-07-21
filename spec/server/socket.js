@@ -164,6 +164,7 @@ describe('Socket.io Server Routing', function() {
       if (counter === 1) {
         staffSocket3.emit('staffReady', 'ShoeLocker');
         setTimeout(function() {
+          staffSocket3.disconnect();
           done();
         }, 1500);
       }
