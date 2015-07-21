@@ -95,11 +95,23 @@ socket.socketroute = function(io, user) {
     queueStatus(orgName);
   });
 
+  /*
+    A customer on the client side will emit the 'customerRequest' event to the back-end
+    to indicate that they would like to chat with a staff member. Upon receiving the
+    'customerRequest' event, the back-end will add the customer's Socket Id to the
+    socket.customerQueue[orgName] array.
+  */
   user.on('customerRequest', function(orgName) {
     user.category = "customer";
     user.organizationName = orgName;
     socket.customerQueue[orgName] = socket.customerQueue[orgName] || []; 
     socket.customerQueue[orgName].push(user.id);
+
+    /*
+      Check if there are a room open with a staff member available to help the customer.
+      If there is a staff member available, dequeue the room name of the room that was first
+      added to socket.rooms[orgName].
+    */
     if (socket.rooms[orgName] && socket.rooms[orgName].length > 0) {
       io.to(user.id).emit('customerRoom', socket.rooms[orgName].shift());
       socket.customerQueue[orgName].shift();
@@ -107,15 +119,30 @@ socket.socketroute = function(io, user) {
     queueStatus(orgName);
   });
 
+  /*
+    When a customer or staff member has disconnected their socket connection
+  */
   user.on('disconnect', function() {
     if (user.category === "staff") {
+      /*
+        For a staff member, check to see if that staff person is in a room and is not
+        currently helping any customers (indicated by their room name being in
+        socket.rooms[organizationName]). If the room name is in
+        socket.rooms[organizationName], remove the room name from the array. Then remove the
+        staff Socket Id from socket.staff[organizationName]
+      */
+
       var roomIndex = socket.rooms[user.organizationName].indexOf(socket.staff[user.organizationName][user.id]);
       if (roomIndex != -1) {
         socket.rooms[user.organizationName].splice(roomIndex, 1);
       }
       delete socket.staff[user.organizationName][user.id];
-
     } else if (user.category === "customer") {
+      /*
+        For a customer, check to see if that customer's Socket Id is in
+        socket.customerQueue[organizationName]. If it is, remove it
+      */
+
       var customerIndex = socket.customerQueue[user.organizationName].indexOf(user.id);
       if (customerIndex !== -1) {
         socket.customerQueue[user.organizationName].splice(customerIndex, 1);
