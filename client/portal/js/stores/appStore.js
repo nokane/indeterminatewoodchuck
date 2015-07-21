@@ -19,6 +19,12 @@ var setRoom = function(room) {
   _state.room = room;
 };
 
+var setEmployeeData = function(data) {
+  for (var key in data) {
+    _state[key] = data[key];
+  }
+};
+
 var appStore = objectAssign({}, EventEmitter.prototype, {
   addChangeListener: function(cb){
     this.on(CHANGE, cb);
@@ -34,6 +40,9 @@ var appStore = objectAssign({}, EventEmitter.prototype, {
 appStore.dispatchToken = AppDispatcher.register(function(payload) {
   if (payload.actionType === appConstants.JOIN_ROOM) {
     setRoom(payload.data);
+    appStore.emit(CHANGE);
+  } else if (payload.actionType === appConstants.SET_EMPLOYEE_DATA) {
+    setEmployeeData(payload.employeeData);
     appStore.emit(CHANGE);
   }
 
