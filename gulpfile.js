@@ -207,7 +207,7 @@ gulp.task('replaceHTML-portal', function(){
     .pipe(gulp.dest(path.DEST));
 });
 
-gulp.task('replaceHTML2', function(){
+gulp.task('replaceHTML-login', function(){
   gulp.src(path2.HTML)
     .pipe(htmlreplace({
       'js': 'build/' + path2.MINIFIED_OUT
@@ -217,7 +217,7 @@ gulp.task('replaceHTML2', function(){
 
 gulp.task('default', [ 'htmlReplaceDev-portal', 'htmlReplaceDev-login', 'copy-css-portal', 'copy-css-login', 'watch1', 'watch2' ]);
 
-gulp.task('production', [ 'replaceHTML-portal', 'build', 'replaceHTML2', 'build2', 'minify-css-portal', 'minify-css-login' ]);
+gulp.task('production', [ 'replaceHTML-portal', 'build', 'replaceHTML-login', 'build2', 'minify-css-portal', 'minify-css-login' ]);
 
 gulp.task('setup', [ 'write-personal-config',
     'shell-db-create',
