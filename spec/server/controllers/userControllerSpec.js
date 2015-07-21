@@ -39,7 +39,7 @@ describe('User Controller', function(){
       .post('/api/users/signin')
       .send({ email: 'ding@dong.com', password: 'dingdong123' })
       .end(function(err, res){
-        expect(res.body.success).to.equal(false);
+        expect(res.body.success).to.equal('false');
         expect(res.body.message).to.equal('Invalid username.');
         done();
       });
@@ -50,7 +50,7 @@ describe('User Controller', function(){
       .post('/api/users/signin')
       .send({ email: 'governator@california.gov', password: 'terminate' })
       .end(function(err, res){
-        expect(res.body.success).to.equal(false);
+        expect(res.body.success).to.equal('false');
         expect(res.body.message).to.equal('Invalid password.')
         done();
       });
@@ -61,7 +61,7 @@ describe('User Controller', function(){
       .post('/api/users/signin')
       .send({ email: 'governator@california.gov', password: 'terminator' })
       .end(function(err, res){
-        expect(res.body.success).to.equal(true);
+        expect(res.body.success).to.equal('true');
         expect(res.body.message).to.equal('Enjoy your token!');
         expect(res.body.token).to.exist;
         done();
@@ -75,7 +75,7 @@ describe('User Controller', function(){
         businessName: 'Galactic Empire',
       })
       .end(function(err, res){
-        expect(res.body.success).to.equal(false);
+        expect(res.body.success).to.equal('false');
         expect(res.body.message).to.equal('Organization does not exist.');
         done();
       });
@@ -89,7 +89,7 @@ describe('User Controller', function(){
         businessPassword: 'T-2000'
       })
       .end(function(err, res){
-        expect(res.body.success).to.equal(false);
+        expect(res.body.success).to.equal('false');
         expect(res.body.message).to.equal('Wrong organization password.');
         done();
       });
@@ -104,7 +104,7 @@ describe('User Controller', function(){
         businessPassword: 'T-1000'
       })
       .end(function(err, res){
-        expect(res.body.success).to.equal(false);
+        expect(res.body.success).to.equal('false');
         expect(res.body.message).to.equal('User already exists.');
         done();
       });
@@ -123,7 +123,7 @@ describe('User Controller', function(){
         businessPassword: 'T-1000'
       })
       .end(function(err, res){
-        expect(res.body.success).to.equal(true);
+        expect(res.body.success).to.equal('true');
         expect(res.body.message).to.equal('Enjoy your token!');
         expect(res.body.token).to.exist;
         done();
@@ -135,7 +135,7 @@ describe('User Controller', function(){
       .post('/api/users/signupwithorg')
       .send({ businessName: 'Skynet' })
       .end(function(err, res){
-        expect(res.body.success).to.equal(false);
+        expect(res.body.success).to.equal('false');
         expect(res.body.message).to.equal('Organization already exists.');
         done();
       });
@@ -146,7 +146,7 @@ describe('User Controller', function(){
       .post('/api/users/signupwithorg')
       .send({ businessName: 'The Resistance', email: 'governator@california.gov' })
       .end(function(err, res){
-        expect(res.body.success).to.equal(false);
+        expect(res.body.success).to.equal('false');
         expect(res.body.message).to.equal('User already exists.');
         done();
       });
@@ -171,7 +171,7 @@ describe('User Controller', function(){
         industry: 'ruling the galaxy'
       })
       .end(function(err, res){
-        expect(res.body.success).to.equal(true);
+        expect(res.body.success).to.equal('true');
         expect(res.body.message).to.equal('Enjoy your token!');
         expect(res.body.token).to.exist;
         done();
