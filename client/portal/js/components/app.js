@@ -14,9 +14,12 @@ var Main = React.createClass({
     return appStore.getState();
   },
 
+  componentWillMount: function() {
+    this.getEmployeeData();
+  },
+
   componentDidMount: function(){
     appStore.addChangeListener(this._onChange);
-    this.getEmployeeData();
   },
 
   componentWillUnmount: function() {
@@ -33,11 +36,16 @@ var Main = React.createClass({
   },
 
   render: function() {
+    var orgName = this.state.orgName;
+    var firstName = this.state.employeeFirstName;
+    var lastName = this.state.employeeLastName;
+    var email = this.state.employeeEmail;
+
     return (
       <div>
-        <NavBar />
+        <NavBar firstName={firstName} lastName={lastName} email={email} />
         <VideoChat />
-        <Queue orgName={ this.state.orgName } />
+        <Queue orgName={orgName} />
         <TextChat />
       </div>
     );
