@@ -1,6 +1,7 @@
 var morgan = require('morgan');
 var bodyParser = require('body-parser');
 var helpers = require('./helpers.js');
+var cookieParser = require('cookie-parser');
 
 module.exports = function(app, express, server, io){
 
@@ -10,6 +11,8 @@ module.exports = function(app, express, server, io){
   app.use(bodyParser.urlencoded({extended: true}));
   app.use(bodyParser.json());
   app.use(morgan('dev'));
+
+  app.use(cookieParser());
 
   // unprotected static routes
   app.use('/library', express.static(__dirname + '/../../library/chatLibrary.js'));
