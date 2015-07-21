@@ -8,11 +8,11 @@ var CHANGE = 'CHANGE';
 var _state = {
   roomName: '',
   orgName: 'shoelocker',
-  employeeId: '',
-  employeeFirstName: '',
-  employeeLastName: '',
-  employeeTitle: '',
-  employeeEmail: ''
+  employeeId: '80',
+  employeeFirstName: 'Jerry',
+  employeeLastName: 'Rice',
+  employeeTitle: 'GOAT',
+  employeeEmail: 'flash80@IDontFollowBasketball.com'
 };
 
 var setRoom = function(roomName) {
