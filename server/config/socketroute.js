@@ -12,7 +12,7 @@ socket.rooms = {};
 
 socket.num = 0;
 /*
-  socket.num is used to generate unique roomnames
+  socket.num is used to generate unique room names
 */
 
 socket.customerQueue = {};
@@ -40,6 +40,10 @@ socket.staff = {};
 
 socket.socketroute = function(io, user) {
 
+  /*
+    queueStatus() is used to notify the staff of a specific Organization when there
+    is a change to the queue of Customers looking for help
+  */
   var queueStatus = function(orgName) {
     for (var staffId in socket.staff[orgName]) {
       io.to(staffId).emit('queueStatus', socket.customerQueue[orgName]);
@@ -47,7 +51,25 @@ socket.socketroute = function(io, user) {
   };
 
   user.category = undefined;
+  /*
+    user.category is used to distinguish whether the client side socket connection is
+    of a customer or a staff
+  */
+
   user.organizationName = undefined;
+  /*
+    user.organizationName keeps track of the Organization name pertaining to the client
+    side socket connection
+  */
+
+  /*
+    A staff member on the client side will emit the 'staffReady' event to the back-end
+    to indicate that they are ready to help another customer. Upon receiving the
+    'staffReady' event, the back-end will create a room name and send it to the staff member
+    via the 'staffRoom' event. The room name will then be added to the
+    socket.rooms[organizationName] array to indicate that the room is open for a customer
+    to join.
+  */
   user.on('staffReady', function(orgName) {
     user.category = "staff";
     socket.num += 1;
@@ -59,6 +81,13 @@ socket.socketroute = function(io, user) {
     socket.staff[orgName] = socket.staff[orgName] || {};
     socket.staff[orgName][user.id] = roomname;
     io.to(user.id).emit('staffRoom', roomname);
+
+    /*
+      Check to see if there are any customers waiting for help. If there are customers
+      currently in the socket.customerQueue[organizationName], dequeue the customer who
+      joined the customerQueue first, and send that customer the name of an available room.
+      Remove the name of that available room from socket.rooms[organizationName]
+    */
     if (socket.customerQueue[orgName] && socket.customerQueue[orgName].length > 0) {
       var customerId = socket.customerQueue[orgName].shift();
       io.to(customerId).emit('customerRoom', socket.rooms[orgName].shift());
