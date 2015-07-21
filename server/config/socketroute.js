@@ -1,10 +1,42 @@
 var socket = module.exports = {};
 
 socket.rooms = {};
-socket.num = 0;
-socket.customerQueue = {};
-socket.staff = {};
+/*
+  socket.rooms stores the names of rooms of staff who are available to help customers,
+  for each individual Organization.
 
+  key: the Organization name (same name as Organization model's "web_name" parameter)
+
+  value: an array of names of all open rooms available for customers to join.
+*/
+
+socket.num = 0;
+/*
+  socket.num is used to generate unique roomnames
+*/
+
+socket.customerQueue = {};
+/*
+  socket.customerQueue stores the user Socket Id of each customer who is waiting to be
+  helped by a staff member, for each individual Organization.
+
+  key: the Organization name (same name as Organization model's "web_name" parameter)
+
+  value: an array of user Socket Ids of those customers who are waiting to be helped by
+  staff members.
+*/
+
+socket.staff = {};
+/*
+  socket.staff stores all staff who are currently logged in to the application, for
+  each individual Organization
+
+  key: the Organization name (same name as Organization model's "web_name" parameter)
+
+  value: an object with the following key-value pair:
+      key: the user Socket Id of the staff member
+      value: the name of the room that the staff member is currently in
+*/
 
 socket.socketroute = function(io, user) {
 
