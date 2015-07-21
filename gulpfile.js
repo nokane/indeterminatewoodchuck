@@ -41,7 +41,7 @@ gulp.task('minify-css', function() {
     .pipe(gulp.dest('client/dist/login/styles'));
 });
 
-gulp.task('htmlReplaceDev', function(){
+gulp.task('htmlReplaceDev1', function(){
   gulp.src(path.HTML)
   .pipe(htmlreplace({
     'js': 'src/' + path.OUT
@@ -57,7 +57,7 @@ gulp.task('htmlReplaceDev2', function(){
     .pipe(gulp.dest(path2.DEST));
 });
 
-gulp.task('watch', function(){
+gulp.task('watch1', function(){
   gulp.watch(path.HTML, [ 'htmlReplaceDev' ]);
 
   var watcher = watchify(browserify({
@@ -71,11 +71,32 @@ gulp.task('watch', function(){
     watcher.bundle()
       .pipe(source(path.OUT))
       .pipe(gulp.dest(path.DEST_SRC));
-      console.log('Updated!');
+      console.log('Updated1!');
   })
     .bundle()
     .pipe(source(path.OUT))
     .pipe(gulp.dest(path.DEST_SRC));
+});
+
+gulp.task('watch2', function(){
+  gulp.watch(path.HTML, [ 'htmlReplaceDev2' ]);
+
+  var watcher = watchify(browserify({
+    entries: [path2.ENTRY_POINT],
+    transform: [reactify],
+    debug: true,
+    cache: {}, packageCache: {}, fullPaths: true
+  }));
+
+  return watcher.on('update', function(){
+    watcher.bundle()
+      .pipe(source(path2.OUT))
+      .pipe(gulp.dest(path2.DEST_SRC));
+      console.log('Updated2!');
+  })
+    .bundle()
+    .pipe(source(path2.OUT))
+    .pipe(gulp.dest(path2.DEST_SRC));
 });
 
 gulp.task('test', function(){
@@ -176,7 +197,7 @@ gulp.task('replaceHTML2', function(){
     .pipe(gulp.dest(path2.DEST));
 });
 
-gulp.task('default', [ 'watch' ]);
+gulp.task('default', [ 'htmlReplaceDev1', 'htmlReplaceDev2', 'watch1', 'watch2' ]);
 
 //gulp.task('production', [ 'replaceHTML', 'build' ]);
 
