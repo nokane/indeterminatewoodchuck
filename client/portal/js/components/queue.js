@@ -3,8 +3,8 @@ var socketActions = require('../actions/socketActions');
 
 var Queue = React.createClass({
   handleStaffReady: function(){
-    var roomName = this.props.roomName;
-    socketActions.staffReady(roomName);
+    var orgName = this.props.orgName;
+    socketActions.staffReady(orgName);
   },
 
   render: function(){

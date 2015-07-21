@@ -14,9 +14,8 @@ socket.on('staffRoom', function(data) {
 });
 
 var socketActions = {
-  staffReady: function(roomName) {
-    console.log(roomName);
-    socket.emit('staffReady', roomName);
+  staffReady: function(orgName) {
+    socket.emit('staffReady', orgName);
   }
 };
 

@@ -37,7 +37,7 @@ var Main = React.createClass({
       <div>
         <NavBar />
         <VideoChat />
-        <Queue roomName={ this.state.roomName } />
+        <Queue orgName={ this.state.orgName } />
         <TextChat />
       </div>
     );
