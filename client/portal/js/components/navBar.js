@@ -4,11 +4,15 @@ var NavBar = React.createClass({
 
   render: function() {
     return (
-      <div>
-        <div>Supportal</div>
-        <div>User logged in as: {this.props.firstName} {this.props.lastName} </div>
-        <div>{this.props.email}</div>
-      </div>
+      <nav className='navbar navbar-default'>
+        <div className='navbar-brand'>Supportal</div>
+        <div className='navbar-collapse collapse'>
+          <ul className='nav navbar-right'>
+            <li>User logged in as: {this.props.firstName} {this.props.lastName}</li>
+            <li>{this.props.email}</li>
+          </ul>
+        </div>
+      </nav>
     );
   }
 });
