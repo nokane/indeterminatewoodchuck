@@ -35,9 +35,25 @@ var path2 = {
   TEST_DIR: ['spec/*.js', 'spec/**/*.js']
 };
 
-gulp.task('minify-css', function() {
+gulp.task('minify-css1', function() {
+  return gulp.src('client/portal/styles/*.css')
+    .pipe(minifyCss({compatibility: 'ie8'}))
+    .pipe(gulp.dest('client/dist/portal/styles'));
+});
+
+gulp.task('minify-css2', function() {
   return gulp.src('client/login/styles/*.css')
     .pipe(minifyCss({compatibility: 'ie8'}))
+    .pipe(gulp.dest('client/dist/login/styles'));
+});
+
+gulp.task('copy-css1', function(){
+  gulp.src('client/portal/styles/*.css')
+    .pipe(gulp.dest('client/dist/portal/styles'));
+});
+
+gulp.task('copy-css2', function(){
+  gulp.src('client/login/styles/*.css')
     .pipe(gulp.dest('client/dist/login/styles'));
 });
 
@@ -59,6 +75,7 @@ gulp.task('htmlReplaceDev2', function(){
 
 gulp.task('watch1', function(){
   gulp.watch(path.HTML, [ 'htmlReplaceDev' ]);
+  gulp.watch('client/portal/styles/styles.css', [ 'copy-css1' ]);
 
   var watcher = watchify(browserify({
     entries: [path.ENTRY_POINT],
@@ -80,6 +97,7 @@ gulp.task('watch1', function(){
 
 gulp.task('watch2', function(){
   gulp.watch(path.HTML, [ 'htmlReplaceDev2' ]);
+  gulp.watch('client/login/styles/styles.css', [ 'copy-css2' ]);
 
   var watcher = watchify(browserify({
     entries: [path2.ENTRY_POINT],
@@ -197,11 +215,9 @@ gulp.task('replaceHTML2', function(){
     .pipe(gulp.dest(path2.DEST));
 });
 
-gulp.task('default', [ 'htmlReplaceDev1', 'htmlReplaceDev2', 'watch1', 'watch2' ]);
+gulp.task('default', [ 'htmlReplaceDev1', 'htmlReplaceDev2', 'copy-css1', 'copy-css2', 'watch1', 'watch2' ]);
 
-//gulp.task('production', [ 'replaceHTML', 'build' ]);
-
-gulp.task('production', [ 'replaceHTML', 'build', 'replaceHTML2', 'build2', 'minify-css' ]);
+gulp.task('production', [ 'replaceHTML', 'build', 'replaceHTML2', 'build2', 'minify-css1', 'minify-css2' ]);
 
 gulp.task('setup', [ 'write-personal-config',
     'shell-db-create',
