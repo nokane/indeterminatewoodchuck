@@ -28,12 +28,12 @@ var UserLogin = React.createClass({
 
     console.log(resData);
 
-    var xmlhttp = helper.makePostRequest("/signin", resData);
+    var xmlhttp = helper.makePostRequest("/api/users/signin", resData);
     xmlhttp.onreadystatechange = function() {
       if (xmlhttp.readyState == 4) {
-          console.log(xmlhttp.responseText);
+         var answer = JSON.parse(xmlhttp.responseText);
+         window.location.href=window.location.origin + "?token=" + answer.token;
       }
-      // window.location.href=window.location.origin + "/";
     }
   }
 })

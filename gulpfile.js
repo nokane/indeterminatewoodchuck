@@ -14,31 +14,31 @@ var minifyCss = require('gulp-minify-css');
 var env = require('gulp-env');
 
 var path = {
-  HTML: 'client/index.html',
+  HTML: 'client/portal/index.html',
   MINIFIED_OUT: 'build.min.js',
   OUT: 'build.js',
-  DEST: 'client/dist',
-  DEST_BUILD: 'client/dist/build',
-  DEST_SRC: 'client/dist/src',
-  ENTRY_POINT: './client/js/components/app.js',
+  DEST: 'client/dist/portal',
+  DEST_BUILD: 'client/dist/portal/build',
+  DEST_SRC: 'client/dist/portal/src',
+  ENTRY_POINT: './client/portal/js/components/app.js',
   TEST_DIR: ['spec/*.js', 'spec/**/*.js']
 };
 
 var path2 = {
-  HTML: 'client/login.html',
+  HTML: 'client/login/index.html',
   MINIFIED_OUT: 'login.build.min.js',
   OUT: 'login.build.js',
-  DEST: 'client/dist',
-  DEST_BUILD: 'client/dist/build',
-  DEST_SRC: 'client/dist/src',
-  ENTRY_POINT: './client/js/components/login/login.js',
+  DEST: 'client/dist/login',
+  DEST_BUILD: 'client/dist/login/build',
+  DEST_SRC: 'client/dist/login/src',
+  ENTRY_POINT: './client/login/js/components/login.js',
   TEST_DIR: ['spec/*.js', 'spec/**/*.js']
 };
 
 gulp.task('minify-css', function() {
-  return gulp.src('client/styles/*.css')
+  return gulp.src('client/login/styles/*.css')
     .pipe(minifyCss({compatibility: 'ie8'}))
-    .pipe(gulp.dest('client/dist/styles'));
+    .pipe(gulp.dest('client/dist/login/styles'));
 });
 
 gulp.task('htmlReplaceDev', function(){
