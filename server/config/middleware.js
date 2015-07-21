@@ -21,16 +21,17 @@ module.exports = function(app, express, server, io){
 
   var unless = function(path, middleware) {
     return function(req, res, next) {
-        if (path === req.path) {
-            return next();
-        } else {
-            return middleware(req, res, next);
+      for( var i = 0; i < path.length; i++ ){
+        if (path[i] === req.path) {
+          return next();
         }
+      }
+      return middleware(req, res, next);
     };
   };
 
   /* ----------PROTECTED ROUTES---------- */
-  app.use(unless('/build/build.min.js', helpers.checkAuth));
+  app.use(unless(['/src/build.js', 'build/build.min.js'], helpers.checkAuth));
   app.use(express.static(__dirname + '/../../client/dist/portal'));
   // app.use(helpers.errorLogger);
   // app.use(helpers.errorHandler);
