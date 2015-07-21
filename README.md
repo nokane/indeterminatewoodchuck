@@ -28,6 +28,7 @@
 - Postgres 4.4.0
 - Express 4.13.1
 - React 0.13.3
+- Flux 2.0.3
 
 ## Development
 
@@ -36,9 +37,7 @@
 From within the root directory:
 
 ```sh
-sudo npm install -g bower
 npm install
-bower install
 ```
 
 ### Server Environment Setup
