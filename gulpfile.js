@@ -176,7 +176,7 @@ gulp.task('write-personal-config', function(cb) {
   cb()
 });
 
-gulp.task('build', function(){
+gulp.task('build-portal', function(){
   browserify({
     entries: [path.ENTRY_POINT],
     transform: [reactify],
@@ -187,7 +187,7 @@ gulp.task('build', function(){
   .pipe(gulp.dest(path.DEST_BUILD));
 });
 
-gulp.task('build2', function(){
+gulp.task('build-login', function(){
   browserify({
     entries: [path2.ENTRY_POINT],
     transform: [reactify],
@@ -217,7 +217,7 @@ gulp.task('replaceHTML-login', function(){
 
 gulp.task('default', [ 'htmlReplaceDev-portal', 'htmlReplaceDev-login', 'copy-css-portal', 'copy-css-login', 'watch1', 'watch2' ]);
 
-gulp.task('production', [ 'replaceHTML-portal', 'build', 'replaceHTML-login', 'build2', 'minify-css-portal', 'minify-css-login' ]);
+gulp.task('production', [ 'replaceHTML-portal', 'build-portal', 'replaceHTML-login', 'build-login', 'minify-css-portal', 'minify-css-login' ]);
 
 gulp.task('setup', [ 'write-personal-config',
     'shell-db-create',
