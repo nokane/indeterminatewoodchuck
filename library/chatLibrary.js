@@ -1,4 +1,4 @@
-var Supportal = function(){
+var Supportal = function(orgName){
   this.init();
 
   // Client will need to add a button and div with these IDs for library to work
@@ -49,8 +49,8 @@ Supportal.prototype.init = function(){
 Supportal.prototype.createChatSession = function() {
   this.setupPeerConnListeners();
 
-  // will need to emit some kind of customer number?
-  this.socket.emit('customerRequest');
+  // emit 'customerRequest' with orgName passed in on object instantiation
+  this.socket.emit('customerRequest', orgName);
 
   // should we pass in company name or other identifier?
   this.socket.on('customerRoom', function(data) {
