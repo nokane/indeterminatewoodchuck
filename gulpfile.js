@@ -57,7 +57,7 @@ gulp.task('copy-css-login', function(){
     .pipe(gulp.dest('client/dist/login/styles'));
 });
 
-gulp.task('htmlReplaceDev1', function(){
+gulp.task('htmlReplaceDev-portal', function(){
   gulp.src(path.HTML)
   .pipe(htmlreplace({
     'js': 'src/' + path.OUT
@@ -74,7 +74,7 @@ gulp.task('htmlReplaceDev2', function(){
 });
 
 gulp.task('watch1', function(){
-  gulp.watch(path.HTML, [ 'htmlReplaceDev1' ]);
+  gulp.watch(path.HTML, [ 'htmlReplaceDev-portal' ]);
   gulp.watch('client/portal/styles/styles.css', [ 'copy-css-portal' ]);
 
   var watcher = watchify(browserify({
@@ -215,7 +215,7 @@ gulp.task('replaceHTML2', function(){
     .pipe(gulp.dest(path2.DEST));
 });
 
-gulp.task('default', [ 'htmlReplaceDev1', 'htmlReplaceDev2', 'copy-css-portal', 'copy-css-login', 'watch1', 'watch2' ]);
+gulp.task('default', [ 'htmlReplaceDev-portal', 'htmlReplaceDev2', 'copy-css-portal', 'copy-css-login', 'watch1', 'watch2' ]);
 
 gulp.task('production', [ 'replaceHTML', 'build', 'replaceHTML2', 'build2', 'minify-css-portal', 'minify-css-login' ]);
 
