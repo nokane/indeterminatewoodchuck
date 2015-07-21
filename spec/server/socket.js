@@ -103,6 +103,8 @@ describe('Socket.io Server Routing', function() {
   it('Should send customerRoom event to second customer if first customer disconnects before staff member connects', function(done) {
     var customerSocket1 = io.connect(socketTestURL, options);
     var customerSocket2 = io.connect(socketTestURL, options);
+    var refCustomer3;
+    var refCustomer4;
 
     customerSocket1.on('connect', function() {
       customerSocket1.emit('customerRequest', 'ShoeLocker');
@@ -119,6 +121,9 @@ describe('Socket.io Server Routing', function() {
       staffSocket1.on('queueStatus', function(queue) {
         num += 1;
         if (num === 3) {
+          staffSocket1.disconnect();
+          refCustomer3.disconnect();
+          refCustomer4.disconnect();
           done();
         }
       });
@@ -137,12 +142,37 @@ describe('Socket.io Server Routing', function() {
       var customerSocket3 = io.connect(socketTestURL, options);
       var customerSocket4 = io.connect(socketTestURL, options);
       customerSocket3.on('connect', function() {
+        refCustomer3 = customerSocket3;
         customerSocket3.emit('customerRequest', 'ShoeLocker');
       });
       customerSocket4.on('connect', function() {
+        refCustomer4 = customerSocket4;
+
         customerSocket4.emit('customerRequest', 'ShoeLocker');
       });
     });
+  });
+
+  it('Do not emit "staffRoom" to staffSocket if the staff currently in a room with no customer', function(done) {
+    var counter = 0;
+    var staffSocket3 = io.connect(socketTestURL, options);
+    staffSocket3.on('connect', function(){
+      staffSocket3.emit('staffReady', 'ShoeLocker');
+    });
+    staffSocket3.on('staffRoom', function(name) {
+      counter += 1;
+      if (counter === 1) {
+        staffSocket3.emit('staffReady', 'ShoeLocker');
+        setTimeout(function() {
+          done();
+        }, 1500);
+      }
+      if (counter === 2) {
+        console.log("Problem, ")
+        expect(Constructor).to.throw(Error);
+      }
+    });
+
   });
 
 });
