@@ -74,7 +74,7 @@ gulp.task('htmlReplaceDev2', function(){
 });
 
 gulp.task('watch1', function(){
-  gulp.watch(path.HTML, [ 'htmlReplaceDev' ]);
+  gulp.watch(path.HTML, [ 'htmlReplaceDev1' ]);
   gulp.watch('client/portal/styles/styles.css', [ 'copy-css1' ]);
 
   var watcher = watchify(browserify({
