@@ -35,7 +35,7 @@ var path2 = {
   TEST_DIR: ['spec/*.js', 'spec/**/*.js']
 };
 
-gulp.task('minify-css1', function() {
+gulp.task('minify-css-portal', function() {
   return gulp.src('client/portal/styles/*.css')
     .pipe(minifyCss({compatibility: 'ie8'}))
     .pipe(gulp.dest('client/dist/portal/styles'));
@@ -217,7 +217,7 @@ gulp.task('replaceHTML2', function(){
 
 gulp.task('default', [ 'htmlReplaceDev1', 'htmlReplaceDev2', 'copy-css1', 'copy-css2', 'watch1', 'watch2' ]);
 
-gulp.task('production', [ 'replaceHTML', 'build', 'replaceHTML2', 'build2', 'minify-css1', 'minify-css2' ]);
+gulp.task('production', [ 'replaceHTML', 'build', 'replaceHTML2', 'build2', 'minify-css-portal', 'minify-css2' ]);
 
 gulp.task('setup', [ 'write-personal-config',
     'shell-db-create',
