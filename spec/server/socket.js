@@ -110,24 +110,38 @@ describe('Socket.io Server Routing', function() {
     customerSocket2.on('connect', function() {
       customerSocket2.emit('customerRequest', 'ShoeLocker');
       customerSocket1.disconnect();
-      staffSocket1 = io.connect(socketTestURL, options)
+      staffSocket1 = io.connect(socketTestURL, options);
     });
 
     var staffSocket1 = io.connect(socketTestURL, options);
     staffSocket1.on('connect', function() {
       staffSocket1.emit('staffReady', 'ShoeLocker');
+      staffSocket1.on('queueStatus', function(queue) {
+        num += 1;
+        if (num === 3) {
+          done();
+        }
+      });
     });
+    var num = 0;
+
     staffSocket1.on('staffRoom', function(name) {
       expect(name).to.equal('room_ShoeLocker_6');
     });
     customerSocket1.on('customerRoom', function(name) {
       expect(Constructor).to.throw(Error);
     });
+
     customerSocket2.on('customerRoom', function(name) {
       expect(name).to.equal('room_ShoeLocker_6');
-      staffSocket1.disconnect();
-      customerSocket2.disconnect();
-      done();
+      var customerSocket3 = io.connect(socketTestURL, options);
+      var customerSocket4 = io.connect(socketTestURL, options);
+      customerSocket3.on('connect', function() {
+        customerSocket3.emit('customerRequest', 'ShoeLocker');
+      });
+      customerSocket4.on('connect', function() {
+        customerSocket4.emit('customerRequest', 'ShoeLocker');
+      });
     });
   });
 
