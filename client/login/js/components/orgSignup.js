@@ -77,7 +77,7 @@ var OrgSignup = React.createClass({
          console.log(xmlhttp.responseText);
          var answer = JSON.parse(xmlhttp.responseText);
          console.log(answer);
-         window.location.href=window.location.origin + "?token=" + answer.token;
+         window.location.href=window.location.origin;
       }
     }
   }

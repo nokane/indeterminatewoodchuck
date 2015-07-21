@@ -4,7 +4,7 @@ var helper = require('./helper.js');
 var OrgLogin = React.createClass({
   render: function() {
     return (
-      <div>      
+      <div>
         <h2>Join Existing Organization</h2>
         <ul className="form-fields">
             <label>Business Name</label>
@@ -31,14 +31,14 @@ var OrgLogin = React.createClass({
       businessName     : this.refs.businessname.getDOMNode().value,
       businessPassword : this.refs.businesspassword.getDOMNode().value
     }
-  
+
     console.log(resData);
 
     var xmlhttp = helper.makePostRequest("/api/users/signup", resData);
     xmlhttp.onreadystatechange = function() {
       if (xmlhttp.readyState == 4) {
          var answer = JSON.parse(xmlhttp.responseText);
-         window.location.href=window.location.origin + "?token=" + answer.token;
+         window.location.href=window.location.origin;
       }
     }
   }

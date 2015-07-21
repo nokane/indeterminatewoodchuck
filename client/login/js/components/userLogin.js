@@ -4,7 +4,7 @@ var helper = require('./helper.js');
 var UserLogin = React.createClass({
   render: function() {
     return (
-      <div>      
+      <div>
         <ul className="form-fields">
             <label>Email</label>
             <input className='shortfield' type="email" ref="email" />
@@ -32,7 +32,7 @@ var UserLogin = React.createClass({
     xmlhttp.onreadystatechange = function() {
       if (xmlhttp.readyState == 4) {
          var answer = JSON.parse(xmlhttp.responseText);
-         window.location.href=window.location.origin + "?token=" + answer.token;
+         window.location.href=window.location.origin;
       }
     }
   }
