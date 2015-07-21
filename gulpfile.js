@@ -35,13 +35,29 @@ var path2 = {
   TEST_DIR: ['spec/*.js', 'spec/**/*.js']
 };
 
-gulp.task('minify-css', function() {
+gulp.task('minify-css-portal', function() {
+  return gulp.src('client/portal/styles/*.css')
+    .pipe(minifyCss({compatibility: 'ie8'}))
+    .pipe(gulp.dest('client/dist/portal/styles'));
+});
+
+gulp.task('minify-css-login', function() {
   return gulp.src('client/login/styles/*.css')
     .pipe(minifyCss({compatibility: 'ie8'}))
     .pipe(gulp.dest('client/dist/login/styles'));
 });
 
-gulp.task('htmlReplaceDev', function(){
+gulp.task('copy-css-portal', function(){
+  gulp.src('client/portal/styles/*.css')
+    .pipe(gulp.dest('client/dist/portal/styles'));
+});
+
+gulp.task('copy-css-login', function(){
+  gulp.src('client/login/styles/*.css')
+    .pipe(gulp.dest('client/dist/login/styles'));
+});
+
+gulp.task('htmlReplaceDev-portal', function(){
   gulp.src(path.HTML)
   .pipe(htmlreplace({
     'js': 'src/' + path.OUT
@@ -49,7 +65,7 @@ gulp.task('htmlReplaceDev', function(){
     .pipe(gulp.dest(path.DEST));
 });
 
-gulp.task('htmlReplaceDev2', function(){
+gulp.task('htmlReplaceDev-login', function(){
   gulp.src(path2.HTML)
   .pipe(htmlreplace({
     'js': 'src/' + path2.OUT
@@ -57,8 +73,9 @@ gulp.task('htmlReplaceDev2', function(){
     .pipe(gulp.dest(path2.DEST));
 });
 
-gulp.task('watch', function(){
-  gulp.watch(path.HTML, [ 'htmlReplaceDev' ]);
+gulp.task('watch-portal', function(){
+  gulp.watch(path.HTML, [ 'htmlReplaceDev-portal' ]);
+  gulp.watch('client/portal/styles/styles.css', [ 'copy-css-portal' ]);
 
   var watcher = watchify(browserify({
     entries: [path.ENTRY_POINT],
@@ -71,11 +88,33 @@ gulp.task('watch', function(){
     watcher.bundle()
       .pipe(source(path.OUT))
       .pipe(gulp.dest(path.DEST_SRC));
-      console.log('Updated!');
+      console.log('Updated1!');
   })
     .bundle()
     .pipe(source(path.OUT))
     .pipe(gulp.dest(path.DEST_SRC));
+});
+
+gulp.task('watch-login', function(){
+  gulp.watch(path.HTML, [ 'htmlReplaceDev-login' ]);
+  gulp.watch('client/login/styles/styles.css', [ 'copy-css-login' ]);
+
+  var watcher = watchify(browserify({
+    entries: [path2.ENTRY_POINT],
+    transform: [reactify],
+    debug: true,
+    cache: {}, packageCache: {}, fullPaths: true
+  }));
+
+  return watcher.on('update', function(){
+    watcher.bundle()
+      .pipe(source(path2.OUT))
+      .pipe(gulp.dest(path2.DEST_SRC));
+      console.log('Updated2!');
+  })
+    .bundle()
+    .pipe(source(path2.OUT))
+    .pipe(gulp.dest(path2.DEST_SRC));
 });
 
 gulp.task('test', function(){
@@ -137,7 +176,7 @@ gulp.task('write-personal-config', function(cb) {
   cb()
 });
 
-gulp.task('build', function(){
+gulp.task('build-portal', function(){
   browserify({
     entries: [path.ENTRY_POINT],
     transform: [reactify],
@@ -148,7 +187,7 @@ gulp.task('build', function(){
   .pipe(gulp.dest(path.DEST_BUILD));
 });
 
-gulp.task('build2', function(){
+gulp.task('build-login', function(){
   browserify({
     entries: [path2.ENTRY_POINT],
     transform: [reactify],
@@ -160,7 +199,7 @@ gulp.task('build2', function(){
 });
 
 
-gulp.task('replaceHTML', function(){
+gulp.task('replaceHTML-portal', function(){
   gulp.src(path.HTML)
     .pipe(htmlreplace({
       'js': 'build/' + path.MINIFIED_OUT
@@ -168,7 +207,7 @@ gulp.task('replaceHTML', function(){
     .pipe(gulp.dest(path.DEST));
 });
 
-gulp.task('replaceHTML2', function(){
+gulp.task('replaceHTML-login', function(){
   gulp.src(path2.HTML)
     .pipe(htmlreplace({
       'js': 'build/' + path2.MINIFIED_OUT
@@ -176,13 +215,27 @@ gulp.task('replaceHTML2', function(){
     .pipe(gulp.dest(path2.DEST));
 });
 
-gulp.task('default', [ 'watch' ]);
+gulp.task('default', [
+  'htmlReplaceDev-portal',
+  'htmlReplaceDev-login',
+  'copy-css-portal',
+  'copy-css-login',
+  'watch-portal',
+  'watch-login'
+]);
 
-//gulp.task('production', [ 'replaceHTML', 'build' ]);
+gulp.task('production', [
+  'replaceHTML-portal',
+  'build-portal',
+  'replaceHTML-login',
+  'build-login',
+  'minify-css-portal',
+  'minify-css-login'
+]);
 
-gulp.task('production', [ 'replaceHTML', 'build', 'replaceHTML2', 'build2', 'minify-css' ]);
-
-gulp.task('setup', [ 'write-personal-config',
-    'shell-db-create',
-    'shell-local-migrate',
-    'shell-test-migrate' ]);
+gulp.task('setup', [
+  'write-personal-config',
+  'shell-db-create',
+  'shell-local-migrate',
+  'shell-test-migrate'
+]);
