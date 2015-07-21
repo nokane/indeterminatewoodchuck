@@ -1,4 +1,3 @@
-var appActions = require('./appActions');
 var request = require('superagent');
 
 var apiUtil = {
@@ -7,16 +6,9 @@ var apiUtil = {
     var path = '/api/getEmployeeData';
     var token = 'token';
 
-    request
+    return request
       .get(path)
-      .set('x-access-token', token)
-      .end(function(err, res) {
-        if (err) {
-          console.log('Error with getEmployeeData: ', err);
-          return;
-        }
-        appActions.setEmployeeData(res.body);
-      });
+      .set('x-access-token', token);
   }
 };
 
