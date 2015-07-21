@@ -1,5 +1,6 @@
 var db = require('../models/index.js');
 var jwt = require('jsonwebtoken');
+var helpers = require('../config/helpers.js');
 
 module.exports = {
   signin: function(req, res){
@@ -9,8 +10,7 @@ module.exports = {
       } else {
         user.checkPassword(req.body.password, function(valid){
           if( valid ){
-            var token = jwt.sign(user, 'disdasecretyo', { expiresInMinutes: 20 });
-            res.json({ success: "true", message: 'Enjoy your token!', token: token });
+            helpers.createToken(user, res);
           } else {
             res.json({ success: "false", message: 'Invalid password.' });
           }
@@ -38,8 +38,7 @@ module.exports = {
                   password_hash: req.body.password
                 });
                 orgUser.save().then(function(newUser){
-                  var token = jwt.sign(newUser, 'disdasecretyo', { expiresInMinutes: 20 });
-                  res.json({ success: "true", message: 'Enjoy your token!', token: token });
+                  helpers.createToken(newUser, res);
                 });
               }
             });
@@ -82,8 +81,7 @@ module.exports = {
               });
               userBuild.save().then(function(newUser){
                 console.log('New org and user have been built.');
-                var token = jwt.sign(newUser, 'disdasecretyo', { expiresInMinutes: 20 });
-                res.json({ success: "true", message: 'Enjoy your token!', token: token });
+                helpers.createToken(newUser, res);
               });
             });
           }

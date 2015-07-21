@@ -27,6 +27,10 @@ module.exports = {
     }
   },
 
+  createToken: function(user, res){
+    var token = jwt.sign(user, 'disdasecretyo', { expiresInMinutes: 20 });
+    res.json({ success: "true", message: 'Enjoy your token!', token: token });
+  }
   // errorLogger: function(err, req, res, next){
   //   // log the error then send it to the next middleware in
   //   // middleware.js
