@@ -8,7 +8,7 @@ socket.staff = {};
 
 socket.socketroute = function(io, user) {
 
-  var queueStatus = function(orgName, type) {
+  var queueStatus = function(orgName) {
     for (var staffId in socket.staff[orgName]) {
       io.to(staffId).emit('queueStatus', socket.customerQueue[orgName]);
     }
@@ -31,7 +31,7 @@ socket.socketroute = function(io, user) {
       var customerId = socket.customerQueue[orgName].shift();
       io.to(customerId).emit('customerRoom', socket.rooms[orgName].shift());
     }
-    queueStatus(orgName, 'staffReady');
+    queueStatus(orgName);
   });
 
   user.on('customerRequest', function(orgName) {
@@ -43,7 +43,7 @@ socket.socketroute = function(io, user) {
       io.to(user.id).emit('customerRoom', socket.rooms[orgName].shift());
       socket.customerQueue[orgName].shift();
     }
-    queueStatus(orgName, 'customerRequest');
+    queueStatus(orgName);
   });
 
   user.on('disconnect', function() {
@@ -58,7 +58,7 @@ socket.socketroute = function(io, user) {
       var customerIndex = socket.customerQueue[user.organizationName].indexOf(user.id);
       if (customerIndex !== -1) {
         socket.customerQueue[user.organizationName].splice(customerIndex, 1);
-        queueStatus(user.organizationName, 'customer Disconnect');
+        queueStatus(user.organizationName);
       }
     }
   });
