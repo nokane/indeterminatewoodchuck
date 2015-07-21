@@ -71,14 +71,23 @@ socket.socketroute = function(io, user) {
     to join.
   */
   user.on('staffReady', function(orgName) {
+
+    socket.staff[orgName] = socket.staff[orgName] || {};
+    socket.rooms[orgName] = socket.rooms[orgName] || [];
+    if (socket.staff[orgName][user.id]) {
+      var currentRoom = socket.staff[orgName][user.id];
+      var roomIndex = socket.rooms[orgName].indexOf(currentRoom);
+      if (roomIndex != -1) {
+        return;
+      }
+    }
     user.category = "staff";
     socket.num += 1;
     user.organizationName = orgName;
+
     var roomname = "room_" + orgName + "_" + socket.num;
-    socket.rooms[orgName] = socket.rooms[orgName] || []; 
     socket.rooms[orgName].push(roomname);
 
-    socket.staff[orgName] = socket.staff[orgName] || {};
     socket.staff[orgName][user.id] = roomname;
     io.to(user.id).emit('staffRoom', roomname);
 
