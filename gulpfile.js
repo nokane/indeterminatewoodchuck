@@ -215,11 +215,27 @@ gulp.task('replaceHTML-login', function(){
     .pipe(gulp.dest(path2.DEST));
 });
 
-gulp.task('default', [ 'htmlReplaceDev-portal', 'htmlReplaceDev-login', 'copy-css-portal', 'copy-css-login', 'watch-portal', 'watch-login' ]);
+gulp.task('default', [
+  'htmlReplaceDev-portal',
+  'htmlReplaceDev-login',
+  'copy-css-portal',
+  'copy-css-login',
+  'watch-portal',
+  'watch-login'
+]);
 
-gulp.task('production', [ 'replaceHTML-portal', 'build-portal', 'replaceHTML-login', 'build-login', 'minify-css-portal', 'minify-css-login' ]);
+gulp.task('production', [
+  'replaceHTML-portal',
+  'build-portal',
+  'replaceHTML-login',
+  'build-login',
+  'minify-css-portal',
+  'minify-css-login'
+]);
 
-gulp.task('setup', [ 'write-personal-config',
-    'shell-db-create',
-    'shell-local-migrate',
-    'shell-test-migrate' ]);
+gulp.task('setup', [
+  'write-personal-config',
+  'shell-db-create',
+  'shell-local-migrate',
+  'shell-test-migrate'
+]);
