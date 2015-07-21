@@ -6,8 +6,8 @@ var EventEmitter = require('events').EventEmitter;
 var CHANGE = 'CHANGE';
 
 var _state = {
-  room: '',
-  orgName: '',
+  roomName: '',
+  orgName: 'shoelocker',
   employeeId: '',
   employeeFirstName: '',
   employeeLastName: '',
@@ -15,8 +15,8 @@ var _state = {
   employeeEmail: ''
 };
 
-var setRoom = function(room) {
-  _state.room = room;
+var setRoom = function(roomName) {
+  _state.roomName = roomName;
 };
 
 var setEmployeeData = function(data) {
