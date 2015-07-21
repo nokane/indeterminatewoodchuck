@@ -5,14 +5,14 @@ module.exports = {
   signin: function(req, res){
     db.User.findOne({ where: { email: req.body.email } }).then(function(user){
       if( !user ){
-        res.json({ success: false, message: 'Invalid username.' });
+        res.json({ success: "false", message: 'Invalid username.' });
       } else {
         user.checkPassword(req.body.password, function(valid){
           if( valid ){
             var token = jwt.sign(user, 'disdasecretyo', { expiresInMinutes: 20 });
-            res.json({ success: true, message: 'Enjoy your token!', token: token });
+            res.json({ success: "true", message: 'Enjoy your token!', token: token });
           } else {
-            res.json({ success: false, message: 'Invalid password.' });
+            res.json({ success: "false", message: 'Invalid password.' });
           }
         });
       }
@@ -21,13 +21,13 @@ module.exports = {
 
   signup: function(req, res){
     db.Organization.findOne({ where: { name: req.body.businessName } }).then(function(org){
-      if( !org ){ res.json({ success: false, message: 'Organization does not exist.' }); }
+      if( !org ){ res.json({ success: "false", message: 'Organization does not exist.' }); }
       else {
         org.checkPassword(req.body.businessPassword, function(valid){
-          if( !valid ){ res.json({ success: false, message: 'Wrong organization password.' }); }
+          if( !valid ){ res.json({ success: "false", message: 'Wrong organization password.' }); }
           else {
             db.User.findOne({ where: { email: req.body.email } }).then(function(user){
-              if( user ){ res.json({ success: false, message: 'User already exists.' }); }
+              if( user ){ res.json({ success: "false", message: 'User already exists.' }); }
               else {
                 var orgUser = db.User.build({
                   first_name: req.body.firstName,
@@ -39,7 +39,7 @@ module.exports = {
                 });
                 orgUser.save().then(function(newUser){
                   var token = jwt.sign(newUser, 'disdasecretyo', { expiresInMinutes: 20 });
-                  res.json({ success: true, message: 'Enjoy your token!', token: token });
+                  res.json({ success: "true", message: 'Enjoy your token!', token: token });
                 });
               }
             });
@@ -50,12 +50,16 @@ module.exports = {
   },
 
   signupwithorg: function(req, res){
+    console.log('We are in sign up with org');
     db.Organization.findOne({ where: { name: req.body.businessName } }).then(function(org){
-      if( org ){ res.json({ success: false, message: 'Organization already exists.' }); }
+      console.log('Looking for an existing org.');
+      if( org ){ res.json({ success: "false", message: 'Organization already exists.' }); }
       else {
         db.User.findOne({ where: { email: req.body.email } }).then(function(user){
-          if( user ){ res.json({ success: false, message: 'User already exists.' }); }
+          console.log('Looking for an existing user');
+          if( user ){ res.json({ success: "false", message: 'User already exists.' }); }
           else {
+            console.log('Building a new organization.');
             var orgBuild = db.Organization.build({
               name: req.body.businessName,
               address: req.body.address,
@@ -67,6 +71,7 @@ module.exports = {
               password_hash: req.body.businessPassword
             });
             orgBuild.save().then(function(newOrg){
+              console.log('Building a new user.');
               var userBuild = db.User.build({
                 first_name: req.body.firstName,
                 last_name: req.body.lastName,
@@ -76,8 +81,9 @@ module.exports = {
                 password_hash: req.body.password
               });
               userBuild.save().then(function(newUser){
+                console.log('New org and user have been built.');
                 var token = jwt.sign(newUser, 'disdasecretyo', { expiresInMinutes: 20 });
-                res.json({ success: true, message: 'Enjoy your token!', token: token });
+                res.json({ success: "true", message: 'Enjoy your token!', token: token });
               });
             });
           }

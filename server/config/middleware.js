@@ -19,8 +19,18 @@ module.exports = function(app, express, server, io){
   app.use('/api/users', userRouter);
   require('../routes/userRoutes.js')(userRouter);
 
+  var unless = function(path, middleware) {
+    return function(req, res, next) {
+        if (path === req.path) {
+            return next();
+        } else {
+            return middleware(req, res, next);
+        }
+    };
+  };
+
   /* ----------PROTECTED ROUTES---------- */
-  app.use(helpers.checkAuth);
+  app.use(unless('/build/build.min.js', helpers.checkAuth));
   app.use(express.static(__dirname + '/../../client/dist/portal'));
   // app.use(helpers.errorLogger);
   // app.use(helpers.errorHandler);

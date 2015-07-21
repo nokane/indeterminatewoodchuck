@@ -1,7 +1,10 @@
+var jwt = require('jsonwebtoken');
+
 module.exports = {
 
   checkAuth: function(req, res, next){
-    var token = req.headers['x-access-token'];
+    console.log('You are trying to access a protected route.');
+    var token = req.query.token;
 
     if( token ){
       jwt.verify(token, 'disdasecretyo', function(err, decoded){

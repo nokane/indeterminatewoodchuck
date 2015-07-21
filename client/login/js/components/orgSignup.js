@@ -71,12 +71,14 @@ var OrgSignup = React.createClass({
 
     console.log(resData);
 
-    var xmlhttp = helper.makePostRequest("/signupwithorg", resData);
+    var xmlhttp = helper.makePostRequest("/api/users/signupwithorg", resData);
     xmlhttp.onreadystatechange = function() {
       if (xmlhttp.readyState == 4) {
-          console.log(xmlhttp.responseText);
+         console.log(xmlhttp.responseText);
+         var answer = JSON.parse(xmlhttp.responseText);
+         console.log(answer);
+         window.location.href=window.location.origin + "?token=" + answer.token;
       }
-      // window.location.href=window.location.origin + "/";
     }
   }
 });
