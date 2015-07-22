@@ -120,6 +120,10 @@ socket.socketroute = function(io, user) {
     user.organizationName = orgName;
     socket.customerQueue[orgName] = socket.customerQueue[orgName] || []; 
 
+    /*
+      If the customer emits 'customerRequest' when they are already in the customerQueue,
+      do nothing
+    */
     if (socket.customerQueue[orgName].indexOf(user.id) !== -1) {
       return;
     }
