@@ -71,14 +71,28 @@ socket.socketroute = function(io, user) {
     to join.
   */
   user.on('staffReady', function(orgName) {
+
+    socket.staff[orgName] = socket.staff[orgName] || {};
+    socket.rooms[orgName] = socket.rooms[orgName] || [];
+
+    /*
+      Do not create a new room if the staff member emits a 'staffReady' event when they are
+      already in a room and are available to help a customer
+    */
+    if (socket.staff[orgName][user.id]) {
+      var currentRoom = socket.staff[orgName][user.id];
+      if (socket.rooms[orgName].indexOf(currentRoom) !== -1) {
+        return;
+      }
+    }
+
     user.category = "staff";
     socket.num += 1;
     user.organizationName = orgName;
+
     var roomname = "room_" + orgName + "_" + socket.num;
-    socket.rooms[orgName] = socket.rooms[orgName] || []; 
     socket.rooms[orgName].push(roomname);
 
-    socket.staff[orgName] = socket.staff[orgName] || {};
     socket.staff[orgName][user.id] = roomname;
     io.to(user.id).emit('staffRoom', roomname);
 
@@ -105,6 +119,15 @@ socket.socketroute = function(io, user) {
     user.category = "customer";
     user.organizationName = orgName;
     socket.customerQueue[orgName] = socket.customerQueue[orgName] || []; 
+
+    /*
+      If the customer emits 'customerRequest' when they are already in the customerQueue,
+      do nothing
+    */
+    if (socket.customerQueue[orgName].indexOf(user.id) !== -1) {
+      return;
+    }
+
     socket.customerQueue[orgName].push(user.id);
 
     /*
