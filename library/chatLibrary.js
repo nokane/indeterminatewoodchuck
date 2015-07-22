@@ -1,5 +1,6 @@
 var Supportal = function(orgName){
   this.init();
+  this.orgName = orgName;
 
   // Client will need to add a button and div with these IDs for library to work
   this.chatButton = document.getElementById('supportal-init-button');
@@ -50,7 +51,7 @@ Supportal.prototype.createChatSession = function() {
   this.setupPeerConnListeners();
 
   // emit 'customerRequest' with orgName passed in on object instantiation
-  this.socket.emit('customerRequest', orgName);
+  this.socket.emit('customerRequest', this.orgName);
 
   // should we pass in company name or other identifier?
   this.socket.on('customerRoom', function(data) {
