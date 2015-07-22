@@ -56,4 +56,13 @@ describe('Employee Data Controller', function(){
       });
   });
 
+  it('should redirect to the login page if no cookie is provided', function(done){
+    request(app)
+      .post('/api/employeeData')
+      .end(function(err, res){
+        expect(res.header['location']).to.include('/login');
+        done();
+      });
+  });
+
 });
