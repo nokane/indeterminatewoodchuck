@@ -74,6 +74,11 @@ socket.socketroute = function(io, user) {
 
     socket.staff[orgName] = socket.staff[orgName] || {};
     socket.rooms[orgName] = socket.rooms[orgName] || [];
+
+    /*
+      Do not create a new room if the staff member emits a 'staffReady' event when they are
+      already in a room and are available to help a customer
+    */
     if (socket.staff[orgName][user.id]) {
       var currentRoom = socket.staff[orgName][user.id];
       var roomIndex = socket.rooms[orgName].indexOf(currentRoom);
