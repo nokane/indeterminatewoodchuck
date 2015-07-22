@@ -81,11 +81,11 @@ socket.socketroute = function(io, user) {
     */
     if (socket.staff[orgName][user.id]) {
       var currentRoom = socket.staff[orgName][user.id];
-      var roomIndex = socket.rooms[orgName].indexOf(currentRoom);
-      if (roomIndex != -1) {
+      if (socket.rooms[orgName].indexOf(currentRoom) !== -1) {
         return;
       }
     }
+
     user.category = "staff";
     socket.num += 1;
     user.organizationName = orgName;
