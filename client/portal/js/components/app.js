@@ -36,7 +36,7 @@ var Main = React.createClass({
   },
 
   render: function() {
-    var orgName = this.state.orgName;
+    var web_name = this.state.web_name;
     var firstName = this.state.employeeFirstName;
     var lastName = this.state.employeeLastName;
     var email = this.state.employeeEmail;
@@ -45,7 +45,7 @@ var Main = React.createClass({
       <div>
         <NavBar firstName={firstName} lastName={lastName} email={email} />
         <VideoChat />
-        <Queue orgName={orgName} />
+        <Queue web_name={web_name} />
         <TextChat />
       </div>
     );

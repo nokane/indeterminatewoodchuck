@@ -21,8 +21,8 @@ socket.on('queueStatus', function(data) {
 });
 
 var socketActions = {
-  staffReady: function(orgName) {
-    socket.emit('staffReady', orgName);
+  staffReady: function(web_name) {
+    socket.emit('staffReady', web_name);
   }
 };
 
