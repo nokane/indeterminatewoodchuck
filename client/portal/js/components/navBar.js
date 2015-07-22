@@ -9,7 +9,8 @@ var NavBar = React.createClass({
         <div className='navbar-collapse collapse'>
           <ul className='nav navbar-right'>
             <li>User logged in as: {this.props.firstName} {this.props.lastName}</li>
-            <li>{this.props.email}</li>
+            <li>Email: {this.props.email}</li>
+            <li>Organization: {this.props.web_name}</li>
           </ul>
         </div>
       </nav>
