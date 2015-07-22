@@ -7,7 +7,7 @@ var CHANGE = 'CHANGE';
 
 var _state = {
   roomName: '',
-  orgName: 'ShoeLocker',
+  web_name: 'ShoeLocker',
   employeeId: '80',
   employeeFirstName: 'Jerry',
   employeeLastName: 'Rice',

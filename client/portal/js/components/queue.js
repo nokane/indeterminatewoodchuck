@@ -20,8 +20,8 @@ var Queue = React.createClass({
   },
 
   handleStaffReady: function(){
-    var orgName = this.props.orgName;
-    socketActions.staffReady(orgName);
+    var web_name = this.props.web_name;
+    socketActions.staffReady(web_name);
   },
 
   render: function(){
