@@ -43,7 +43,7 @@ var Main = React.createClass({
 
     return (
       <div>
-        <NavBar firstName={firstName} lastName={lastName} email={email} />
+        <NavBar firstName={firstName} lastName={lastName} email={email} web_name={web_name} />
         <VideoChat />
         <Queue web_name={web_name} />
         <TextChat />
