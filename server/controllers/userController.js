@@ -49,16 +49,12 @@ module.exports = {
   },
 
   signupwithorg: function(req, res){
-    console.log('We are in sign up with org');
     db.Organization.findOne({ where: { name: req.body.businessName } }).then(function(org){
-      console.log('Looking for an existing org.');
       if( org ){ res.json({ success: "false", message: 'Organization already exists.' }); }
       else {
         db.User.findOne({ where: { email: req.body.email } }).then(function(user){
-          console.log('Looking for an existing user');
           if( user ){ res.json({ success: "false", message: 'User already exists.' }); }
           else {
-            console.log('Building a new organization.');
             var orgBuild = db.Organization.build({
               name: req.body.businessName,
               address: req.body.address,
@@ -70,7 +66,6 @@ module.exports = {
               password_hash: req.body.businessPassword
             });
             orgBuild.save().then(function(newOrg){
-              console.log('Building a new user.');
               var userBuild = db.User.build({
                 first_name: req.body.firstName,
                 last_name: req.body.lastName,
@@ -80,7 +75,6 @@ module.exports = {
                 password_hash: req.body.password
               });
               userBuild.save().then(function(newUser){
-                console.log('New org and user have been built.');
                 helpers.createToken(newUser, res);
               });
             });
