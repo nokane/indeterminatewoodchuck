@@ -25,7 +25,7 @@ module.exports = function(app, express, server, io){
 
   // protected api routes
   app.use('/api/employeeData', employeeDataRouter);
-  app.use('/api/employeeData', helpers.checkAuth);
+  employeeDataRouter.use(helpers.checkAuth);
   require('../routes/employeeDataRoutes.js')(employeeDataRouter);
 
   var unless = function(path, middleware) {
@@ -45,8 +45,6 @@ module.exports = function(app, express, server, io){
   // app.use(helpers.errorLogger);
   // app.use(helpers.errorHandler);
   /* ----------PROTECTED ROUTES---------- */
-
-  // protected api routes
 
   server.socketroute = require('./socketroute.js');
   io.on('connection', function(socket) {
