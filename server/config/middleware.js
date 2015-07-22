@@ -6,6 +6,7 @@ var cookieParser = require('cookie-parser');
 module.exports = function(app, express, server, io){
 
   var userRouter = express.Router(); // user sign-in and user sign-out
+  var employeeDataRouter = express.Router(); // api for employee data
 
   // url encoding, json parser, and terminal logs
   app.use(bodyParser.urlencoded({extended: true}));
@@ -21,6 +22,11 @@ module.exports = function(app, express, server, io){
   // unprotected api routes
   app.use('/api/users', userRouter);
   require('../routes/userRoutes.js')(userRouter);
+
+  // protected api routes
+  app.use('/api/employeeData', employeeDataRouter);
+  employeeDataRouter.use(helpers.checkAuth);
+  require('../routes/employeeDataRoutes.js')(employeeDataRouter);
 
   var unless = function(path, middleware) {
     return function(req, res, next) {
