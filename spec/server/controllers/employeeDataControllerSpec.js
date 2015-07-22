@@ -35,7 +35,7 @@ describe('Employee Data Controller', function(){
   });
 
   it('should get a cookie upon authentication and use it to request employeeData', function(done){
-    request.agent(app)
+    request(app)
       .post('/api/users/signin')
       .send({ email: 'governator@california.gov', password: 'terminator' })
       .end(function(err, res){
