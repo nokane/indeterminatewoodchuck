@@ -74,6 +74,7 @@ socket.socketroute = function(io, user) {
 
     socket.staff[orgName] = socket.staff[orgName] || {};
     socket.rooms[orgName] = socket.rooms[orgName] || [];
+    socket.customerQueue[orgName] = socket.customerQueue[orgName] || []; 
 
     /*
       Do not create a new room if the staff member emits a 'staffReady' event when they are

@@ -13,6 +13,13 @@ socket.on('staffRoom', function(data) {
   icecommActions.setIcecommRoom(data);
 });
 
+socket.on('queueStatus', function(data) {
+  AppDispatcher.dispatch({
+    actionType: appConstants.QUEUE_STATUS,
+    data: data
+  });
+});
+
 var socketActions = {
   staffReady: function(orgName) {
     socket.emit('staffReady', orgName);
