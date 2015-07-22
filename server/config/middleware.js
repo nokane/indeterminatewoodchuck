@@ -26,7 +26,7 @@ module.exports = function(app, express, server, io){
   // protected api routes
   app.use('/api/employeeData', employeeDataRouter);
   app.use('/api/employeeData', helpers.checkAuth);
-  require('../routes/employeeDataRoutes')(employeeDataRouter);
+  require('../routes/employeeDataRoutes.js')(employeeDataRouter);
 
   var unless = function(path, middleware) {
     return function(req, res, next) {
