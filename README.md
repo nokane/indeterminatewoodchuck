@@ -1,6 +1,6 @@
-# Project Name
+# Supportal
 
-> Pithy project description
+> A video customer support system for e-commerce businesses.
 
 ## Team
 
@@ -24,11 +24,11 @@
 
 ## Requirements
 
-- Node 0.10.x
-- Redis 2.6.x
-- Postgresql 9.1.x
-- etc
-- etc
+- Node 0.12.7
+- Postgres 4.4.0
+- Express 4.13.1
+- React 0.13.3
+- Flux 2.0.3
 
 ## Development
 
@@ -37,9 +37,7 @@
 From within the root directory:
 
 ```sh
-sudo npm install -g bower
 npm install
-bower install
 ```
 
 ### Server Environment Setup
@@ -67,7 +65,7 @@ Run the below command:
 gulp setup —user MAC_USERNAME
 ```
 
-Make sure to switch out MAC_USERNAME with your computer's Mac username
+Make sure to switch out MAC_USERNAME with your Mac's username
 
 ### Roadmap
 
