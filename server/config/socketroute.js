@@ -119,6 +119,11 @@ socket.socketroute = function(io, user) {
     user.category = "customer";
     user.organizationName = orgName;
     socket.customerQueue[orgName] = socket.customerQueue[orgName] || []; 
+
+    if (socket.customerQueue[orgName].indexOf(user.id) !== -1) {
+      return;
+    }
+
     socket.customerQueue[orgName].push(user.id);
 
     /*
