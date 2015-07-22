@@ -63,7 +63,6 @@ describe('User Controller', function(){
       .end(function(err, res){
         expect(res.body.success).to.equal('true');
         expect(res.body.message).to.equal('Enjoy your token!');
-        expect(res.body.token).to.exist;
         done();
       });
   });
@@ -125,7 +124,6 @@ describe('User Controller', function(){
       .end(function(err, res){
         expect(res.body.success).to.equal('true');
         expect(res.body.message).to.equal('Enjoy your token!');
-        expect(res.body.token).to.exist;
         done();
       });
   });
@@ -173,7 +171,6 @@ describe('User Controller', function(){
       .end(function(err, res){
         expect(res.body.success).to.equal('true');
         expect(res.body.message).to.equal('Enjoy your token!');
-        expect(res.body.token).to.exist;
         done();
       });
   });
