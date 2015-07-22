@@ -5,7 +5,6 @@ module.exports = {
   checkAuth: function(req, res, next){
     console.log('You are trying to access a protected route.');
     var token = req.cookies.accessToken;
-    console.log('This is the token: ', token);
 
     if( token ){
       jwt.verify(token, 'disdasecretyo', function(err, decoded){
@@ -31,18 +30,5 @@ module.exports = {
     res.cookie('accessToken', token, { maxAge: 12000000 });
     res.json({ success: "true", message: 'Enjoy your token!' });
   }
-  // errorLogger: function(err, req, res, next){
-  //   // log the error then send it to the next middleware in
-  //   // middleware.js
-  //   console.err(err.stack);
-  //   next(err);
-  // },
-  //
-  // errorHandler: function(err, req, res, next){
-  //   // log the error then send it to the next middleware in
-  //   // middleware.js
-  //   console.error(err.stack);
-  //   next(err);
-  // }
 
 };
