@@ -34,19 +34,26 @@ describe('Employee Data Controller', function(){
     });
   });
 
-  it('should be able to get employee data when a user is logged in', function(done){
-
+  it('should get a cookie upon authentication and use it to request employeeData', function(done){
     request.agent(app)
       .post('/api/users/signin')
       .send({ email: 'governator@california.gov', password: 'terminator' })
       .end(function(err, res){
-        expect(res.headers['set-cookie']).to.exist;
-        done();
+        var cookie = res.headers['set-cookie'];
+        expect(cookie).to.exist;
+        request(app)
+          .post('/api/employeeData')
+          .set('Cookie', cookie)
+          .end(function(err, res){
+            expect(res.body.web_name).to.equal('Skynet');
+            expect(res.body.employeeId).to.equal(1);
+            expect(res.body.employeeFirstName).to.equal('Arnold');
+            expect(res.body.employeeLastName).to.equal('Schwarzennegger');
+            expect(res.body.employeeTitle).to.equal('T-1000');
+            expect(res.body.employeeEmail).to.equal('governator@california.gov');
+            done();
+          });
       });
-      // get the cookie
-      // attach the cookie to a request
-      // send request to getEmployeeData
-        // expect our json object
   });
 
 });
