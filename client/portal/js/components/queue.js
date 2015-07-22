@@ -25,12 +25,21 @@ var Queue = React.createClass({
   },
 
   render: function(){
+    var customerQueue = this.state.customerQueue;
+
+    var customerCount = <div>There are {customerQueue.length} users in the queue.</div>;
+
+    var queuedCustomers = this.state.customerQueue.map(function(customerId, index) {
+      return (<div>Customer {index}: {customerId}</div>);
+    });
+
     return (
       <div>
         <div>
-
+          {customerCount}
+          {queuedCustomers}
         </div>
-        <button onClick={ this.handleStaffReady }>This is the queue button</button>
+        <button onClick={ this.handleStaffReady }>Chat with next user</button>
       </div>
     );
   }
