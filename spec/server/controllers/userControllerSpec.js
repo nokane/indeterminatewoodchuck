@@ -41,6 +41,7 @@ describe('User Controller', function(){
       .end(function(err, res){
         expect(res.body.success).to.equal('false');
         expect(res.body.message).to.equal('Invalid username.');
+        expect(res.headers['set-cookie']).to.not.exist;
         done();
       });
   });
@@ -51,18 +52,20 @@ describe('User Controller', function(){
       .send({ email: 'governator@california.gov', password: 'terminate' })
       .end(function(err, res){
         expect(res.body.success).to.equal('false');
-        expect(res.body.message).to.equal('Invalid password.')
+        expect(res.body.message).to.equal('Invalid password.');
+        expect(res.headers['set-cookie']).to.not.exist;
         done();
       });
   });
 
-  it('Should issue a token upon successful sign in', function(done){
+  it('Should issue token on a cookie upon successful sign in', function(done){
     request(app)
       .post('/api/users/signin')
       .send({ email: 'governator@california.gov', password: 'terminator' })
       .end(function(err, res){
         expect(res.body.success).to.equal('true');
         expect(res.body.message).to.equal('Enjoy your token!');
+        expect(res.headers['set-cookie']).to.exist;
         done();
       });
   });
@@ -76,6 +79,7 @@ describe('User Controller', function(){
       .end(function(err, res){
         expect(res.body.success).to.equal('false');
         expect(res.body.message).to.equal('Organization does not exist.');
+        expect(res.headers['set-cookie']).to.not.exist;
         done();
       });
   });
@@ -90,6 +94,7 @@ describe('User Controller', function(){
       .end(function(err, res){
         expect(res.body.success).to.equal('false');
         expect(res.body.message).to.equal('Wrong organization password.');
+        expect(res.headers['set-cookie']).to.not.exist;
         done();
       });
   });
@@ -105,11 +110,12 @@ describe('User Controller', function(){
       .end(function(err, res){
         expect(res.body.success).to.equal('false');
         expect(res.body.message).to.equal('User already exists.');
+        expect(res.headers['set-cookie']).to.not.exist;
         done();
       });
   });
 
-  it('Should issue a token upon successful sign up', function(done){
+  it('Should issue token on a cookie upon successful sign up', function(done){
     request(app)
       .post('/api/users/signup')
       .send({
@@ -124,6 +130,7 @@ describe('User Controller', function(){
       .end(function(err, res){
         expect(res.body.success).to.equal('true');
         expect(res.body.message).to.equal('Enjoy your token!');
+        expect(res.headers['set-cookie']).to.exist;
         done();
       });
   });
@@ -135,6 +142,7 @@ describe('User Controller', function(){
       .end(function(err, res){
         expect(res.body.success).to.equal('false');
         expect(res.body.message).to.equal('Organization already exists.');
+        expect(res.headers['set-cookie']).to.not.exist;
         done();
       });
   });
@@ -146,11 +154,12 @@ describe('User Controller', function(){
       .end(function(err, res){
         expect(res.body.success).to.equal('false');
         expect(res.body.message).to.equal('User already exists.');
+        expect(res.headers['set-cookie']).to.not.exist;
         done();
       });
   });
 
-  it('Should issue a token upon successful sign up', function(done){
+  it('Should issue token on a cookie upon successful sign up', function(done){
     request(app)
       .post('/api/users/signupwithorg')
       .send({
@@ -171,6 +180,7 @@ describe('User Controller', function(){
       .end(function(err, res){
         expect(res.body.success).to.equal('true');
         expect(res.body.message).to.equal('Enjoy your token!');
+        expect(res.headers['set-cookie']).to.exist;
         done();
       });
   });
