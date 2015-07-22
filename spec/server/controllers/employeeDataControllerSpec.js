@@ -35,7 +35,18 @@ describe('Employee Data Controller', function(){
   });
 
   it('should be able to get employee data when a user is logged in', function(done){
-    // the respone should contain the stuff in that object
+
+    request.agent(app)
+      .post('/api/users/signin')
+      .send({ email: 'governator@california.gov', password: 'terminator' })
+      .end(function(err, res){
+        expect(res.headers['set-cookie']).to.exist;
+        done();
+      });
+      // get the cookie
+      // attach the cookie to a request
+      // send request to getEmployeeData
+        // expect our json object
   });
 
 });
