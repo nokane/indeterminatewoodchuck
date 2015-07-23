@@ -58,9 +58,9 @@ socket.socketroute = function(io, user) {
     }
     for (var k = 0; k < socket.customerQueue[orgName].length; k++) {
       if (staffCount === 0) {
-        io.to(socket.customerQueue[orgName][k]).emit('staffUnavailable');
+        io.to(socket.customerQueue[orgName][k].userId).emit('staffUnavailable');
       } else {
-        io.to(socket.customerQueue[orgName][k]).emit('customerQueueStatus', k + 1);
+        io.to(socket.customerQueue[orgName][k].userId).emit('customerQueueStatus', k + 1);
       }
     }
   };
