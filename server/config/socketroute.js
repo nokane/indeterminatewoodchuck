@@ -131,9 +131,10 @@ socket.socketroute = function(io, user) {
     'customerRequest' event, the back-end will add the customer's Socket Id to the
     socket.customerQueue[orgName] array.
   */
-  user.on('customerRequest', function(orgName) {
+  user.on('customerRequest', function(requestObject) {
     user.category = "customer";
-    user.organizationName = orgName;
+    user.organizationName = requestObject.orgName;
+    requestObject.userId = user.id;
     socket.customerQueue[orgName] = socket.customerQueue[orgName] || []; 
 
     /*
@@ -144,7 +145,7 @@ socket.socketroute = function(io, user) {
       return;
     }
 
-    socket.customerQueue[orgName].push(user.id);
+    socket.customerQueue[orgName].push(requestObject);
 
     /*
       Check if there are a room open with a staff member available to help the customer.
@@ -155,7 +156,7 @@ socket.socketroute = function(io, user) {
       io.to(user.id).emit('customerRoom', socket.rooms[orgName].shift());
       socket.customerQueue[orgName].shift();
     }
-    queueStatus(orgName);
+    queueStatus(requestObject.orgName);
   });
 
   /*
