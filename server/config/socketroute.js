@@ -48,6 +48,9 @@ socket.socketroute = function(io, user) {
        current position in the customer queue or that there are no staff available to help them
   */
   var queueStatus = function(orgName) {
+    socket.staff[orgName] = socket.staff[orgName] || {};
+    socket.customerQueue[orgName] = socket.customerQueue[orgName] || [];
+
     var staffCount = 0;
     for (var staffId in socket.staff[orgName]) {
       staffCount += 1;
