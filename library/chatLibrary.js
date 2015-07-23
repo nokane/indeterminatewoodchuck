@@ -23,8 +23,36 @@ var Supportal = function(orgName){
     '<div id="supportal-message-log"></div>';
 
   this.chatButton.addEventListener('click', function(){
-    this.createChatSession();
+    this.renderDetailForm();
   }.bind(this), false);
+};
+
+Supportal.prototype.renderDetailForm = function(){
+  var form = document.createElement('form');
+  form.id = 'supportal-user-detail';
+
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+
+    var userDetails = {
+      name: e.target[0].value,
+      email: e.target[1].value,
+      question: e.target[2].value,
+      orgName: this.orgName
+    };
+
+    this.createChatSession(userDetails);
+    this.chatWindow.removeChild(this.chatWindow.firstChild);
+
+  }.bind(this), false);
+
+  form.innerHTML = '<input placeholder="Name" required /> \
+                    <input placeholder="Email" required /> \
+                    <input placeholder="Question" required /> \
+                    <input type="submit" />';
+
+  this.chatWindow.appendChild(form);
+
 };
 
 Supportal.prototype.init = function(){
@@ -36,7 +64,7 @@ Supportal.prototype.init = function(){
 
   socketScript.onload = function(){
     // need to change io connection point if want to test locally
-    this.socket = io('http://hidden-sands-2214.herokuapp.com/');
+    this.socket = io('http://6ba84954.ngrok.com');
   }.bind(this);
 
   icecommScript.onload = function(){
@@ -47,11 +75,11 @@ Supportal.prototype.init = function(){
   head.appendChild(icecommScript);
 };
 
-Supportal.prototype.createChatSession = function() {
+Supportal.prototype.createChatSession = function(userDetails) {
   this.setupPeerConnListeners();
 
   // emit 'customerRequest' with orgName passed in on object instantiation
-  this.socket.emit('customerRequest', this.orgName);
+  this.socket.emit('customerRequest', userDetails);
 
   // should we pass in company name or other identifier?
   this.socket.on('customerRoom', function(data) {
