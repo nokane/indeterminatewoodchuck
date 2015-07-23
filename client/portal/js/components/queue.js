@@ -34,8 +34,8 @@ var Queue = React.createClass({
     });
 
     return (
-      <div>
-        <div>
+      <div className='queue'>
+        <div className='queueList'>
           {customerCount}
           {queuedCustomers}
         </div>

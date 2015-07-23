@@ -1,4 +1,101 @@
 .container {
   margin: 0 auto;
-  max-width: 960px;
+  padding-left: 30px;
+  padding-right: 30px;
+  width: 960px;
+}
+.row {
+  margin: 10px auto;
+ /* padding-left: 30px;
+  padding-right: 30px;*/
+  width: 100%;
+}
+.column {
+  display: inline-block;
+  width: 50%;
+  vertical-align: text-top;
+}
+.column1 {
+  display: inline-block;
+  width: 70%;
+  vertical-align: text-top;
+}
+.column2 {
+  display: inline-block;
+  width: 30%;
+  vertical-align: text-top;
+}  
+td {
+  width: 400px;
+}
+.view {
+  margin-top: 20px;  
+}
+.logo {
+  font-size: 24px;
+  text-align: center;
+  color: white;
+  background-color: black;  
+}
+input {
+  font-size: 12px;
+  width: 100%;
+}
+input.shortfield {
+  padding: 1px;
+  width: 30%;
+}
+section {
+  display: inline-block;
+  margin: 0 1.5%;
+  width: 45%;
+  vertical-align: text-top;
+}  
+
+div#remoteStreamVideo {
+  background-color: black;
+  position: relative;
+  width: 400px;
+  height: 300px;
+  overflow: hidden;
+}
+
+div#localStreamVideo {
+  background-color: black;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 100px;
+  height: 75px;
+  z-index: 100;
+  overflow: hidden;
+}
+
+/*video#localStream {
+  height: 25px;
+  width: 25px;
+}
+
+video#remoteStream {
+  height: 75px;
+  width: 75px;
+}
+*/
+.queue {
+  height: 300px;
+  width: 100%;
+}
+
+.queueList {
+  height: 85%;
+  width: 100%;
+  background-color: red;
+}
+
+.message-log {
+  width: 100%;
+  height: 100px;
+  border-style: solid;
+  border-width: 2px;
+  overflow-y: scroll;
 }
