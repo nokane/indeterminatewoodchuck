@@ -179,8 +179,8 @@ socket.socketroute = function(io, user) {
       var customerIndex = socket.customerQueue[user.organizationName].indexOf(user.id);
       if (customerIndex !== -1) {
         socket.customerQueue[user.organizationName].splice(customerIndex, 1);
-        queueStatus(user.organizationName);
       }
     }
+    queueStatus(user.organizationName);
   });
 };
