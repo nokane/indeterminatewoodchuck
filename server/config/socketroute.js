@@ -48,6 +48,9 @@ socket.socketroute = function(io, user) {
     for (var staffId in socket.staff[orgName]) {
       io.to(staffId).emit('queueStatus', socket.customerQueue[orgName]);
     }
+    for (var k = 0; k < socket.customerQueue[orgName]; k++) {
+      io.to(socket.customerQueue[orgName][k]).emit('customerQueueStatus', k);
+    }
   };
 
   user.category = undefined;
