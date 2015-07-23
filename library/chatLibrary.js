@@ -6,6 +6,9 @@ var Supportal = function(orgName){
   this.chatButton = document.getElementById('supportal-init-button');
   this.chatWindow = document.getElementById('supportal-window');
 
+  // Cached content from business
+  this.chatButtonContent = this.chatButton.textContent;
+
   // Elements to be appended on icecomm connect
   this.localVideo = document.createElement('video');
   this.remoteVideo = document.createElement('video');
@@ -22,9 +25,22 @@ var Supportal = function(orgName){
     '</form>' +
     '<div id="supportal-message-log"></div>';
 
-  this.chatButton.addEventListener('click', function(){
+  var _initialClickHandler = function(){
     this.renderDetailForm();
-  }.bind(this), false);
+
+    this.chatButton.removeEventListener('click', _initialClickHandler);
+    this.chatButton.textContent = 'Cancel';
+    this.chatButton.addEventListener('click', _cancelClickHandler);
+  }.bind(this);
+
+  var _cancelClickHandler = function(){
+    this.chatWindow.innerHTML = '';
+    this.chatButton.removeEventListener('click', _cancelClickHandler);
+    this.chatButton.textContent = this.chatButtonContent;
+    this.chatButton.addEventListener('click', _initialClickHandler);
+  }.bind(this);
+
+  this.chatButton.addEventListener('click', _initialClickHandler, false);
 };
 
 Supportal.prototype.renderDetailForm = function(){
