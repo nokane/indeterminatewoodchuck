@@ -5,7 +5,7 @@ var Supportal = function(orgName){
   // Client will need to add a button and div with these IDs for library to work
   this.chatButton = document.getElementById('supportal-init-button');
   this.chatWindow = document.getElementById('supportal-window');
-  
+
   // Elements to be appended on icecomm connect
   this.localVideo = document.createElement('video');
   this.remoteVideo = document.createElement('video');
@@ -16,7 +16,7 @@ var Supportal = function(orgName){
   this.remoteVideo.autoplay = true;
   this.remoteVideo.id = 'supportal-remote-video';
   this.textChat.id = 'supportal-text-chat';
-  this.textChat.innerHTML = '<form onSubmit="this.sendTextMessage">' +
+  this.textChat.innerHTML = '<form>' +
       '<input id="supportal-text-chat-input" type=text placeholder="Type your message here" />' +
       '<input type=submit />' +
     '</form>' +
