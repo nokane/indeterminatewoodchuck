@@ -53,7 +53,7 @@ socket.socketroute = function(io, user) {
       staffCount += 1;
       io.to(staffId).emit('queueStatus', socket.customerQueue[orgName]);
     }
-    for (var k = 0; k < socket.customerQueue[orgName]; k++) {
+    for (var k = 0; k < socket.customerQueue[orgName].length; k++) {
       if (staffCount === 0) {
         io.to(socket.customerQueue[orgName][k]).emit('staffUnavailable');
       } else {
