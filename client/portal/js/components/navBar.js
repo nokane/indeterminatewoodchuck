@@ -10,16 +10,23 @@ var NavBar = React.createClass({
   render: function() {
     return (
       <nav className='navbar navbar-default'>
-        <div className='navbar-brand'>Supportal</div>
-        <div className='navbar-collapse collapse'>
-          <ul className='nav navbar-right'>
-            <li onClick={this.handleSignOut}>Sign Out</li>
-          </ul>
-          <ul className='nav navbar-right'>
-            <li>User logged in as: {this.props.firstName} {this.props.lastName}</li>
-            <li>Email: {this.props.email}</li>
-            <li>Organization: {this.props.web_name}</li>
-          </ul>
+        <div className='container-fluid'>
+          <div className='navbar-brand'>Supportal</div>
+          <div className='collapse navbar-collapse'>
+            <ul className='nav navbar-nav navbar-right'>
+              <li className='dropdown'>
+                <a href='#' className='dropdown-toggle' data-toggle='dropdown' role='button' aria-haspopup='true' aria-expanded='false'>{this.props.firstName} {this.props.lastName} <span className='caret'></span></a>
+                <ul className='dropdown-menu'>
+                  <li className='dropdown-header'>{this.props.web_name}</li>
+                  <li className='dropdown-header'>{this.props.email}</li>
+                  <li role='separator' className='divider'></li>
+                  <li><a href='#' onClick={this.handleSignOut}>Sign Out</a></li>
+                </ul>
+              </li>
+            </ul>
+            <ul className='nav navbar-right'>
+            </ul>
+          </div>
         </div>
       </nav>
     );

@@ -82,5 +82,10 @@ module.exports = {
         });
       }
     });
+  },
+
+  logout: function(req, res){
+    res.clearCookie('accessToken');
+    res.end();
   }
 };
