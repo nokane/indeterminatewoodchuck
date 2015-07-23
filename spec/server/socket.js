@@ -169,7 +169,6 @@ describe('Socket.io Server Routing', function() {
         }, 1500);
       }
       if (counter === 2) {
-        console.log("Problem, ")
         expect(Constructor).to.throw(Error);
       }
     });
