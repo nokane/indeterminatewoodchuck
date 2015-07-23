@@ -19,6 +19,19 @@ var appActions = {
         }
         setEmployeeData(res.body);
       });
+  },
+
+  employeeSignOut: function(){
+    // delete cookie
+    // go to apiUtils and issue a get request to '/login'
+    apiUtil.logout()
+      .end(function(err, res){
+        if( err ){
+          console.log('There was a problem logging out: ', err);
+          return;
+        }
+        window.location.href = window.location.origin + '/login';
+      });
   }
 };
 

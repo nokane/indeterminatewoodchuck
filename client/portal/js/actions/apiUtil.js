@@ -6,6 +6,13 @@ var apiUtil = {
 
     return request
       .post(path);
+  },
+
+  logout: function(){
+    var path = '/api/users/logout';
+
+    return request
+      .post(path);
   }
 };
 
