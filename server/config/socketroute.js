@@ -141,8 +141,10 @@ socket.socketroute = function(io, user) {
       If the customer emits 'customerRequest' when they are already in the customerQueue,
       do nothing
     */
-    if (socket.customerQueue[orgName].indexOf(user.id) !== -1) {
-      return;
+    for (var j = 0; j < socket.customerQueue[requestObject.orgName].length; j++) {
+      if (socket.customerQueue[requestObject.orgName][j].userId === user.id) {
+        return;
+      }
     }
 
     socket.customerQueue[orgName].push(requestObject);
