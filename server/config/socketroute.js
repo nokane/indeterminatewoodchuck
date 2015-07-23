@@ -45,11 +45,17 @@ socket.socketroute = function(io, user) {
     is a change to the queue of Customers looking for help
   */
   var queueStatus = function(orgName) {
+    var staffCount = 0;
     for (var staffId in socket.staff[orgName]) {
+      staffCount += 1;
       io.to(staffId).emit('queueStatus', socket.customerQueue[orgName]);
     }
     for (var k = 0; k < socket.customerQueue[orgName]; k++) {
-      io.to(socket.customerQueue[orgName][k]).emit('customerQueueStatus', k);
+      if (staffCount === 0) {
+        io.to(socket.customerQueue[orgName][k]).emit('staffUnavailable');
+      } else {
+        io.to(socket.customerQueue[orgName][k]).emit('customerQueueStatus', k);
+      }
     }
   };
 
