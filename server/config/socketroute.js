@@ -186,9 +186,10 @@ socket.socketroute = function(io, user) {
         socket.customerQueue[organizationName]. If it is, remove it
       */
 
-      var customerIndex = socket.customerQueue[user.organizationName].indexOf(user.id);
-      if (customerIndex !== -1) {
-        socket.customerQueue[user.organizationName].splice(customerIndex, 1);
+      for (var m = 0; m < socket.customerQueue[user.organizationName]; m++) {
+        if (socket.customerQueue[user.organizationName][m].userId === user.id) {
+          socket.customerQueue[user.organizationName].splice(m, 1);
+        }
       }
     }
     queueStatus(user.organizationName);
