@@ -41,8 +41,11 @@ socket.staff = {};
 socket.socketroute = function(io, user) {
 
   /*
-    queueStatus() is used to notify the staff of a specific Organization when there
-    is a change to the queue of Customers looking for help
+    queueStatus() is used to do the following 2 things:
+    1. Notify the staff of a specific Organization when there is a change to the queue of
+       Customers looking for help
+    2. Notify Customers, who are in the customer queue of a specific Organization, about their
+       current position in the customer queue or that there are no staff available to help them
   */
   var queueStatus = function(orgName) {
     var staffCount = 0;
