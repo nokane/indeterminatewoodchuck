@@ -35,10 +35,10 @@ var VideoChat = React.createClass({
   render: function(){
     return (
         <div id='remoteStreamVideo'>
-          {this.state.remoteStream ? <VideoElement key='remoteStream' value={this.state.remoteStream} size="400" /> : 
+          {this.state.remoteStream ? <VideoElement key='remoteStream' value={this.state.remoteStream} size="640" /> : 
           <div></div>}
           <div id='localStreamVideo'>
-            {this.state.localStream ? <VideoElement key='localStream' value={this.state.localStream} size="100" /> :
+            {this.state.localStream ? <VideoElement key='localStream' value={this.state.localStream} size="160" /> :
             <div></div>}
           </div>
         </div>

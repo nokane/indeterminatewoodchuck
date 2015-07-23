@@ -39,7 +39,7 @@ var Queue = React.createClass({
           {customerCount}
           {queuedCustomers}
         </div>
-        <button onClick={ this.handleStaffReady }>Chat with next user</button>
+        <button className='dequeue' onClick={ this.handleStaffReady }>Chat with next user</button>
       </div>
     );
   }
