@@ -10,13 +10,6 @@ var VideoChat = React.createClass({
     };
   },
 
-  // getInitialState: function(){
-  //   return { 
-  //     localStream: {stream: 'IMG_0143.mov', ID: 1}, 
-  //     remoteStream: {stream: 'IMG_0144.mov', ID: 2}
-  //   };
-  // },
-
   componentDidMount: function(){
     videoChatStore.addChangeListener(this._onChange);
   },

@@ -5,7 +5,6 @@ var Queue = require('./queue');
 var TextChat = require('./textChat');
 var appStore = require('../stores/appStore');
 var appActions = require('../actions/appActions');
-var videoElement = require('./videoElement.js');
 
 var Main = React.createClass({
 
