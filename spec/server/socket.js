@@ -22,8 +22,14 @@ describe('Socket.io Server Routing', function() {
 
   it('Should send staffRoom event and customerRoom event when staff member connects after customer', function(done) {
     var customerSocket1 = io.connect(socketTestURL, options);
+    var customerData = {
+      name: 'Ben',
+      email: 'test@test.com',
+      question: 'I need help',
+      orgName: 'ShoeLocker'
+    };
     customerSocket1.on('connect', function(data){
-      customerSocket1.emit('customerRequest', 'ShoeLocker')
+      customerSocket1.emit('customerRequest', customerData);
     });
     var staffSocket1 = io.connect(socketTestURL, options);
     staffSocket1.on('connect', function(data){
@@ -82,8 +88,14 @@ describe('Socket.io Server Routing', function() {
 
   it('Room names of disconnected staff from previous test are removed from socketroute.rooms array', function(done) {
     var customerSocket1 = io.connect(socketTestURL, options);
+    var customerData = {
+      name: 'Ben',
+      email: 'test@test.com',
+      question: 'I need help',
+      orgName: 'ShoeLocker'
+    };
     customerSocket1.on('connect', function(){
-      customerSocket1.emit('customerRequest', 'ShoeLocker');
+      customerSocket1.emit('customerRequest', customerData);
     });
     var staffSocket1 = io.connect(socketTestURL, options);
     staffSocket1.on('connect', function(){
