@@ -188,4 +188,40 @@ describe('Socket.io Server Routing', function() {
     });
   });
 
+  it('If customer emits "customerRequest" and there is staff available, send them their place in the queue via "customerQueueStatus"', function(done) {
+    var staffSocket5 = io.connect(socketTestURL, options);
+    staffSocket5.on('connect', function() {
+      staffSocket5.emit('staffReady', 'ShoeLocker');
+    });
+    var staffQueueCount = 1;
+    staffSocket5.on('queueStatus', function(queue) {
+      if (staffQueueCount === 4) {
+        staffSocket5.disconnect();
+        customerSocket1.disconnect();
+        customerSocket2.disconnect();
+        customerSocket3.disconnect();
+        done();
+      }
+      staffQueueCount += 1;
+    });
+    var customerSocket1 = io.connect(socketTestURL, options);
+    customerSocket1.on('connect', function() {
+      customerSocket1.emit('customerRequest', 'ShoeLocker');
+    });
+    var customerSocket2 = io.connect(socketTestURL, options);
+    customerSocket2.on('connect', function() {
+      customerSocket2.emit('customerRequest', 'ShoeLocker');
+    });
+    var customerSocket3 = io.connect(socketTestURL, options);
+    customerSocket3.on('connect', function() {
+      customerSocket3.emit('customerRequest', 'ShoeLocker');
+    });
+    customerSocket2.on('customerQueueStatus', function(num) {
+      expect(num).to.equal(1);
+    });
+    customerSocket3.on('customerQueueStatus', function(num) {
+      expect(num).to.equal(2);
+    });
+  });
+
 });
