@@ -119,8 +119,8 @@ socket.socketroute = function(io, user) {
       Remove the name of that available room from socket.rooms[organizationName]
     */
     if (socket.customerQueue[orgName] && socket.customerQueue[orgName].length > 0) {
-      var customerId = socket.customerQueue[orgName].shift();
-      io.to(customerId).emit('customerRoom', socket.rooms[orgName].shift());
+      var customerData = socket.customerQueue[orgName].shift();
+      io.to(customerData.userId).emit('customerRoom', socket.rooms[orgName].shift());
     }
     queueStatus(orgName);
   });
