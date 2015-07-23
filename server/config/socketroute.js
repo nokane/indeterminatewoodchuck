@@ -134,6 +134,7 @@ socket.socketroute = function(io, user) {
   user.on('customerRequest', function(requestObject) {
     user.category = "customer";
     user.organizationName = requestObject.orgName;
+    var orgName = requestObject.orgName;
     requestObject.userId = user.id;
     socket.customerQueue[orgName] = socket.customerQueue[orgName] || []; 
 
@@ -141,8 +142,8 @@ socket.socketroute = function(io, user) {
       If the customer emits 'customerRequest' when they are already in the customerQueue,
       do nothing
     */
-    for (var j = 0; j < socket.customerQueue[requestObject.orgName].length; j++) {
-      if (socket.customerQueue[requestObject.orgName][j].userId === user.id) {
+    for (var j = 0; j < socket.customerQueue[orgName].length; j++) {
+      if (socket.customerQueue[orgName][j].userId === user.id) {
         return;
       }
     }
@@ -158,7 +159,7 @@ socket.socketroute = function(io, user) {
       io.to(user.id).emit('customerRoom', socket.rooms[orgName].shift());
       socket.customerQueue[orgName].shift();
     }
-    queueStatus(requestObject.orgName);
+    queueStatus(orgName);
   });
 
   /*
