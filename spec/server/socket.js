@@ -118,51 +118,78 @@ describe('Socket.io Server Routing', function() {
     var refCustomer3;
     var refCustomer4;
 
+    var customerData1 = {
+      name: 'Ben',
+      email: 'test@test.com',
+      question: 'I need help',
+      orgName: 'ShoeLocker'
+    };
+
+    var customerData2 = {
+      name: 'George',
+      email: 'test2@test.com',
+      question: 'Help me!',
+      orgName: 'ShoeLocker'
+    };
+
     customerSocket1.on('connect', function() {
-      customerSocket1.emit('customerRequest', 'ShoeLocker');
+      customerSocket1.emit('customerRequest', customerData1);
     });
     customerSocket2.on('connect', function() {
-      customerSocket2.emit('customerRequest', 'ShoeLocker');
-      customerSocket1.disconnect();
-      staffSocket1 = io.connect(socketTestURL, options);
+      customerSocket2.emit('customerRequest', customerData2);
     });
 
+    var num = 0;
     var staffSocket1 = io.connect(socketTestURL, options);
     staffSocket1.on('connect', function() {
       staffSocket1.emit('staffReady', 'ShoeLocker');
       staffSocket1.on('queueStatus', function(queue) {
         num += 1;
         if (num === 3) {
+          expect(queue.length).to.equal(3);
+          customerSocket2.disconnect();
+        }
+        if (num === 4) {
+          expect(queue.length).to.equal(2);
           staffSocket1.disconnect();
+          customerSocket1.disconnect();
           refCustomer3.disconnect();
           refCustomer4.disconnect();
           done();
         }
       });
     });
-    var num = 0;
 
     staffSocket1.on('staffRoom', function(name) {
       expect(name).to.equal('room_ShoeLocker_6');
     });
-    customerSocket1.on('customerRoom', function(name) {
-      expect(Constructor).to.throw(Error);
-    });
 
-    customerSocket2.on('customerRoom', function(name) {
+    customerSocket1.on('customerRoom', function(name) {
       expect(name).to.equal('room_ShoeLocker_6');
       var customerSocket3 = io.connect(socketTestURL, options);
       var customerSocket4 = io.connect(socketTestURL, options);
+      var customerData3 = {
+        name: 'Catherine',
+        email: 'test2@test.com',
+        question: 'Help',
+        orgName: 'ShoeLocker'
+      };
+      var customerData4 = {
+        name: 'Pancho',
+        email: 'test4@test.com',
+        question: 'Where is it?',
+        orgName: 'ShoeLocker'
+      };
       customerSocket3.on('connect', function() {
         refCustomer3 = customerSocket3;
-        customerSocket3.emit('customerRequest', 'ShoeLocker');
+        customerSocket3.emit('customerRequest', customerData3);
       });
       customerSocket4.on('connect', function() {
         refCustomer4 = customerSocket4;
-
-        customerSocket4.emit('customerRequest', 'ShoeLocker');
+        customerSocket4.emit('customerRequest', customerData4);
       });
     });
+
   });
 
   it('Do not emit "staffRoom" to staffSocket if the staff currently in a room with no customer', function(done) {
