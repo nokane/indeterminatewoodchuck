@@ -1,3 +1,7 @@
 #supportal-window {
   border: 1px solid black;
+  width: 600px;
+  height: 800px;
+  padding: 20px;
+  visibility: hidden;
 };
