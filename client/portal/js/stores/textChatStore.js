@@ -28,13 +28,6 @@ var textChatStore = objectAssign({}, EventEmitter.prototype, {
   }
 });
 
-AppDispatcher.register(function(payload) {
-  if (payload.actionType === appConstants.CLEAR_MESSAGES) {
-    clearMessages();
-    textChatStore.emit(CHANGE);
-  }
-});
-
 textChatStore.dispatchToken = AppDispatcher.register(function(payload) {
   if (payload.actionType === appConstants.SEND_TEXT_MESSAGE) {
     _messages.push([payload.user, payload.message]);

@@ -9,8 +9,21 @@ var TextChat = React.createClass({
     };
   },
 
+  scrollElement: function() {
+    var _this = this;
+    window.requestAnimationFrame(function() {
+      var node = React.findDOMNode(_this.refs.messageLog);
+      node.scrollTop = node.scrollHeight;
+    });
+  },
+
   componentDidMount: function(){
     textChatStore.addChangeListener(this._onChange);
+    this.scrollElement();
+  },
+
+  componentDidUpdate: function() {
+    this.scrollElement();
   },
 
   componentWillUnmount: function(){
@@ -28,9 +41,6 @@ var TextChat = React.createClass({
     var message = event.target[0].value;
     icecommActions.sendTextMessage(message);
     React.findDOMNode(this.refs.messageInput).value = '';
-    var messageLogScrollHeight = React.findDOMNode(this.refs.messageLog).scrollHeight;
-    console.log(messageLogScrollHeight);
-    React.findDOMNode(this.refs.messageLog).scrollTop = messageLogScrollHeight;
   },
 
   render: function() {
@@ -42,7 +52,7 @@ var TextChat = React.createClass({
 
     return (
       <div>
-        <div className='message-log' ref='messageLog'>
+        <div className='message-log' ref='messageLog' >
           {messages}
         </div>
         <div className='send-chat'>
