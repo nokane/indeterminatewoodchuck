@@ -16,6 +16,7 @@ module.exports = function(app, express, server, io){
   app.use(cookieParser());
 
   // unprotected static routes
+  app.use('/librarystyles', express.static(__dirname + '/../../library/styles.css'));
   app.use('/library', express.static(__dirname + '/../../library/chatLibrary.js'));
   app.use('/login', express.static(__dirname + '/../../client/dist/login'));
 

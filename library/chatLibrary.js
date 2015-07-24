@@ -5,6 +5,12 @@ var Supportal = function(orgName){
   // Client will need to add a button and div with these IDs for library to work
   this.chatButton = document.getElementById('supportal-init-button');
   this.chatWindow = document.getElementById('supportal-window');
+  this.chatWindow.style.width = '320px';
+  this.chatWindow.style.height = '240px';
+  this.chatWindow.style.visibility = 'hidden';
+
+  // Cached content from business
+  this.chatButtonContent = this.chatButton.textContent;
 
   // Elements to be appended on icecomm connect
   this.localVideo = document.createElement('video');
@@ -22,36 +28,105 @@ var Supportal = function(orgName){
     '</form>' +
     '<div id="supportal-message-log"></div>';
 
-  this.chatButton.addEventListener('click', function(){
-    this.createChatSession();
+  this.chatButton.addEventListener('click', this._initialClickHandler.bind(this), false);
+};
+
+Supportal.prototype._initialClickHandler = function(){
+  this.renderDetailForm();
+  this._changeEventListener('click', this._initialClickHandler, this._cancelClickHandler, 'Cancel');
+  this.chatWindow.style.visibility = 'visible';
+};
+
+Supportal.prototype._cancelClickHandler = function(){
+  this.chatWindow.innerHTML = '';
+  this._changeEventListener('click', this._cancelClickHandler, this._initialClickHandler, this.chatButtonContent);
+  this.chatWindow.style.visibility = 'hidden';
+  this.comm.close();
+  this.comm.leave(true);
+};
+
+Supportal.prototype._changeEventListener = function(eventType, currentHandler, newHandler, textContent){
+  this.chatButton.removeEventListener(eventType, currentHandler);
+  this.chatButton.textContent = textContent;
+  this.chatButton.addEventListener(eventType, newHandler.bind(this));
+};
+
+Supportal.prototype.renderDetailForm = function(){
+  var form = document.createElement('form');
+  form.id = 'supportal-user-detail';
+
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+
+    var userDetails = {
+      name: e.target[0].value,
+      email: e.target[1].value,
+      question: e.target[2].value,
+      orgName: this.orgName
+    };
+
+    this.createChatSession(userDetails);
+    this.chatWindow.removeChild(this.chatWindow.firstChild);
+
   }.bind(this), false);
+
+  form.innerHTML = '<input placeholder="Name" required /> \
+                    <input placeholder="Email" required /> \
+                    <input placeholder="Question" required /> \
+                    <input type="submit" />';
+
+  this.chatWindow.appendChild(form);
+
 };
 
 Supportal.prototype.init = function(){
   var head = document.getElementsByTagName('head')[0];
+  var stylesLink = document.createElement('link');
   var socketScript = document.createElement('script');
   var icecommScript = document.createElement('script');
+  stylesLink.setAttribute('rel', 'stylesheet');
+  stylesLink.setAttribute('type', 'text/css');
+  stylesLink.setAttribute('href', 'http://7e0ea856.ngrok.com/librarystyles');
   socketScript.src = 'https://cdn.socket.io/socket.io-1.3.5.js';
   icecommScript.src = 'https://cdn.icecomm.io/icecomm.js';
 
   socketScript.onload = function(){
     // need to change io connection point if want to test locally
-    this.socket = io('http://hidden-sands-2214.herokuapp.com/');
+    this.socket = io('hidden-sands-2214.herokuapp.com');
   }.bind(this);
 
   icecommScript.onload = function(){
     this.comm = new Icecomm('ZZ2RA1DsHd9xdCqdoeJ8Wwra5A5fUKipAVrvzX6vOGHlLiAdO');
   }.bind(this);
 
+  head.appendChild(stylesLink);
   head.appendChild(socketScript);
   head.appendChild(icecommScript);
 };
 
-Supportal.prototype.createChatSession = function() {
+Supportal.prototype.createChatSession = function(userDetails) {
   this.setupPeerConnListeners();
+  this.setupSocketListeners();
 
   // emit 'customerRequest' with orgName passed in on object instantiation
-  this.socket.emit('customerRequest', this.orgName);
+  this.socket.emit('customerRequest', userDetails);
+};
+
+Supportal.prototype.setupSocketListeners = function(){
+
+  this.socket.on('staffUnavailable', function(){
+    var notAvailable = document.createElement('div');
+    notAvailable.innerHTML = 'No staff available right now. Please come back at a later time.';
+    this.chatWindow.innerHTML = '';
+    this.chatWindow.appendChild(notAvailable);
+  }.bind(this));
+
+  this.socket.on('customerQueueStatus', function(position){
+    var queueStatus = document.createElement('div');
+    queueStatus.innerHTML = 'There are' + position + 'customers ahead of you in the queue.';
+    this.chatWindow.innerHTML = '';
+    this.chatWindow.appendChild(queueStatus);
+  }.bind(this));
 
   // should we pass in company name or other identifier?
   this.socket.on('customerRoom', function(data) {
@@ -92,6 +167,7 @@ Supportal.prototype.setupPeerConnListeners = function(){
 
   // listener to start local video when iceComm gets a room name
   this.comm.on('local', function(self) {
+    this.chatWindow.innerHTML = '';
     this.chatWindow.appendChild(this.localVideo);
     this.localVideo.src = self.stream;
   }.bind(this));
@@ -102,18 +178,19 @@ Supportal.prototype.setupPeerConnListeners = function(){
 
   // listener to close video streams and leave room when peer disconnects
   this.comm.on('disconnect', function(peer) {
-    // remove peer video window
-    document.getElementById(peer.ID).remove();
 
     // closes audio/video stream
     this.comm.close();
 
     // remove all children nodes of chatWindow (should just be local)
-    while(this.chatWindow.firstChild) {
-      this.chatWindow.removeChild(this.chatWindow.firstChild);
-    }
+    this.chatWindow.innerHTML = '';
+
+    var thankYou = document.createElement('div');
+    thankYou.innerHTML = 'Thank you for using Supportal.';
+    this.chatButton.parentNode.replaceChild(thankYou, this.chatButton);
 
     // client leaves iceComm room
     this.comm.leave(true);
+
   }.bind(this));
 };
