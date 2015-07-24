@@ -25,22 +25,23 @@ var Supportal = function(orgName){
     '</form>' +
     '<div id="supportal-message-log"></div>';
 
-  var _initialClickHandler = function(){
-    this.renderDetailForm();
+  this.chatButton.addEventListener('click', this._initialClickHandler.bind(this), false);
+};
 
-    this.chatButton.removeEventListener('click', _initialClickHandler);
-    this.chatButton.textContent = 'Cancel';
-    this.chatButton.addEventListener('click', _cancelClickHandler);
-  }.bind(this);
+Supportal.prototype._initialClickHandler = function(){
+  this.renderDetailForm();
+  this._changeEventListener('click', this._initialClickHandler, this._cancelClickHandler, 'Cancel');
+};
 
-  var _cancelClickHandler = function(){
-    this.chatWindow.innerHTML = '';
-    this.chatButton.removeEventListener('click', _cancelClickHandler);
-    this.chatButton.textContent = this.chatButtonContent;
-    this.chatButton.addEventListener('click', _initialClickHandler);
-  }.bind(this);
+Supportal.prototype._cancelClickHandler = function(){
+  this.chatWindow.innerHTML = '';
+  this._changeEventListener('click', this._cancelClickHandler, this._initialClickHandler, this.chatButtonContent);
+};
 
-  this.chatButton.addEventListener('click', _initialClickHandler, false);
+Supportal.prototype._changeEventListener = function(eventType, currentHandler, newHandler, textContent){
+  this.chatButton.removeEventListener(eventType, currentHandler);
+  this.chatButton.textContent = textContent;
+  this.chatButton.addEventListener(eventType, newHandler.bind(this));
 };
 
 Supportal.prototype.renderDetailForm = function(){
@@ -131,6 +132,7 @@ Supportal.prototype.setupPeerConnListeners = function(){
 
   // listener to start peer video stream when a peer connects
   this.comm.on('connected', function(peer) {
+    this.chatWindow.innerHTML = '';
     this.chatWindow.appendChild(this.remoteVideo);
     this.remoteVideo.src = peer.stream;
     this.chatWindow.appendChild(this.textChat);
@@ -171,11 +173,12 @@ Supportal.prototype.setupPeerConnListeners = function(){
     this.comm.close();
 
     // remove all children nodes of chatWindow (should just be local)
-    while(this.chatWindow.firstChild) {
-      this.chatWindow.removeChild(this.chatWindow.firstChild);
-    }
+    this.chatWindow.innerHTML = '';
 
     // client leaves iceComm room
     this.comm.leave(true);
+
+    this._changeEventListener('click', this._cancelClickHandler, this._initialClickHandler, this.chatButtonContent);
+
   }.bind(this));
 };
