@@ -5,6 +5,9 @@ var Supportal = function(orgName){
   // Client will need to add a button and div with these IDs for library to work
   this.chatButton = document.getElementById('supportal-init-button');
   this.chatWindow = document.getElementById('supportal-window');
+  this.chatWindow.style.width = '320px';
+  this.chatWindow.style.height = '240px';
+  this.chatWindow.style.visibility = 'hidden';
 
   // Cached content from business
   this.chatButtonContent = this.chatButton.textContent;
@@ -31,11 +34,13 @@ var Supportal = function(orgName){
 Supportal.prototype._initialClickHandler = function(){
   this.renderDetailForm();
   this._changeEventListener('click', this._initialClickHandler, this._cancelClickHandler, 'Cancel');
+  this.chatWindow.style.visibility = 'visible';
 };
 
 Supportal.prototype._cancelClickHandler = function(){
   this.chatWindow.innerHTML = '';
   this._changeEventListener('click', this._cancelClickHandler, this._initialClickHandler, this.chatButtonContent);
+  this.chatWindow.style.visibility = 'hidden';
   this.comm.close();
   this.comm.leave(true);
 };
@@ -76,20 +81,25 @@ Supportal.prototype.renderDetailForm = function(){
 
 Supportal.prototype.init = function(){
   var head = document.getElementsByTagName('head')[0];
+  var stylesLink = document.createElement('link');
   var socketScript = document.createElement('script');
   var icecommScript = document.createElement('script');
+  stylesLink.setAttribute('rel', 'stylesheet');
+  stylesLink.setAttribute('type', 'text/css');
+  stylesLink.setAttribute('href', 'http://7e0ea856.ngrok.com/librarystyles');
   socketScript.src = 'https://cdn.socket.io/socket.io-1.3.5.js';
   icecommScript.src = 'https://cdn.icecomm.io/icecomm.js';
 
   socketScript.onload = function(){
     // need to change io connection point if want to test locally
-    this.socket = io('http://6ba84954.ngrok.com');
+    this.socket = io('http://7e0ea856.ngrok.com');
   }.bind(this);
 
   icecommScript.onload = function(){
     this.comm = new Icecomm('ZZ2RA1DsHd9xdCqdoeJ8Wwra5A5fUKipAVrvzX6vOGHlLiAdO');
   }.bind(this);
 
+  head.appendChild(stylesLink);
   head.appendChild(socketScript);
   head.appendChild(icecommScript);
 };
