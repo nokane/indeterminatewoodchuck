@@ -93,9 +93,24 @@ Supportal.prototype.init = function(){
 
 Supportal.prototype.createChatSession = function(userDetails) {
   this.setupPeerConnListeners();
+  this.setupSocketListeners();
 
   // emit 'customerRequest' with orgName passed in on object instantiation
   this.socket.emit('customerRequest', userDetails);
+};
+
+Supportal.prototype.setupSocketListeners = function(){
+
+  this.socket.on('staffUnavailable', function(){
+    var notAvailable = document.createElement('div');
+    notAvailable.innerHTML = 'No staff available right now. Please come back at a later time.';
+    this.chatWindow.innerHTML = '';
+    this.chatWindow.appendChild(notAvailable);
+  }.bind(this));
+
+  this.socket.on('customerQueueStatus', function(){
+
+  }.bind(this));
 
   // should we pass in company name or other identifier?
   this.socket.on('customerRoom', function(data) {
