@@ -10,15 +10,7 @@ var options = {
 
 describe('Socket.io Server Routing', function() {
 
-  var server;
-
-  beforeEach(function() {
-    server = require('../../index.js');
-  });
-
-  afterEach(function() {
-    server = undefined;
-  });
+  var server = require('../../index.js');
 
   it('Should send staffRoom event and customerRoom event when staff member connects after customer', function(done) {
     var customerSocket1 = io.connect(socketTestURL, options);
