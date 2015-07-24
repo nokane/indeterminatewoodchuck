@@ -9,21 +9,13 @@ var TextChat = React.createClass({
     };
   },
 
-  scrollElement: function() {
-    var _this = this;
-    window.requestAnimationFrame(function() {
-      var node = React.findDOMNode(_this.refs.messageLog);
-      node.scrollTop = node.scrollHeight;
-    });
-  },
-
   componentDidMount: function(){
     textChatStore.addChangeListener(this._onChange);
-    this.scrollElement();
   },
 
   componentDidUpdate: function() {
-    this.scrollElement();
+    var node = React.findDOMNode(this.refs.messageLog);
+    node.scrollTop = node.scrollHeight;
   },
 
   componentWillUnmount: function(){
