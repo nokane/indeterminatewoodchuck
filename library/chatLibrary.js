@@ -92,7 +92,7 @@ Supportal.prototype.init = function(){
 
   socketScript.onload = function(){
     // need to change io connection point if want to test locally
-    this.socket = io('http://7e0ea856.ngrok.com');
+    this.socket = io('hidden-sands-2214.herokuapp.com');
   }.bind(this);
 
   icecommScript.onload = function(){
