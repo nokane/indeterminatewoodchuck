@@ -33,22 +33,24 @@ var Supportal = function(orgName){
 
 Supportal.prototype._initialClickHandler = function(){
   this.renderDetailForm();
-  this._changeEventListener('click', this._initialClickHandler, this._cancelClickHandler, 'Cancel');
+  this._changeEventListener('click', this._cancelClickHandler.bind(this), 'Cancel');
   this.chatWindow.style.visibility = 'visible';
 };
 
 Supportal.prototype._cancelClickHandler = function(){
   this.chatWindow.innerHTML = '';
-  this._changeEventListener('click', this._cancelClickHandler, this._initialClickHandler, this.chatButtonContent);
+  this._changeEventListener('click', this._initialClickHandler.bind(this), this.chatButtonContent);
   this.chatWindow.style.visibility = 'hidden';
   this.comm.close();
   this.comm.leave(true);
 };
 
-Supportal.prototype._changeEventListener = function(eventType, currentHandler, newHandler, textContent){
-  this.chatButton.removeEventListener(eventType, currentHandler);
+Supportal.prototype._changeEventListener = function(eventType, newHandler, textContent){
+  var elClone = this.chatButton.cloneNode(true);
+  this.chatButton.parentNode.replaceChild(elClone, this.chatButton);
+  this.chatButton = elClone;
   this.chatButton.textContent = textContent;
-  this.chatButton.addEventListener(eventType, newHandler.bind(this));
+  this.chatButton.addEventListener(eventType, newHandler);
 };
 
 Supportal.prototype.renderDetailForm = function(){
