@@ -5,9 +5,7 @@ var Supportal = function(orgName){
   // Client will need to add a button and div with these IDs for library to work
   this.chatButton = document.getElementById('supportal-init-button');
   this.chatWindow = document.getElementById('supportal-window');
-  this.chatWindow.style.width = '320px';
-  this.chatWindow.style.height = '240px';
-  this.chatWindow.style.visibility = 'hidden';
+  this.chatWindow.style.position = 'relative';
 
   // Cached content from business
   this.chatButtonContent = this.chatButton.textContent;
@@ -19,8 +17,17 @@ var Supportal = function(orgName){
 
   this.localVideo.autoplay = true;
   this.localVideo.id = 'supportal-local-video';
+  this.localVideo.style.width = '25%';
+  this.localVideo.style.position = 'absolute';
+  this.localVideo.style.top = '20px';
+  this.localVideo.style.right = '20px';
+  this.localVideo.style['z-index'] = '1';
+
   this.remoteVideo.autoplay = true;
   this.remoteVideo.id = 'supportal-remote-video';
+  this.remoteVideo.style.width = '100%';
+  this.remoteVideo.style.position = 'relative';
+
   this.textChat.id = 'supportal-text-chat';
   this.textChat.innerHTML = '<form>' +
       '<input id="supportal-text-chat-input" type=text placeholder="Type your message here" />' +
@@ -72,10 +79,20 @@ Supportal.prototype.renderDetailForm = function(){
 
   }.bind(this), false);
 
-  form.innerHTML = '<input placeholder="Name" required /> \
-                    <input placeholder="Email" required /> \
-                    <input placeholder="Question" required /> \
-                    <input type="submit" />';
+  form.innerHTML = '<legend>How Can We Help?</legend> \
+                    <div class="form-group"> \
+                      <label>Name</label> \
+                      <input type="name" class="form-control" required /> \
+                    </div> \
+                    <div class="form-group"> \
+                      <label>Email Address</label> \
+                      <input type="email" class="form-control" required /> \
+                    </div> \
+                    <div class="form-group"> \
+                      <label>Question</label> \
+                      <textarea class="form-control" required></textarea> \
+                    </div> \
+                    <button type="submit" class="btn btn-default">Submit</button>';
 
   this.chatWindow.appendChild(form);
 
@@ -83,24 +100,29 @@ Supportal.prototype.renderDetailForm = function(){
 
 Supportal.prototype.init = function(){
   var head = document.getElementsByTagName('head')[0];
+  var bootStrapLink = document.createElement('link');
   var stylesLink = document.createElement('link');
   var socketScript = document.createElement('script');
   var icecommScript = document.createElement('script');
+  bootStrapLink.setAttribute('rel', 'stylesheet');
+  bootStrapLink.setAttribute('type', 'text/css');
+  bootStrapLink.setAttribute('href', 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css');
   stylesLink.setAttribute('rel', 'stylesheet');
   stylesLink.setAttribute('type', 'text/css');
-  stylesLink.setAttribute('href', 'http://7e0ea856.ngrok.com/librarystyles');
+  stylesLink.setAttribute('href', 'http://42fbca9c.ngrok.com/librarystyles');
   socketScript.src = 'https://cdn.socket.io/socket.io-1.3.5.js';
   icecommScript.src = 'https://cdn.icecomm.io/icecomm.js';
 
   socketScript.onload = function(){
     // need to change io connection point if want to test locally
-    this.socket = io('hidden-sands-2214.herokuapp.com');
+    this.socket = io('http://42fbca9c.ngrok.com/');
   }.bind(this);
 
   icecommScript.onload = function(){
     this.comm = new Icecomm('ZZ2RA1DsHd9xdCqdoeJ8Wwra5A5fUKipAVrvzX6vOGHlLiAdO');
   }.bind(this);
 
+  head.appendChild(bootStrapLink);
   head.appendChild(stylesLink);
   head.appendChild(socketScript);
   head.appendChild(icecommScript);
