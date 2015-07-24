@@ -147,7 +147,6 @@ socket.socketroute = function(io, user) {
         return;
       }
     }
-
     socket.customerQueue[orgName].push(requestObject);
 
     /*
@@ -186,7 +185,7 @@ socket.socketroute = function(io, user) {
         socket.customerQueue[organizationName]. If it is, remove it
       */
 
-      for (var m = 0; m < socket.customerQueue[user.organizationName]; m++) {
+      for (var m = 0; m < socket.customerQueue[user.organizationName].length; m++) {
         if (socket.customerQueue[user.organizationName][m].userId === user.id) {
           socket.customerQueue[user.organizationName].splice(m, 1);
         }
