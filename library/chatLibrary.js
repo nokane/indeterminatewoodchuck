@@ -36,6 +36,8 @@ Supportal.prototype._initialClickHandler = function(){
 Supportal.prototype._cancelClickHandler = function(){
   this.chatWindow.innerHTML = '';
   this._changeEventListener('click', this._cancelClickHandler, this._initialClickHandler, this.chatButtonContent);
+  this.comm.close();
+  this.comm.leave(true);
 };
 
 Supportal.prototype._changeEventListener = function(eventType, currentHandler, newHandler, textContent){
@@ -132,7 +134,6 @@ Supportal.prototype.setupPeerConnListeners = function(){
 
   // listener to start peer video stream when a peer connects
   this.comm.on('connected', function(peer) {
-    this.chatWindow.innerHTML = '';
     this.chatWindow.appendChild(this.remoteVideo);
     this.remoteVideo.src = peer.stream;
     this.chatWindow.appendChild(this.textChat);
@@ -156,6 +157,7 @@ Supportal.prototype.setupPeerConnListeners = function(){
 
   // listener to start local video when iceComm gets a room name
   this.comm.on('local', function(self) {
+    this.chatWindow.innerHTML = '';
     this.chatWindow.appendChild(this.localVideo);
     this.localVideo.src = self.stream;
   }.bind(this));
@@ -166,8 +168,6 @@ Supportal.prototype.setupPeerConnListeners = function(){
 
   // listener to close video streams and leave room when peer disconnects
   this.comm.on('disconnect', function(peer) {
-    // remove peer video window
-    document.getElementById(peer.ID).remove();
 
     // closes audio/video stream
     this.comm.close();
@@ -175,10 +175,12 @@ Supportal.prototype.setupPeerConnListeners = function(){
     // remove all children nodes of chatWindow (should just be local)
     this.chatWindow.innerHTML = '';
 
+    var thankYou = document.createElement('div');
+    thankYou.innerHTML = 'Thank you for using Supportal.';
+    this.chatButton.parentNode.replaceChild(thankYou, this.chatButton);
+
     // client leaves iceComm room
     this.comm.leave(true);
-
-    this._changeEventListener('click', this._cancelClickHandler, this._initialClickHandler, this.chatButtonContent);
 
   }.bind(this));
 };
