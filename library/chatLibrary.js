@@ -108,8 +108,11 @@ Supportal.prototype.setupSocketListeners = function(){
     this.chatWindow.appendChild(notAvailable);
   }.bind(this));
 
-  this.socket.on('customerQueueStatus', function(){
-
+  this.socket.on('customerQueueStatus', function(position){
+    var queueStatus = document.createElement('div');
+    queueStatus.innerHTML = 'There are' + position + 'customers ahead of you in the queue.';
+    this.chatWindow.innerHTML = '';
+    this.chatWindow.appendChild(queueStatus);
   }.bind(this));
 
   // should we pass in company name or other identifier?
