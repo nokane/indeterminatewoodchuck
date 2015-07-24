@@ -216,8 +216,14 @@ describe('Socket.io Server Routing', function() {
 
   it('If customer emits "customerRequest" and no staff available, customer should received "staffUnavailable" event', function(done) {
     var customerSocket1 = io.connect(socketTestURL, options);
+    var customerData1 = {
+      name: 'Steve',
+      email: 'test4@test.com',
+      question: 'Where is it?',
+      orgName: 'ShoeLocker'
+    };
     customerSocket1.on('connect', function() {
-      customerSocket1.emit('customerRequest', 'ShoeLocker');
+      customerSocket1.emit('customerRequest', customerData1);
     });
 
     customerSocket1.on('staffUnavailable', function() {
