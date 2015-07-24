@@ -29,8 +29,14 @@ var Queue = React.createClass({
 
     var customerCount = <div>There are {customerQueue.length} users in the queue.</div>;
 
-    var queuedCustomers = this.state.customerQueue.map(function(customerId, index) {
-      return (<div>Customer {index}: {customerId}</div>);
+    var queuedCustomers = this.state.customerQueue.map(function(custData, index) {
+      return (
+        <div key={custData.userId}>
+          <div>Customer {index}: {custData.name}</div>
+          <div>E-mail Address: {custData.email}</div>
+          <div>Help: {custData.question}</div>
+        </div>
+        );
     });
 
     return (
