@@ -1,13 +1,12 @@
 var Supportal = function(orgName){
   this.init();
   this.orgName = orgName;
+  this.customerName = null;
 
   // Client will need to add a button and div with these IDs for library to work
   this.chatButton = document.getElementById('supportal-init-button');
   this.chatWindow = document.getElementById('supportal-window');
-  this.chatWindow.style.width = '320px';
-  this.chatWindow.style.height = '240px';
-  this.chatWindow.style.visibility = 'hidden';
+  this.chatWindow.style.position = 'relative';
 
   // Cached content from business
   this.chatButtonContent = this.chatButton.textContent;
@@ -19,36 +18,52 @@ var Supportal = function(orgName){
 
   this.localVideo.autoplay = true;
   this.localVideo.id = 'supportal-local-video';
+  this.localVideo.style.width = '25%';
+  this.localVideo.style.position = 'absolute';
+  this.localVideo.style.top = '20px';
+  this.localVideo.style.right = '20px';
+  this.localVideo.style['z-index'] = '1';
+
   this.remoteVideo.autoplay = true;
   this.remoteVideo.id = 'supportal-remote-video';
+  this.remoteVideo.style.width = '100%';
+  this.remoteVideo.style.position = 'relative';
+
   this.textChat.id = 'supportal-text-chat';
-  this.textChat.innerHTML = '<form>' +
-      '<input id="supportal-text-chat-input" type=text placeholder="Type your message here" />' +
-      '<input type=submit />' +
-    '</form>' +
-    '<div id="supportal-message-log"></div>';
+
+  this.textChat.innerHTML = '<div id="supportal-message-log"></div> \
+                             <form id="supportal-chat-form" class="form-group"> \
+                               <div class="input-group"> \
+                                 <input type="text" id="supportal-text-chat-input" class="form-control" required /> \
+                                 <span class="input-group-btn"> \
+                                   <button class="btn btn-primary" type="submit">Submit</button> \
+                                 </span> \
+                                </div> \
+                              </form>';
 
   this.chatButton.addEventListener('click', this._initialClickHandler.bind(this), false);
 };
 
 Supportal.prototype._initialClickHandler = function(){
   this.renderDetailForm();
-  this._changeEventListener('click', this._initialClickHandler, this._cancelClickHandler, 'Cancel');
+  this._changeEventListener('click', this._cancelClickHandler.bind(this), 'Cancel');
   this.chatWindow.style.visibility = 'visible';
 };
 
 Supportal.prototype._cancelClickHandler = function(){
   this.chatWindow.innerHTML = '';
-  this._changeEventListener('click', this._cancelClickHandler, this._initialClickHandler, this.chatButtonContent);
+  this._changeEventListener('click', this._initialClickHandler.bind(this), this.chatButtonContent);
   this.chatWindow.style.visibility = 'hidden';
   this.comm.close();
   this.comm.leave(true);
 };
 
-Supportal.prototype._changeEventListener = function(eventType, currentHandler, newHandler, textContent){
-  this.chatButton.removeEventListener(eventType, currentHandler);
+Supportal.prototype._changeEventListener = function(eventType, newHandler, textContent){
+  var elClone = this.chatButton.cloneNode(true);
+  this.chatButton.parentNode.replaceChild(elClone, this.chatButton);
+  this.chatButton = elClone;
   this.chatButton.textContent = textContent;
-  this.chatButton.addEventListener(eventType, newHandler.bind(this));
+  this.chatButton.addEventListener(eventType, newHandler);
 };
 
 Supportal.prototype.renderDetailForm = function(){
@@ -57,6 +72,8 @@ Supportal.prototype.renderDetailForm = function(){
 
   form.addEventListener('submit', function(e){
     e.preventDefault();
+
+    this.customerName = e.target[0].value;
 
     var userDetails = {
       name: e.target[0].value,
@@ -70,10 +87,20 @@ Supportal.prototype.renderDetailForm = function(){
 
   }.bind(this), false);
 
-  form.innerHTML = '<input placeholder="Name" required /> \
-                    <input placeholder="Email" required /> \
-                    <input placeholder="Question" required /> \
-                    <input type="submit" />';
+  form.innerHTML = '<legend>How Can We Help?</legend> \
+                    <div class="form-group"> \
+                      <label>Name</label> \
+                      <input type="name" class="form-control" required /> \
+                    </div> \
+                    <div class="form-group"> \
+                      <label>Email Address</label> \
+                      <input type="email" class="form-control" required /> \
+                    </div> \
+                    <div class="form-group"> \
+                      <label>Question</label> \
+                      <textarea class="form-control" required></textarea> \
+                    </div> \
+                    <button type="submit" class="btn btn-default">Submit</button>';
 
   this.chatWindow.appendChild(form);
 
@@ -81,24 +108,29 @@ Supportal.prototype.renderDetailForm = function(){
 
 Supportal.prototype.init = function(){
   var head = document.getElementsByTagName('head')[0];
+  var bootStrapLink = document.createElement('link');
   var stylesLink = document.createElement('link');
   var socketScript = document.createElement('script');
   var icecommScript = document.createElement('script');
+  bootStrapLink.setAttribute('rel', 'stylesheet');
+  bootStrapLink.setAttribute('type', 'text/css');
+  bootStrapLink.setAttribute('href', 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css');
   stylesLink.setAttribute('rel', 'stylesheet');
   stylesLink.setAttribute('type', 'text/css');
-  stylesLink.setAttribute('href', 'http://7e0ea856.ngrok.com/librarystyles');
+  stylesLink.setAttribute('href', 'http://42fbca9c.ngrok.com/librarystyles');
   socketScript.src = 'https://cdn.socket.io/socket.io-1.3.5.js';
   icecommScript.src = 'https://cdn.icecomm.io/icecomm.js';
 
   socketScript.onload = function(){
     // need to change io connection point if want to test locally
-    this.socket = io('hidden-sands-2214.herokuapp.com');
+    this.socket = io('http://42fbca9c.ngrok.com/');
   }.bind(this);
 
   icecommScript.onload = function(){
     this.comm = new Icecomm('ZZ2RA1DsHd9xdCqdoeJ8Wwra5A5fUKipAVrvzX6vOGHlLiAdO');
   }.bind(this);
 
+  head.appendChild(bootStrapLink);
   head.appendChild(stylesLink);
   head.appendChild(socketScript);
   head.appendChild(icecommScript);
@@ -115,17 +147,33 @@ Supportal.prototype.createChatSession = function(userDetails) {
 Supportal.prototype.setupSocketListeners = function(){
 
   this.socket.on('staffUnavailable', function(){
-    var notAvailable = document.createElement('div');
+    var container = document.createElement('div');
+    container.style.opacity = '0.6';
+    container.style.border = '1px solid black';
+    container.style.width = '100%';
+    container.style.height = '100%';
+    container.style.padding = '10px';
+
+    var notAvailable = document.createElement('h2');
     notAvailable.innerHTML = 'No staff available right now. Please come back at a later time.';
     this.chatWindow.innerHTML = '';
-    this.chatWindow.appendChild(notAvailable);
+    this.chatWindow.appendChild(container);
+    container.appendChild(notAvailable);
   }.bind(this));
 
   this.socket.on('customerQueueStatus', function(position){
-    var queueStatus = document.createElement('div');
+    var container = document.createElement('div');
+    container.style.opacity = '0.6';
+    container.style.border = '1px solid black';
+    container.style.width = '100%';
+    container.style.height = '100%';
+    container.style.padding = '10px';
+
+    var queueStatus = document.createElement('h2');
     queueStatus.innerHTML = 'There are' + position + 'customers ahead of you in the queue.';
     this.chatWindow.innerHTML = '';
-    this.chatWindow.appendChild(queueStatus);
+    this.chatWindow.appendChild(container);
+    container.appendChild(queueStatus);
   }.bind(this));
 
   // should we pass in company name or other identifier?
@@ -140,6 +188,8 @@ Supportal.prototype.setupPeerConnListeners = function(){
     var messageNode = document.createElement('div');
     messageNode.textContent = user + ': ' + message;
     document.getElementById('supportal-message-log').appendChild(messageNode);
+    var chatView = document.getElementById('supportal-message-log');
+    chatView.scrollTop = chatView.scrollHeight;
   };
 
   // listener to start peer video stream when a peer connects
@@ -148,13 +198,22 @@ Supportal.prototype.setupPeerConnListeners = function(){
     this.remoteVideo.src = peer.stream;
     this.chatWindow.appendChild(this.textChat);
 
+    var chatView = document.getElementById('supportal-message-log');
+    chatView.style.border = '1px solid #ccc';
+    chatView.style['border-radius'] = '4px';
+    chatView.style['margin-bottom'] = '5px';
+    chatView.style.width = '100%';
+    chatView.style.height = '100px';
+    chatView.style['overflow-y'] = 'scroll';
+    chatView.style.overflow = 'auto';
+
     // after connecting, set up listener for text chat submit
-    var submitForm = this.textChat.firstChild;
+    var submitForm = document.getElementById('supportal-chat-form');
     var handleSubmit = function(event) {
       var message = event.target[0].value;
       event.preventDefault();
       this.comm.send(message);
-      appendTextMessage('customer', message);
+      appendTextMessage(this.customerName, message);
       document.getElementById('supportal-text-chat-input').value = '';
     }.bind(this);
 
@@ -184,6 +243,7 @@ Supportal.prototype.setupPeerConnListeners = function(){
 
     // remove all children nodes of chatWindow (should just be local)
     this.chatWindow.innerHTML = '';
+    this.chatWindow.style.visibility = 'hidden';
 
     var thankYou = document.createElement('div');
     thankYou.innerHTML = 'Thank you for using Supportal.';
