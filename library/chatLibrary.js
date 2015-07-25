@@ -152,6 +152,7 @@ Supportal.prototype.setupSocketListeners = function(){
     container.style.border = '1px solid black';
     container.style.width = '100%';
     container.style.height = '100%';
+    container.style.padding = '10px';
 
     var notAvailable = document.createElement('h2');
     notAvailable.innerHTML = 'No staff available right now. Please come back at a later time.';
@@ -166,6 +167,7 @@ Supportal.prototype.setupSocketListeners = function(){
     container.style.border = '1px solid black';
     container.style.width = '100%';
     container.style.height = '100%';
+    container.style.padding = '10px';
 
     var queueStatus = document.createElement('h2');
     queueStatus.innerHTML = 'There are' + position + 'customers ahead of you in the queue.';
