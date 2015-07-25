@@ -80,7 +80,7 @@ div#localStreamVideo {
 
 .submit {
   height: 30px;
-  margin-top: 8px;
+  margin-top: 5px;
   width: 100%;
 }
 
@@ -107,6 +107,7 @@ div#localStreamVideo {
 .message-log {
   width: 100%;
   height: 100px;
+  padding: 5px;
   border-style: solid;
   border-width: 2px;
   overflow-y: scroll;
@@ -114,7 +115,12 @@ div#localStreamVideo {
 }
 
 .chat-box {
-  margin-top: 9px;
-  margin-bottom: 3px;
+  margin-top: 10px;
+  padding: 5px;
   height: 50px;
+  width: 100%;
+}
+
+.userPrompt {
+  font-weight: bold
 }

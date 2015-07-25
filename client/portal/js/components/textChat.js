@@ -13,6 +13,11 @@ var TextChat = React.createClass({
     textChatStore.addChangeListener(this._onChange);
   },
 
+  componentDidUpdate: function() {
+    var node = React.findDOMNode(this.refs.messageLog);
+    node.scrollTop = node.scrollHeight;
+  },
+
   componentWillUnmount: function(){
     textChatStore.removeChangeListener(this._onChange);    
   },
@@ -21,6 +26,15 @@ var TextChat = React.createClass({
     this.setState({
       messages: textChatStore.getMessages()
     });
+  },
+
+  onKeyDown: function(event) {
+    if (event.keyCode === 13) {
+      event.preventDefault();
+      var message = React.findDOMNode(this.refs.messageInput).value;
+      icecommActions.sendTextMessage(message);
+      React.findDOMNode(this.refs.messageInput).value = '';
+    }
   },
 
   handleSubmit: function(event) {
@@ -34,17 +48,17 @@ var TextChat = React.createClass({
     var messages = this.state.messages.map(function(message, index) {
       var user = message[0];
       var text = message[1];
-      return (<div key={index}>{user}: {text}</div>);
+      return (<div key={index}><span className='userPrompt'>{user}</span>: {text}</div>);
     });
 
     return (
       <div>
-        <div className='message-log'>
+        <div className='message-log' ref='messageLog' >
           {messages}
         </div>
         <div className='send-chat'>
           <form onSubmit={this.handleSubmit}>
-            <input className='chat-box' ref='messageInput' type='text' placeholder='Type your message here' />
+            <textarea className='chat-box' ref='messageInput' onKeyDown={this.onKeyDown} type='text' placeholder='Type your message here' />
             <input className='submit' type='submit' />
           </form>
         </div>
