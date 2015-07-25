@@ -75,13 +75,13 @@ describe('Socket.io Server Routing', function() {
     });
   });
 
-  it('Third roomname should equal "room_ShoeLocker_3"', function(done) {
+  it('Second roomname should equal "room_ShoeLocker_2"', function(done) {
     var staffSocket1 = io.connect(socketTestURL, options);
     staffSocket1.on('connect', function(data){
       staffSocket1.emit('staffReady', 'ShoeLocker')
     });
     staffSocket1.on('staffRoom', function(name) {
-      expect(name).to.equal('room_ShoeLocker_3');
+      expect(name).to.equal('room_ShoeLocker_2');
       staffSocket1.disconnect();
       done();
     });
