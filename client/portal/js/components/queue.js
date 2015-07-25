@@ -2,6 +2,7 @@ var React = require('react');
 var queueStore = require('../stores/queueStore');
 var appActions = require('../actions/appActions');
 var socketActions = require('../actions/socketActions');
+var icecommActions = require('../actions/icecommActions');
 
 var Queue = React.createClass({
   getInitialState: function() {
@@ -13,7 +14,7 @@ var Queue = React.createClass({
   },
 
   componentWillUnmount: function(){
-    queueStore.removeChangeListener(this._onChange);    
+    queueStore.removeChangeListener(this._onChange);
   },
 
   _onChange: function() {
@@ -24,6 +25,10 @@ var Queue = React.createClass({
     var web_name = this.props.web_name;
     socketActions.staffReady(web_name);
     appActions.clearMessages();
+  },
+
+  disconnect: function(){
+    icecommActions.disconnect();
   },
 
   render: function(){
@@ -47,7 +52,8 @@ var Queue = React.createClass({
           {customerCount}
           {queuedCustomers}
         </div>
-        <button className='dequeue' onClick={ this.handleStaffReady }>Chat with next user</button>
+        <button className='dequeue' onClick={ this.handleStaffReady }>Next Customer</button>
+        <button className='disconnect' onClick={ this.disconnect }>End Session</button>
       </div>
     );
   }

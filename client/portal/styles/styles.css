@@ -25,18 +25,18 @@
   display: inline-block;
   width: 250px;
   vertical-align: text-top;
-}  
+}
 td {
   width: 400px;
 }
 .view {
-  margin-top: 20px;  
+  margin-top: 20px;
 }
 .logo {
   font-size: 24px;
   text-align: center;
   color: white;
-  background-color: black;  
+  background-color: black;
 }
 input {
   font-size: 12px;
@@ -51,7 +51,7 @@ section {
   margin: 0 1.5%;
   width: 45%;
   vertical-align: text-top;
-}  
+}
 
 div#remoteStreamVideo {
   background-color: black;
@@ -75,7 +75,13 @@ div#localStreamVideo {
 .dequeue {
   height: 30px;
   margin-top: 8px;
-  width: 100%;
+  width: 50%;
+}
+
+.disconnect {
+  height: 30px;
+  margin-top: 8px;
+  width: 50%
 }
 
 .submit {

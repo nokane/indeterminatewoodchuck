@@ -48,6 +48,11 @@ var icecommActions = {
       user: 'staff',
       message: message
     });
+  },
+
+  disconnect: function(){
+    var leaveCode = 'chropdhopycdchardosdchroyp';
+    comm.send(leaveCode);
   }
 };
 
