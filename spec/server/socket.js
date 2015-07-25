@@ -8,6 +8,17 @@ var options = {
   'force new connection': true
 };
 
+var optionsStaff = {
+  transports: ['websocket'],
+  'force new connection': true,
+  query:'orgName=ShoeLocker'
+};
+
+var optionsCustomer = {
+  transports: ['websocket'],
+  'force new connection': true
+};
+
 describe('Socket.io Server Routing', function() {
 
   var server = require('../../index.js');
@@ -34,29 +45,43 @@ describe('Socket.io Server Routing', function() {
       expect(name).to.equal('room_ShoeLocker_1');
       staffSocket1.disconnect();
       customerSocket1.disconnect();
-      done(); 
+      setTimeout(function() {
+        done();
+      }, 500);
     });
   });
 
-  it('Should create new room on "staffReady"', function(done) {
-    var staffSocket = io.connect(socketTestURL, options);
-    staffSocket.on('connect', function(data){
-      staffSocket.emit('staffReady', 'ShoeLocker')
+  it('"queueStatus" can be sent to staff that have connected and havent emited "staffReady"', function(done) {
+    var staffSocket = io.connect(socketTestURL, optionsStaff);
+    var customerSocket1 = io.connect(socketTestURL, optionsCustomer);
+    var customerData = {
+      name: 'Ben',
+      email: 'test@test.com',
+      question: 'I need help',
+      orgName: 'ShoeLocker'
+    };
+    customerSocket1.on('connect', function(){
+      customerSocket1.emit('customerRequest', customerData);
     });
-    staffSocket.on('staffRoom', function(name) {
-      expect(name).to.equal('room_ShoeLocker_2');
-      staffSocket.disconnect();
-      done();
+    var counter = 0;
+    staffSocket.on('queueStatus', function(queue) {
+      expect(queue.length).to.equal(counter);
+      counter += 1;
+      if (counter === 2) {
+        staffSocket.disconnect();
+        customerSocket1.disconnect();
+        done();
+      }
     });
   });
 
-  it('Third roomname should equal "room_ShoeLocker_3"', function(done) {
+  it('Second roomname should equal "room_ShoeLocker_2"', function(done) {
     var staffSocket1 = io.connect(socketTestURL, options);
     staffSocket1.on('connect', function(data){
       staffSocket1.emit('staffReady', 'ShoeLocker')
     });
     staffSocket1.on('staffRoom', function(name) {
-      expect(name).to.equal('room_ShoeLocker_3');
+      expect(name).to.equal('room_ShoeLocker_2');
       staffSocket1.disconnect();
       done();
     });
@@ -94,10 +119,10 @@ describe('Socket.io Server Routing', function() {
       staffSocket1.emit('staffReady', 'ShoeLocker');
     });
     staffSocket1.on('staffRoom', function(name) {
-      expect(name).to.equal('room_ShoeLocker_5');
+      expect(name).to.equal('room_ShoeLocker_4');
     });
     customerSocket1.on('customerRoom', function(name) {
-      expect(name).to.equal('room_ShoeLocker_5');
+      expect(name).to.equal('room_ShoeLocker_4');
       staffSocket1.disconnect();
       customerSocket1.disconnect();
       done();
@@ -153,11 +178,11 @@ describe('Socket.io Server Routing', function() {
     });
 
     staffSocket1.on('staffRoom', function(name) {
-      expect(name).to.equal('room_ShoeLocker_6');
+      expect(name).to.equal('room_ShoeLocker_5');
     });
 
     customerSocket1.on('customerRoom', function(name) {
-      expect(name).to.equal('room_ShoeLocker_6');
+      expect(name).to.equal('room_ShoeLocker_5');
       var customerSocket3 = io.connect(socketTestURL, options);
       var customerSocket4 = io.connect(socketTestURL, options);
       var customerData3 = {

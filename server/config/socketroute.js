@@ -77,6 +77,14 @@ socket.socketroute = function(io, user) {
     side socket connection
   */
 
+  if (user.handshake.query.hasOwnProperty('orgName')) {
+    user.organizationName = user.handshake.query.orgName;
+    socket.staff[user.organizationName] = socket.staff[user.organizationName] || {};
+    socket.staff[user.organizationName][user.id] = false;
+    user.category = "staff";
+    queueStatus(user.organizationName);
+  }
+
   /*
     A staff member on the client side will emit the 'staffReady' event to the back-end
     to indicate that they are ready to help another customer. Upon receiving the
