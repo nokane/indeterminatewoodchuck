@@ -147,17 +147,31 @@ Supportal.prototype.createChatSession = function(userDetails) {
 Supportal.prototype.setupSocketListeners = function(){
 
   this.socket.on('staffUnavailable', function(){
-    var notAvailable = document.createElement('div');
+    var container = document.createElement('div');
+    container.style.opacity = '0.6';
+    container.style.border = '1px solid black';
+    container.style.width = '100%';
+    container.style.height = '100%';
+
+    var notAvailable = document.createElement('h2');
     notAvailable.innerHTML = 'No staff available right now. Please come back at a later time.';
     this.chatWindow.innerHTML = '';
-    this.chatWindow.appendChild(notAvailable);
+    this.chatWindow.appendChild(container);
+    container.appendChild(notAvailable);
   }.bind(this));
 
   this.socket.on('customerQueueStatus', function(position){
-    var queueStatus = document.createElement('div');
+    var container = document.createElement('div');
+    container.style.opacity = '0.6';
+    container.style.border = '1px solid black';
+    container.style.width = '100%';
+    container.style.height = '100%';
+
+    var queueStatus = document.createElement('h2');
     queueStatus.innerHTML = 'There are' + position + 'customers ahead of you in the queue.';
     this.chatWindow.innerHTML = '';
-    this.chatWindow.appendChild(queueStatus);
+    this.chatWindow.appendChild(container);
+    container.appendChild(queueStatus);
   }.bind(this));
 
   // should we pass in company name or other identifier?
