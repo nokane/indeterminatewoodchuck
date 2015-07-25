@@ -31,12 +31,14 @@ var Supportal = function(orgName){
   this.textChat.id = 'supportal-text-chat';
 
   this.textChat.innerHTML = '<div id="supportal-message-log"></div> \
-                             <div class="input-group"> \
-                               <input type="text" class="form-control" required /> \
-                               <span class="input-group-btn"> \
-                                 <button class="btn btn-primary" type="submit">Submit</button> \
-                               </span> \
-                              </div>';
+                             <form id="supportal-chat-form" class="form-group"> \
+                               <div class="input-group"> \
+                                 <input type="text" id="supportal-text-chat-input" class="form-control" required /> \
+                                 <span class="input-group-btn"> \
+                                   <button class="btn btn-primary" type="submit">Submit</button> \
+                                 </span> \
+                                </div> \
+                              </form>';
 
   this.chatButton.addEventListener('click', this._initialClickHandler.bind(this), false);
 };
@@ -176,7 +178,7 @@ Supportal.prototype.setupPeerConnListeners = function(){
     this.chatWindow.appendChild(this.textChat);
 
     // after connecting, set up listener for text chat submit
-    var submitForm = this.textChat.firstChild;
+    var submitForm = document.getElementById('supportal-chat-form');
     var handleSubmit = function(event) {
       var message = event.target[0].value;
       event.preventDefault();
@@ -211,6 +213,7 @@ Supportal.prototype.setupPeerConnListeners = function(){
 
     // remove all children nodes of chatWindow (should just be local)
     this.chatWindow.innerHTML = '';
+    this.chatWindow.style.visibility = 'hidden';
 
     var thankYou = document.createElement('div');
     thankYou.innerHTML = 'Thank you for using Supportal.';
