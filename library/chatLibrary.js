@@ -1,6 +1,7 @@
 var Supportal = function(orgName){
   this.init();
   this.orgName = orgName;
+  this.customerName = null;
 
   // Client will need to add a button and div with these IDs for library to work
   this.chatButton = document.getElementById('supportal-init-button');
@@ -71,6 +72,8 @@ Supportal.prototype.renderDetailForm = function(){
 
   form.addEventListener('submit', function(e){
     e.preventDefault();
+
+    this.customerName = e.target[0].value;
 
     var userDetails = {
       name: e.target[0].value,
@@ -169,6 +172,8 @@ Supportal.prototype.setupPeerConnListeners = function(){
     var messageNode = document.createElement('div');
     messageNode.textContent = user + ': ' + message;
     document.getElementById('supportal-message-log').appendChild(messageNode);
+    var chatView = document.getElementById('supportal-message-log');
+    chatView.scrollTop = chatView.scrollHeight;
   };
 
   // listener to start peer video stream when a peer connects
@@ -177,13 +182,22 @@ Supportal.prototype.setupPeerConnListeners = function(){
     this.remoteVideo.src = peer.stream;
     this.chatWindow.appendChild(this.textChat);
 
+    var chatView = document.getElementById('supportal-message-log');
+    chatView.style.border = '1px solid #ccc';
+    chatView.style['border-radius'] = '4px';
+    chatView.style['margin-bottom'] = '5px';
+    chatView.style.width = '100%';
+    chatView.style.height = '100px';
+    chatView.style['overflow-y'] = 'scroll';
+    chatView.style.overflow = 'auto';
+
     // after connecting, set up listener for text chat submit
     var submitForm = document.getElementById('supportal-chat-form');
     var handleSubmit = function(event) {
       var message = event.target[0].value;
       event.preventDefault();
       this.comm.send(message);
-      appendTextMessage('customer', message);
+      appendTextMessage(this.customerName, message);
       document.getElementById('supportal-text-chat-input').value = '';
     }.bind(this);
 
