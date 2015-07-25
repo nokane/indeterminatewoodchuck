@@ -29,11 +29,14 @@ var Supportal = function(orgName){
   this.remoteVideo.style.position = 'relative';
 
   this.textChat.id = 'supportal-text-chat';
-  this.textChat.innerHTML = '<form>' +
-      '<input id="supportal-text-chat-input" type=text placeholder="Type your message here" />' +
-      '<input type=submit />' +
-    '</form>' +
-    '<div id="supportal-message-log"></div>';
+
+  this.textChat.innerHTML = '<div id="supportal-message-log"></div> \
+                             <div class="input-group"> \
+                               <input type="text" class="form-control" required /> \
+                               <span class="input-group-btn"> \
+                                 <button class="btn btn-primary" type="submit">Submit</button> \
+                               </span> \
+                              </div>';
 
   this.chatButton.addEventListener('click', this._initialClickHandler.bind(this), false);
 };
