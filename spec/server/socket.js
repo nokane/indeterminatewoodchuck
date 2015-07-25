@@ -178,11 +178,11 @@ describe('Socket.io Server Routing', function() {
     });
 
     staffSocket1.on('staffRoom', function(name) {
-      expect(name).to.equal('room_ShoeLocker_6');
+      expect(name).to.equal('room_ShoeLocker_5');
     });
 
     customerSocket1.on('customerRoom', function(name) {
-      expect(name).to.equal('room_ShoeLocker_6');
+      expect(name).to.equal('room_ShoeLocker_5');
       var customerSocket3 = io.connect(socketTestURL, options);
       var customerSocket4 = io.connect(socketTestURL, options);
       var customerData3 = {
