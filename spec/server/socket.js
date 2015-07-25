@@ -119,10 +119,10 @@ describe('Socket.io Server Routing', function() {
       staffSocket1.emit('staffReady', 'ShoeLocker');
     });
     staffSocket1.on('staffRoom', function(name) {
-      expect(name).to.equal('room_ShoeLocker_5');
+      expect(name).to.equal('room_ShoeLocker_4');
     });
     customerSocket1.on('customerRoom', function(name) {
-      expect(name).to.equal('room_ShoeLocker_5');
+      expect(name).to.equal('room_ShoeLocker_4');
       staffSocket1.disconnect();
       customerSocket1.disconnect();
       done();
