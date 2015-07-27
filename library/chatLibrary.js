@@ -249,8 +249,7 @@ Supportal.prototype.setupPeerConnListeners = function(){
   }.bind(this));
 
   this.comm.on('data', function(message) {
-    if( message === 'chropdhopycdchardosdchroyp' ){
-      console.log('We are disconnecting.');
+    if( message.data === 'chropdhopycdchardosdchroyp' ){
       disconnect();
     }
 
