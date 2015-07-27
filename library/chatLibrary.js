@@ -5,6 +5,8 @@ var Supportal = function(orgName){
 
   // Client will need to add a button and div with these IDs for library to work
   this.chatButton = document.getElementById('supportal-init-button');
+  this.chatButton.className = 'btn btn-default';
+
   this.chatWindow = document.getElementById('supportal-window');
   this.chatWindow.style.position = 'relative';
 
@@ -15,6 +17,7 @@ var Supportal = function(orgName){
   this.localVideo = document.createElement('video');
   this.remoteVideo = document.createElement('video');
   this.textChat = document.createElement('div');
+  this.disconnectButton = document.createElement('button');
 
   this.localVideo.autoplay = true;
   this.localVideo.id = 'supportal-local-video';
@@ -28,6 +31,12 @@ var Supportal = function(orgName){
   this.remoteVideo.id = 'supportal-remote-video';
   this.remoteVideo.style.width = '100%';
   this.remoteVideo.style.position = 'relative';
+
+  this.disconnectButton.style.position = 'absolute';
+  this.disconnectButton.style.top = '0px';
+  this.disconnectButton.style.right = '0px';
+  this.disconnectButton.style['z-index'] = '100';
+  this.disconnectButton.innerHTML = '<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>';
 
   this.textChat.id = 'supportal-text-chat';
 
@@ -117,13 +126,13 @@ Supportal.prototype.init = function(){
   bootStrapLink.setAttribute('href', 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css');
   stylesLink.setAttribute('rel', 'stylesheet');
   stylesLink.setAttribute('type', 'text/css');
-  stylesLink.setAttribute('href', 'http://localhost:3000/librarystyles');
+  stylesLink.setAttribute('href', 'http://3936f383.ngrok.com/librarystyles');
   socketScript.src = 'https://cdn.socket.io/socket.io-1.3.5.js';
   icecommScript.src = 'https://cdn.icecomm.io/icecomm.js';
 
   socketScript.onload = function(){
     // need to change io connection point if want to test locally
-    this.socket = io('http://localhost:3000');
+    this.socket = io('http://3936f383.ngrok.com/');
   }.bind(this);
 
   icecommScript.onload = function(){
