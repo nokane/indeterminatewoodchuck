@@ -117,13 +117,13 @@ Supportal.prototype.init = function(){
   bootStrapLink.setAttribute('href', 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css');
   stylesLink.setAttribute('rel', 'stylesheet');
   stylesLink.setAttribute('type', 'text/css');
-  stylesLink.setAttribute('href', 'http://hidden-sands-2214.herokuapp.com/librarystyles');
+  stylesLink.setAttribute('href', 'http://430f1b19.ngrok.com/librarystyles');
   socketScript.src = 'https://cdn.socket.io/socket.io-1.3.5.js';
   icecommScript.src = 'https://cdn.icecomm.io/icecomm.js';
 
   socketScript.onload = function(){
     // need to change io connection point if want to test locally
-    this.socket = io('http://hidden-sands-2214.herokuapp.com/');
+    this.socket = io('http://430f1b19.ngrok.com');
   }.bind(this);
 
   icecommScript.onload = function(){
@@ -249,7 +249,8 @@ Supportal.prototype.setupPeerConnListeners = function(){
   }.bind(this));
 
   this.comm.on('data', function(message) {
-    if( message = 'chropdhopycdchardosdchroyp' ){
+    if( message === 'chropdhopycdchardosdchroyp' ){
+      console.log('We are disconnecting.');
       disconnect();
     }
 
