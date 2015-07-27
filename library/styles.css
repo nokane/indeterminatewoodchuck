@@ -1,6 +1,7 @@
 #supportal-window {
-  width: 400px;
-  height: 450px;
-  padding: 20px;
-  visibility: hidden;
+  width: auto;
+  height: auto;
+  padding: 0px;
+  margin-bottom: 20px;
+  display: none;
 };
