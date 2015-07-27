@@ -47,13 +47,13 @@ var Supportal = function(orgName){
 Supportal.prototype._initialClickHandler = function(){
   this.renderDetailForm();
   this._changeEventListener('click', this._cancelClickHandler.bind(this), 'Cancel');
-  this.chatWindow.style.visibility = 'visible';
+  this.chatWindow.style.display = 'block';
 };
 
 Supportal.prototype._cancelClickHandler = function(){
   this.chatWindow.innerHTML = '';
   this._changeEventListener('click', this._initialClickHandler.bind(this), this.chatButtonContent);
-  this.chatWindow.style.visibility = 'hidden';
+  this.chatWindow.style.display = 'none';
   this.comm.close();
   this.comm.leave(true);
 };
@@ -117,13 +117,13 @@ Supportal.prototype.init = function(){
   bootStrapLink.setAttribute('href', 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css');
   stylesLink.setAttribute('rel', 'stylesheet');
   stylesLink.setAttribute('type', 'text/css');
-  stylesLink.setAttribute('href', 'http://hidden-sands-2214.herokuapp.com/librarystyles');
+  stylesLink.setAttribute('href', 'http://localhost:3000/librarystyles');
   socketScript.src = 'https://cdn.socket.io/socket.io-1.3.5.js';
   icecommScript.src = 'https://cdn.icecomm.io/icecomm.js';
 
   socketScript.onload = function(){
     // need to change io connection point if want to test locally
-    this.socket = io('http://hidden-sands-2214.herokuapp.com');
+    this.socket = io('http://localhost:3000');
   }.bind(this);
 
   icecommScript.onload = function(){
@@ -149,13 +149,13 @@ Supportal.prototype.setupSocketListeners = function(){
   this.socket.on('staffUnavailable', function(){
     var container = document.createElement('div');
     container.style.opacity = '0.6';
-    container.style.border = '1px solid black';
     container.style.width = '100%';
     container.style.height = '100%';
     container.style.padding = '10px';
 
     var notAvailable = document.createElement('h2');
     notAvailable.innerHTML = 'No staff available right now. Please come back at a later time.';
+    notAvailable.style['margin-top'] = '0px';
     this.chatWindow.innerHTML = '';
     this.chatWindow.appendChild(container);
     container.appendChild(notAvailable);
@@ -164,7 +164,6 @@ Supportal.prototype.setupSocketListeners = function(){
   this.socket.on('customerQueueStatus', function(position){
     var container = document.createElement('div');
     container.style.opacity = '0.6';
-    container.style.border = '1px solid black';
     container.style.width = '100%';
     container.style.height = '100%';
     container.style.padding = '10px';
@@ -200,7 +199,7 @@ Supportal.prototype.setupPeerConnListeners = function(){
 
     // remove all children nodes of chatWindow (should just be local)
     this.chatWindow.innerHTML = '';
-    this.chatWindow.style.visibility = 'hidden';
+    this.chatWindow.style.display = 'none';
 
     var thankYou = document.createElement('div');
     thankYou.innerHTML = 'Thank you for using Supportal.';
