@@ -15,12 +15,21 @@ comm.on('connected', function(peer) {
     actionType: appConstants.START_REMOTE_CONN,
     peer: peer
   });
+
+  AppDispatcher.dispatch({
+    actionType: appConstants.CONNECT_STATUS,
+    connected: true
+  });
 });
 
 comm.on('disconnect', function(peer) {
   AppDispatcher.dispatch({
-    actionType: appConstants.STOP_REMOTE_CONN,
-    peer: peer
+    actionType: appConstants.STOP_REMOTE_CONN
+  });
+
+  AppDispatcher.dispatch({
+    actionType: appConstants.CONNECT_STATUS,
+    connected: false
   });
 });
 
@@ -47,6 +56,20 @@ var icecommActions = {
       // Change to reflect staff name
       user: 'staff',
       message: message
+    });
+  },
+
+  disconnect: function(){
+    var leaveCode = 'chropdhopycdchardosdchroyp';
+    comm.send(leaveCode);
+
+    AppDispatcher.dispatch({
+      actionType: appConstants.STOP_REMOTE_CONN
+    });
+
+    AppDispatcher.dispatch({
+      actionType: appConstants.CONNECT_STATUS,
+      connected: false
     });
   }
 };

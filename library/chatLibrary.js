@@ -117,13 +117,13 @@ Supportal.prototype.init = function(){
   bootStrapLink.setAttribute('href', 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css');
   stylesLink.setAttribute('rel', 'stylesheet');
   stylesLink.setAttribute('type', 'text/css');
-  stylesLink.setAttribute('href', 'http://42fbca9c.ngrok.com/librarystyles');
+  stylesLink.setAttribute('href', 'http://hidden-sands-2214.herokuapp.com/librarystyles');
   socketScript.src = 'https://cdn.socket.io/socket.io-1.3.5.js';
   icecommScript.src = 'https://cdn.icecomm.io/icecomm.js';
 
   socketScript.onload = function(){
     // need to change io connection point if want to test locally
-    this.socket = io('http://42fbca9c.ngrok.com/');
+    this.socket = io('http://hidden-sands-2214.herokuapp.com');
   }.bind(this);
 
   icecommScript.onload = function(){
@@ -192,6 +192,24 @@ Supportal.prototype.setupPeerConnListeners = function(){
     chatView.scrollTop = chatView.scrollHeight;
   };
 
+  var disconnect = function() {
+    console.log('Disconnect happened.');
+
+    // closes audio/video stream
+    this.comm.close();
+
+    // remove all children nodes of chatWindow (should just be local)
+    this.chatWindow.innerHTML = '';
+    this.chatWindow.style.visibility = 'hidden';
+
+    var thankYou = document.createElement('div');
+    thankYou.innerHTML = 'Thank you for using Supportal.';
+    this.chatButton.parentNode.replaceChild(thankYou, this.chatButton);
+
+    // client leaves iceComm room
+    this.comm.leave(true);
+  }.bind(this);
+
   // listener to start peer video stream when a peer connects
   this.comm.on('connected', function(peer) {
     this.chatWindow.appendChild(this.remoteVideo);
@@ -232,25 +250,13 @@ Supportal.prototype.setupPeerConnListeners = function(){
   }.bind(this));
 
   this.comm.on('data', function(message) {
+    if( message = 'chropdhopycdchardosdchroyp' ){
+      disconnect();
+    }
+
     appendTextMessage('staff', message.data);
   });
 
   // listener to close video streams and leave room when peer disconnects
-  this.comm.on('disconnect', function(peer) {
-
-    // closes audio/video stream
-    this.comm.close();
-
-    // remove all children nodes of chatWindow (should just be local)
-    this.chatWindow.innerHTML = '';
-    this.chatWindow.style.visibility = 'hidden';
-
-    var thankYou = document.createElement('div');
-    thankYou.innerHTML = 'Thank you for using Supportal.';
-    this.chatButton.parentNode.replaceChild(thankYou, this.chatButton);
-
-    // client leaves iceComm room
-    this.comm.leave(true);
-
-  }.bind(this));
+  this.comm.on('disconnect', disconnect);
 };
