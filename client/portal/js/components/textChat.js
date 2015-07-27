@@ -19,7 +19,7 @@ var TextChat = React.createClass({
   },
 
   componentWillUnmount: function(){
-    textChatStore.removeChangeListener(this._onChange);    
+    textChatStore.removeChangeListener(this._onChange);
   },
 
   _onChange: function() {
@@ -56,12 +56,14 @@ var TextChat = React.createClass({
         <div className='message-log' ref='messageLog' >
           {messages}
         </div>
-        <div className='send-chat'>
-          <form onSubmit={this.handleSubmit}>
-            <textarea className='chat-box' ref='messageInput' onKeyDown={this.onKeyDown} type='text' placeholder='Type your message here' />
-            <input className='submit' type='submit' />
-          </form>
-        </div>
+        <form className='send-chat form-group' onSubmit={this.handleSubmit}>
+          <div className='input-group'>
+            <input className='form-control' ref='messageInput' onKeyDown={this.onKeyDown} type='text' placeholder='Type your message here' required/>
+            <span className='input-group-btn'>
+              <button className='btn btn-primary' type='submit'>Submit</button>
+            </span>
+          </div>
+        </form>
       </div>
       );
   }

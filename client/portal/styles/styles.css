@@ -84,12 +84,6 @@ div#localStreamVideo {
   width: 100%;
 }
 
-.submit {
-  height: 30px;
-  margin-top: 5px;
-  width: 100%;
-}
-
 .navbar {
   margin-bottom: 0px;
 }
@@ -120,13 +114,10 @@ div#localStreamVideo {
   background-color: rgba(217,255,0,0.12);
 }
 
-.chat-box {
-  margin-top: 10px;
-  padding: 5px;
-  height: 50px;
-  width: 100%;
-}
-
 .userPrompt {
   font-weight: bold
+}
+
+.send-chat {
+  margin-top: 10px;
 }
