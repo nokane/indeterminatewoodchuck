@@ -12,6 +12,7 @@ var argv = require('yargs').argv;
 var shell = require('gulp-shell');
 var minifyCss = require('gulp-minify-css');
 var env = require('gulp-env');
+var gulpReplace = require('gulp-replace');
 
 var path = {
   HTML: 'client/portal/index.html',
@@ -215,6 +216,12 @@ gulp.task('replaceHTML-login', function(){
     .pipe(gulp.dest(path2.DEST));
 });
 
+gulp.task('libraryReplace', function(){
+  gulp.src('library/chatLibrary.js')
+    .pipe(replace(/* TODO: regex */, 'http://hidden-sands-2214.herokuapp.com'))
+    .pipe(gulp.dest('library/chatLibrary.js'));
+});
+
 gulp.task('default', [
   'htmlReplaceDev-portal',
   'htmlReplaceDev-login',
@@ -230,7 +237,8 @@ gulp.task('production', [
   'replaceHTML-login',
   'build-login',
   'minify-css-portal',
-  'minify-css-login'
+  'minify-css-login',
+  'libraryReplace'
 ]);
 
 gulp.task('setup', [
