@@ -75,13 +75,13 @@ div#localStreamVideo {
 .dequeue {
   height: 30px;
   margin-top: 8px;
-  width: 50%;
+  width: 100%;
 }
 
 .disconnect {
   height: 30px;
   margin-top: 8px;
-  width: 50%
+  width: 100%;
 }
 
 .submit {

@@ -15,12 +15,20 @@ comm.on('connected', function(peer) {
     actionType: appConstants.START_REMOTE_CONN,
     peer: peer
   });
+
+  AppDispatcher.dispatch({
+    actionType: appConstants.CONNECT_STATUS
+  });
 });
 
 comm.on('disconnect', function(peer) {
   AppDispatcher.dispatch({
     actionType: appConstants.STOP_REMOTE_CONN,
     peer: peer
+  });
+
+  AppDispatcher.dispatch({
+    actionType: appConstants.CONNECT_STATUS
   });
 });
 

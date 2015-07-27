@@ -6,11 +6,16 @@ var EventEmitter = require('events').EventEmitter;
 var CHANGE = 'CHANGE';
 
 var _state = {
+  connected: false,
   customerQueue: []
 };
 
 var setQueue = function(customerQueue) {
   _state.customerQueue = customerQueue;
+};
+
+var setConnect = function(){
+  _state.connected = !_state.connected;
 };
 
 var queueStore = objectAssign({}, EventEmitter.prototype, {
@@ -28,6 +33,9 @@ var queueStore = objectAssign({}, EventEmitter.prototype, {
 queueStore.dispatchToken = AppDispatcher.register(function(payload) {
   if (payload.actionType === appConstants.QUEUE_STATUS) {
     setQueue(payload.data);
+    queueStore.emit(CHANGE);
+  } else if( payload.actionType === appConstants.CONNECT_STATUS ){
+    setConnect();
     queueStore.emit(CHANGE);
   }
 

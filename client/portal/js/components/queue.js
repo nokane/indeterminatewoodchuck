@@ -46,14 +46,16 @@ var Queue = React.createClass({
         );
     });
 
+    var dequeue = <button className='dequeue' onClick={ this.handleStaffReady }>Next Customer</button>;
+    var disconnect = <button className='disconnect' onClick={ this.disconnect }>End Session</button>;
+
     return (
       <div className='queue'>
         <div className='queueList'>
           {customerCount}
           {queuedCustomers}
         </div>
-        <button className='dequeue' onClick={ this.handleStaffReady }>Next Customer</button>
-        <button className='disconnect' onClick={ this.disconnect }>End Session</button>
+        { this.state.connected ? disconnect : dequeue }
       </div>
     );
   }
