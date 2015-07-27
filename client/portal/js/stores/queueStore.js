@@ -14,8 +14,8 @@ var setQueue = function(customerQueue) {
   _state.customerQueue = customerQueue;
 };
 
-var setConnect = function(){
-  _state.connected = !_state.connected;
+var setConnect = function(status){
+  _state.connected = status;
 };
 
 var queueStore = objectAssign({}, EventEmitter.prototype, {
@@ -35,7 +35,7 @@ queueStore.dispatchToken = AppDispatcher.register(function(payload) {
     setQueue(payload.data);
     queueStore.emit(CHANGE);
   } else if( payload.actionType === appConstants.CONNECT_STATUS ){
-    setConnect();
+    setConnect(payload.connected);
     queueStore.emit(CHANGE);
   }
 
