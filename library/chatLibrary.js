@@ -117,13 +117,13 @@ Supportal.prototype.init = function(){
   bootStrapLink.setAttribute('href', 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css');
   stylesLink.setAttribute('rel', 'stylesheet');
   stylesLink.setAttribute('type', 'text/css');
-  stylesLink.setAttribute('href', 'http://4e7472a7.ngrok.com/librarystyles');
+  stylesLink.setAttribute('href', 'http://hidden-sands-2214.herokuapp.com/librarystyles');
   socketScript.src = 'https://cdn.socket.io/socket.io-1.3.5.js';
   icecommScript.src = 'https://cdn.icecomm.io/icecomm.js';
 
   socketScript.onload = function(){
     // need to change io connection point if want to test locally
-    this.socket = io('http://4e7472a7.ngrok.com');
+    this.socket = io('http://hidden-sands-2214.herokuapp.com');
   }.bind(this);
 
   icecommScript.onload = function(){
