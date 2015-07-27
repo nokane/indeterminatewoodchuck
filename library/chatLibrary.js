@@ -20,8 +20,8 @@ var Supportal = function(orgName){
   this.localVideo.id = 'supportal-local-video';
   this.localVideo.style.width = '25%';
   this.localVideo.style.position = 'absolute';
-  this.localVideo.style.top = '20px';
-  this.localVideo.style.right = '20px';
+  this.localVideo.style.top = '0px';
+  this.localVideo.style.right = '0px';
   this.localVideo.style['z-index'] = '1';
 
   this.remoteVideo.autoplay = true;
