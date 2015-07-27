@@ -50,7 +50,6 @@ socket.socketroute = function(io, user) {
   var queueStatus = function(orgName) {
     socket.staff[orgName] = socket.staff[orgName] || {};
     socket.customerQueue[orgName] = socket.customerQueue[orgName] || [];
-
     var staffCount = 0;
     for (var staffId in socket.staff[orgName]) {
       staffCount += 1;
@@ -81,6 +80,7 @@ socket.socketroute = function(io, user) {
     user.organizationName = user.handshake.query.orgName;
     socket.staff[user.organizationName] = socket.staff[user.organizationName] || {};
     socket.staff[user.organizationName][user.id] = false;
+    socket.rooms[user.organizationName] = socket.rooms[user.organizationName] || [];
     user.category = "staff";
     queueStatus(user.organizationName);
   }
