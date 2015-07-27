@@ -1,5 +1,6 @@
 var AppDispatcher = require('../dispatchers/appDispatcher');
 var appConstants = require('../constants/appConstants');
+var socketActions = require('./socketActions.js');
 var apiUtil = require('./apiUtil');
 
 var setEmployeeData = function(data) {
@@ -18,6 +19,7 @@ var appActions = {
           return;
         }
         setEmployeeData(res.body);
+        socketActions.socketConnect(res.body.web_name);
       });
   },
 
@@ -30,6 +32,7 @@ var appActions = {
           console.log('There was a problem logging out: ', err);
           return;
         }
+        socketActions.disconnect();
         window.location.href = window.location.origin + '/login';
       });
   },
