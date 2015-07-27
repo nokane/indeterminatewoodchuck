@@ -218,7 +218,9 @@ gulp.task('replaceHTML-login', function(){
 
 gulp.task('libraryReplace', function(){
   gulp.src([ 'library/chatLibrary.js' ])
-    .pipe(replace(/http.*ngrok\.com/g, 'http://hidden-sands-2214.herokuapp.com'))
+    .pipe(replace(/https?.*ngrok\.com/g, 'http://hidden-sands-2214.herokuapp.com')) // ngrok links http or https
+    .pipe(replace(/http.*3000/g, 'http://hidden-sands-2214.herokuapp.com')) // localhost links
+    .pipe(replace('127.0.0.1:3000', 'http://hidden-sands-2214.herokuapp.com')) // explicit link
     .pipe(gulp.dest('library'));
 });
 
