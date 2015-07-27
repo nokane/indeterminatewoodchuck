@@ -29,6 +29,9 @@ var socketActions = {
   },
   staffReady: function(web_name) {
     socket.emit('staffReady', web_name);
+  },
+  disconnect: function() {
+    socket.disconnect();
   }
 };
 
