@@ -32,6 +32,7 @@ var appActions = {
           console.log('There was a problem logging out: ', err);
           return;
         }
+        socketActions.disconnect();
         window.location.href = window.location.origin + '/login';
       });
   },
