@@ -12,7 +12,7 @@ var argv = require('yargs').argv;
 var shell = require('gulp-shell');
 var minifyCss = require('gulp-minify-css');
 var env = require('gulp-env');
-var gulpReplace = require('gulp-replace');
+var replace = require('gulp-replace');
 
 var path = {
   HTML: 'client/portal/index.html',
@@ -217,9 +217,9 @@ gulp.task('replaceHTML-login', function(){
 });
 
 gulp.task('libraryReplace', function(){
-  gulp.src('library/chatLibrary.js')
-    .pipe(replace(/* TODO: regex */, 'http://hidden-sands-2214.herokuapp.com'))
-    .pipe(gulp.dest('library/chatLibrary.js'));
+  gulp.src([ 'library/chatLibrary.js' ])
+    .pipe(replace(/http.*ngrok\.com/g, 'http://hidden-sands-2214.herokuapp.com'))
+    .pipe(gulp.dest('library'));
 });
 
 gulp.task('default', [
