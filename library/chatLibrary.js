@@ -33,10 +33,14 @@ var Supportal = function(orgName){
   this.remoteVideo.style.position = 'relative';
 
   this.disconnectButton.style.position = 'absolute';
+  this.disconnectButton.className = 'btn btn-xs';
   this.disconnectButton.style.top = '0px';
   this.disconnectButton.style.right = '0px';
   this.disconnectButton.style['z-index'] = '100';
-  this.disconnectButton.innerHTML = '<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>';
+  this.disconnectButton.style.width = '12.5px';
+  this.disconnectButton.style.height = '12.5px';
+  this.disconnectButton.innerHTML = '<span class="glyphicon glyphicon-remove" style="font-size:10px;position:absolute;right:0px;top:0px" aria-hidden="true"></span>';
+  this.disconnectButton.addEventListener('click', this._cancelClickHandler.bind(this), false);
 
   this.textChat.id = 'supportal-text-chat';
 
@@ -55,13 +59,16 @@ var Supportal = function(orgName){
 
 Supportal.prototype._initialClickHandler = function(){
   this.renderDetailForm();
-  this._changeEventListener('click', this._cancelClickHandler.bind(this), 'Cancel');
+  this.chatWindow.appendChild(this.disconnectButton);
+  this.disconnectButton.style.display = 'block';
+  this.chatButton.style.display = 'none';
   this.chatWindow.style.display = 'block';
 };
 
 Supportal.prototype._cancelClickHandler = function(){
   this.chatWindow.innerHTML = '';
-  this._changeEventListener('click', this._initialClickHandler.bind(this), this.chatButtonContent);
+  this.disconnectButton.style.display = 'none';
+  this.chatButton.style.display = 'block';
   this.chatWindow.style.display = 'none';
   this.comm.close();
   this.comm.leave(true);
