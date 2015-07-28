@@ -170,6 +170,18 @@ socket.socketroute = function(io, user) {
   });
 
   /*
+    When a customer decides to exit the queue before connecting
+  */
+  user.on('exitQueue', function() {
+    for (var m = 0; m < socket.customerQueue[user.organizationName].length; m++) {
+      if (socket.customerQueue[user.organizationName][m].userId === user.id) {
+        socket.customerQueue[user.organizationName].splice(m, 1);
+      }
+    }
+    queueStatus(user.organizationName);
+  });
+
+  /*
     When a customer or staff member has disconnected their socket connection
   */
   user.on('disconnect', function() {
