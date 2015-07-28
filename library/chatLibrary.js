@@ -2,9 +2,12 @@ var Supportal = function(orgName){
   this.init();
   this.orgName = orgName;
   this.customerName = null;
+  this.chatListenersExist = false;
 
   // Client will need to add a button and div with these IDs for library to work
   this.chatButton = document.getElementById('supportal-init-button');
+  this.chatButton.className = 'btn btn-default';
+
   this.chatWindow = document.getElementById('supportal-window');
   this.chatWindow.style.position = 'relative';
 
@@ -15,19 +18,32 @@ var Supportal = function(orgName){
   this.localVideo = document.createElement('video');
   this.remoteVideo = document.createElement('video');
   this.textChat = document.createElement('div');
+  this.disconnectButton = document.createElement('button');
 
   this.localVideo.autoplay = true;
   this.localVideo.id = 'supportal-local-video';
   this.localVideo.style.width = '25%';
   this.localVideo.style.position = 'absolute';
-  this.localVideo.style.top = '20px';
-  this.localVideo.style.right = '20px';
+  this.localVideo.style.top = '0px';
+  this.localVideo.style.right = '0px';
   this.localVideo.style['z-index'] = '1';
 
   this.remoteVideo.autoplay = true;
   this.remoteVideo.id = 'supportal-remote-video';
   this.remoteVideo.style.width = '100%';
   this.remoteVideo.style.position = 'relative';
+
+  this.disconnectButton.style.position = 'absolute';
+  this.disconnectButton.className = 'btn btn-xs';
+  this.disconnectButton.style.top = '0px';
+  this.disconnectButton.style.right = '0px';
+  this.disconnectButton.style.border = 'none';
+  this.disconnectButton.style['background-color'] = 'transparent';
+  this.disconnectButton.style['z-index'] = '100';
+  this.disconnectButton.style.width = '10px';
+  this.disconnectButton.style.height = '10px';
+  this.disconnectButton.innerHTML = '<span class="glyphicon glyphicon-remove" style="font-size:10px;position:absolute;right:0px;top:0px" aria-hidden="true"></span>';
+  this.disconnectButton.addEventListener('click', this._cancelClickHandler.bind(this), false);
 
   this.textChat.id = 'supportal-text-chat';
 
@@ -46,24 +62,20 @@ var Supportal = function(orgName){
 
 Supportal.prototype._initialClickHandler = function(){
   this.renderDetailForm();
-  this._changeEventListener('click', this._cancelClickHandler.bind(this), 'Cancel');
+  this.chatWindow.appendChild(this.disconnectButton);
+  this.disconnectButton.style.display = 'block';
+  this.chatButton.style.display = 'none';
   this.chatWindow.style.display = 'block';
 };
 
 Supportal.prototype._cancelClickHandler = function(){
   this.chatWindow.innerHTML = '';
-  this._changeEventListener('click', this._initialClickHandler.bind(this), this.chatButtonContent);
+  this.disconnectButton.style.display = 'none';
+  this.chatButton.style.display = 'block';
   this.chatWindow.style.display = 'none';
+  this.socket.emit('exitQueue');
   this.comm.close();
   this.comm.leave(true);
-};
-
-Supportal.prototype._changeEventListener = function(eventType, newHandler, textContent){
-  var elClone = this.chatButton.cloneNode(true);
-  this.chatButton.parentNode.replaceChild(elClone, this.chatButton);
-  this.chatButton = elClone;
-  this.chatButton.textContent = textContent;
-  this.chatButton.addEventListener(eventType, newHandler);
 };
 
 Supportal.prototype.renderDetailForm = function(){
@@ -103,7 +115,6 @@ Supportal.prototype.renderDetailForm = function(){
                     <button type="submit" class="btn btn-default">Submit</button>';
 
   this.chatWindow.appendChild(form);
-
 };
 
 Supportal.prototype.init = function(){
@@ -117,13 +128,13 @@ Supportal.prototype.init = function(){
   bootStrapLink.setAttribute('href', 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css');
   stylesLink.setAttribute('rel', 'stylesheet');
   stylesLink.setAttribute('type', 'text/css');
-  stylesLink.setAttribute('href', 'http://localhost:3000/librarystyles');
+  stylesLink.setAttribute('href', 'http://3936f383.ngrok.com/librarystyles');
   socketScript.src = 'https://cdn.socket.io/socket.io-1.3.5.js';
   icecommScript.src = 'https://cdn.icecomm.io/icecomm.js';
 
   socketScript.onload = function(){
     // need to change io connection point if want to test locally
-    this.socket = io('http://localhost:3000');
+    this.socket = io('http://3936f383.ngrok.com/');
   }.bind(this);
 
   icecommScript.onload = function(){
@@ -137,8 +148,12 @@ Supportal.prototype.init = function(){
 };
 
 Supportal.prototype.createChatSession = function(userDetails) {
-  this.setupPeerConnListeners();
-  this.setupSocketListeners();
+  // Only set up listeners if they haven't yet been created
+  if (!this.chatListenersExist) {
+    this.chatListenersExist = true;
+    this.setupPeerConnListeners();
+    this.setupSocketListeners();
+  }
 
   // emit 'customerRequest' with orgName passed in on object instantiation
   this.socket.emit('customerRequest', userDetails);
@@ -153,12 +168,14 @@ Supportal.prototype.setupSocketListeners = function(){
     container.style.height = '100%';
     container.style.padding = '10px';
 
-    var notAvailable = document.createElement('h2');
-    notAvailable.innerHTML = 'No staff available right now. Please come back at a later time.';
+    var notAvailable = document.createElement('h4');
+    notAvailable.textContent = 'No customer service representatives are available right now. Please try again at a later time.';
     notAvailable.style['margin-top'] = '0px';
     this.chatWindow.innerHTML = '';
     this.chatWindow.appendChild(container);
     container.appendChild(notAvailable);
+    this.chatWindow.appendChild(this.disconnectButton);
+    this.disconnectButton.style.display = 'block';
   }.bind(this));
 
   this.socket.on('customerQueueStatus', function(position){
@@ -168,11 +185,13 @@ Supportal.prototype.setupSocketListeners = function(){
     container.style.height = '100%';
     container.style.padding = '10px';
 
-    var queueStatus = document.createElement('h2');
-    queueStatus.innerHTML = 'There are' + position + 'customers ahead of you in the queue.';
+    var queueStatus = document.createElement('h4');
+    queueStatus.textContent = 'A customer service representative will be with you shortly. There are currently ' + position + ' customers ahead of you in the queue.';
     this.chatWindow.innerHTML = '';
     this.chatWindow.appendChild(container);
     container.appendChild(queueStatus);
+    this.chatWindow.appendChild(this.disconnectButton);
+    this.disconnectButton.style.display = 'block';
   }.bind(this));
 
   // should we pass in company name or other identifier?
@@ -202,7 +221,7 @@ Supportal.prototype.setupPeerConnListeners = function(){
     this.chatWindow.style.display = 'none';
 
     var thankYou = document.createElement('div');
-    thankYou.innerHTML = 'Thank you for using Supportal.';
+    thankYou.innerHTML = 'Thank you for using Portalize.';
     this.chatButton.parentNode.replaceChild(thankYou, this.chatButton);
 
     // client leaves iceComm room
