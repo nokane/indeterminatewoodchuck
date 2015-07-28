@@ -4,9 +4,7 @@ var icecommActions = require('../actions/icecommActions');
 
 var TextChat = React.createClass({
   getInitialState: function() {
-    return {
-      messages: []
-    };
+    return textChatStore.getState();
   },
 
   componentDidMount: function(){
@@ -23,9 +21,7 @@ var TextChat = React.createClass({
   },
 
   _onChange: function() {
-    this.setState({
-      messages: textChatStore.getMessages()
-    });
+    this.setState(textChatStore.getState());
   },
 
   onKeyDown: function(event) {
@@ -51,6 +47,11 @@ var TextChat = React.createClass({
       return (<div key={index}><span className='userPrompt'>{user}</span>: {text}</div>);
     });
 
+    var disabledInput = <input className='form-control' ref='messageInput' type='text' placeholder='Type your message here' disabled />
+    var disabledButton = <button className='btn btn-primary' type='submit' disabled>Submit</button>
+    var input = <input className='form-control' ref='messageInput' onKeyDown={this.onKeyDown} type='text' placeholder='Type your message here' required/>
+    var button = <button className='btn btn-primary' type='submit'>Submit</button>
+
     return (
       <div>
         <div className='message-log' ref='messageLog' >
@@ -58,9 +59,9 @@ var TextChat = React.createClass({
         </div>
         <form className='send-chat form-group' onSubmit={this.handleSubmit}>
           <div className='input-group'>
-            <input className='form-control' ref='messageInput' onKeyDown={this.onKeyDown} type='text' placeholder='Type your message here' required/>
+            { this.state.connected ? input : disabledInput }
             <span className='input-group-btn'>
-              <button className='btn btn-primary' type='submit'>Submit</button>
+              { this.state.connected ? button : disabledButton }
             </span>
           </div>
         </form>
