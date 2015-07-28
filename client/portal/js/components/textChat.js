@@ -47,7 +47,7 @@ var TextChat = React.createClass({
       return (<div key={index}><span className='userPrompt'>{user}</span>: {text}</div>);
     });
 
-    var disabledInput = <input className='form-control' ref='messageInput' type='text' placeholder='Type your message here' disabled />
+    var disabledInput = <input className='form-control' ref='messageInput' type='text' value='' placeholder='Type your message here' disabled />
     var disabledButton = <button className='btn btn-primary' type='submit' disabled>Submit</button>
     var input = <input className='form-control' ref='messageInput' onKeyDown={this.onKeyDown} type='text' placeholder='Type your message here' required/>
     var button = <button className='btn btn-primary' type='submit'>Submit</button>

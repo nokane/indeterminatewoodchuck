@@ -128,13 +128,13 @@ Supportal.prototype.init = function(){
   bootStrapLink.setAttribute('href', 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css');
   stylesLink.setAttribute('rel', 'stylesheet');
   stylesLink.setAttribute('type', 'text/css');
-  stylesLink.setAttribute('href', 'http://3936f383.ngrok.com/librarystyles');
+  stylesLink.setAttribute('href', 'http://localhost:3000/librarystyles');
   socketScript.src = 'https://cdn.socket.io/socket.io-1.3.5.js';
   icecommScript.src = 'https://cdn.icecomm.io/icecomm.js';
 
   socketScript.onload = function(){
     // need to change io connection point if want to test locally
-    this.socket = io('http://3936f383.ngrok.com/');
+    this.socket = io('http://localhost:3000');
   }.bind(this);
 
   icecommScript.onload = function(){
