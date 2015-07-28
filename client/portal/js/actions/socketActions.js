@@ -5,9 +5,9 @@ var icecommActions = require('./icecommActions');
 var socket;
 
 var socketActions = {
-  socketConnect: function(orgName) {
+  socketConnect: function(orgName, staffId, email) {
 
-    socket = io.connect(window.location.origin, {query: "orgName="+orgName});
+    socket = io.connect(window.location.origin, {query: "orgName="+orgName+'&staffId='+staffId+'&email='+email});
     console.log("successfully connected to socket server");
 
     socket.on('staffRoom', function(data) {
