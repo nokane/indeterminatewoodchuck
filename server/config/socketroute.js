@@ -1,4 +1,5 @@
 var socket = module.exports = {};
+var sessionController = require('../controllers/sessionController.js');
 
 socket.rooms = {};
 /*
@@ -134,7 +135,9 @@ socket.socketroute = function(io, user) {
     */
     if (socket.customerQueue[orgName] && socket.customerQueue[orgName].length > 0) {
       var customerData = socket.customerQueue[orgName].shift();
-      io.to(customerData.userId).emit('customerRoom', socket.rooms[orgName].shift());
+      var room_name = socket.rooms[orgName].shift();
+      io.to(customerData.userId).emit('customerRoom', room_name);
+      sessionController.addSession(socket.staffDetails[orgName][user.id].staffId, room_name);
     }
     queueStatus(orgName);
   });
@@ -169,8 +172,16 @@ socket.socketroute = function(io, user) {
       added to socket.rooms[orgName].
     */
     if (socket.rooms[orgName] && socket.rooms[orgName].length > 0) {
-      io.to(user.id).emit('customerRoom', socket.rooms[orgName].shift());
+      var room_name = socket.rooms[orgName].shift();
+      var staffId;
+      for (var key in socket.staff[user.organizationName]) {
+        if (socket.staff[user.organizationName][key] === room_name) {
+          staffId = key;
+        }
+      }
+      io.to(user.id).emit('customerRoom', room_name);
       socket.customerQueue[orgName].shift();
+      sessionController.addSession(socket.staffDetails[orgName][staffId].staffId, room_name);
     }
     queueStatus(orgName);
   });
