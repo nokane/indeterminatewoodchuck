@@ -1,7 +1,56 @@
 #supportal-window {
+  position: relative;
   width: auto;
   height: auto;
   padding: 0px;
   margin-bottom: 20px;
   display: none;
-};
+}
+
+#supportal-local-video {
+  width: 25%;
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  z-index: 1;
+}
+
+#supportal-remote-video {
+  width: 100%;
+  position: relative;
+}
+
+#supportal-disconnect-button {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  border: none;
+  background-color: transparent;
+  z-index: 100;
+  width: 10px;
+  height: 10px;
+}
+
+#supportal-message-log {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-bottom: 5px;
+  width: 100%;
+  height: 100px;
+  overflow: auto;
+  overflow-y: scroll;
+}
+
+.supportal-message-container {
+  opacity: 0.6;
+  width: 100%;
+  height: 100%;
+  padding: 10px;
+}
+
+.glyphicon.glyphicon-remove {
+  font-size: 10px;
+  position: absolute;
+  right: 0px;
+  top: 0px;
+}

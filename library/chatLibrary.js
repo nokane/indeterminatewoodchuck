@@ -9,7 +9,6 @@ var Supportal = function(orgName){
   this.chatButton.className = 'btn btn-default';
 
   this.chatWindow = document.getElementById('supportal-window');
-  this.chatWindow.style.position = 'relative';
 
   // Cached content from business
   this.chatButtonContent = this.chatButton.textContent;
@@ -22,27 +21,13 @@ var Supportal = function(orgName){
 
   this.localVideo.autoplay = true;
   this.localVideo.id = 'supportal-local-video';
-  this.localVideo.style.width = '25%';
-  this.localVideo.style.position = 'absolute';
-  this.localVideo.style.top = '0px';
-  this.localVideo.style.right = '0px';
-  this.localVideo.style['z-index'] = '1';
 
   this.remoteVideo.autoplay = true;
   this.remoteVideo.id = 'supportal-remote-video';
-  this.remoteVideo.style.width = '100%';
-  this.remoteVideo.style.position = 'relative';
 
-  this.disconnectButton.style.position = 'absolute';
+  this.disconnectButton.id = 'supportal-disconnect-button';
   this.disconnectButton.className = 'btn btn-xs';
-  this.disconnectButton.style.top = '0px';
-  this.disconnectButton.style.right = '0px';
-  this.disconnectButton.style.border = 'none';
-  this.disconnectButton.style['background-color'] = 'transparent';
-  this.disconnectButton.style['z-index'] = '100';
-  this.disconnectButton.style.width = '10px';
-  this.disconnectButton.style.height = '10px';
-  this.disconnectButton.innerHTML = '<span class="glyphicon glyphicon-remove" style="font-size:10px;position:absolute;right:0px;top:0px" aria-hidden="true"></span>';
+  this.disconnectButton.innerHTML = '<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>';
   this.disconnectButton.addEventListener('click', this._cancelClickHandler.bind(this), false);
 
   this.textChat.id = 'supportal-text-chat';
@@ -163,10 +148,7 @@ Supportal.prototype.setupSocketListeners = function(){
 
   this.socket.on('staffUnavailable', function(){
     var container = document.createElement('div');
-    container.style.opacity = '0.6';
-    container.style.width = '100%';
-    container.style.height = '100%';
-    container.style.padding = '10px';
+    container.className = 'supportal-message-container';
 
     var notAvailable = document.createElement('h4');
     notAvailable.textContent = 'No customer service representatives are available right now. Please try again at a later time.';
@@ -180,10 +162,7 @@ Supportal.prototype.setupSocketListeners = function(){
 
   this.socket.on('customerQueueStatus', function(position){
     var container = document.createElement('div');
-    container.style.opacity = '0.6';
-    container.style.width = '100%';
-    container.style.height = '100%';
-    container.style.padding = '10px';
+    container.className = 'supportal-message-container';
 
     var queueStatus = document.createElement('h4');
     queueStatus.textContent = 'A customer service representative will be with you shortly. There are currently ' + position + ' customers ahead of you in the queue.';
@@ -235,13 +214,6 @@ Supportal.prototype.setupPeerConnListeners = function(){
     this.chatWindow.appendChild(this.textChat);
 
     var chatView = document.getElementById('supportal-message-log');
-    chatView.style.border = '1px solid #ccc';
-    chatView.style['border-radius'] = '4px';
-    chatView.style['margin-bottom'] = '5px';
-    chatView.style.width = '100%';
-    chatView.style.height = '100px';
-    chatView.style['overflow-y'] = 'scroll';
-    chatView.style.overflow = 'auto';
 
     // after connecting, set up listener for text chat submit
     var submitForm = document.getElementById('supportal-chat-form');
