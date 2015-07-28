@@ -5,6 +5,10 @@ var Queue = require('./queue');
 var TextChat = require('./textChat');
 var appStore = require('../stores/appStore');
 var appActions = require('../actions/appActions');
+var Router = require('react-router');
+
+var Route = Router.Route;
+var RouteHandler = Router.RouteHandler;
 
 var Main = React.createClass({
 
