@@ -36,9 +36,11 @@ var Supportal = function(orgName){
   this.disconnectButton.className = 'btn btn-xs';
   this.disconnectButton.style.top = '0px';
   this.disconnectButton.style.right = '0px';
+  this.disconnectButton.style.border = 'none';
+  this.disconnectButton.style['background-color'] = 'transparent';
   this.disconnectButton.style['z-index'] = '100';
-  this.disconnectButton.style.width = '12.5px';
-  this.disconnectButton.style.height = '12.5px';
+  this.disconnectButton.style.width = '10px';
+  this.disconnectButton.style.height = '10px';
   this.disconnectButton.innerHTML = '<span class="glyphicon glyphicon-remove" style="font-size:10px;position:absolute;right:0px;top:0px" aria-hidden="true"></span>';
   this.disconnectButton.addEventListener('click', this._cancelClickHandler.bind(this), false);
 
@@ -72,14 +74,6 @@ Supportal.prototype._cancelClickHandler = function(){
   this.chatWindow.style.display = 'none';
   this.comm.close();
   this.comm.leave(true);
-};
-
-Supportal.prototype._changeEventListener = function(eventType, newHandler, textContent){
-  var elClone = this.chatButton.cloneNode(true);
-  this.chatButton.parentNode.replaceChild(elClone, this.chatButton);
-  this.chatButton = elClone;
-  this.chatButton.textContent = textContent;
-  this.chatButton.addEventListener(eventType, newHandler);
 };
 
 Supportal.prototype.renderDetailForm = function(){
@@ -119,7 +113,6 @@ Supportal.prototype.renderDetailForm = function(){
                     <button type="submit" class="btn btn-default">Submit</button>';
 
   this.chatWindow.appendChild(form);
-
 };
 
 Supportal.prototype.init = function(){
