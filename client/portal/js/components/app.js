@@ -7,6 +7,7 @@ var ChatInterface = require('./chatInterface');
 var appStore = require('../stores/appStore');
 var appActions = require('../actions/appActions');
 var Router = require('react-router');
+var SessionHistory = require('./sessionHistory');
 
 var Route = Router.Route;
 var DefaultRoute = Router.DefaultRoute;
@@ -30,7 +31,7 @@ var Main = React.createClass({
   },
 
   componentWillUnmount: function() {
-    appStore.removeChangeListener(this._onChange);    
+    appStore.removeChangeListener(this._onChange);
   },
 
   getEmployeeData: function() {
@@ -61,12 +62,11 @@ var Main = React.createClass({
 
 var routes = (
   <Route handler={Main}>
-    <DefaultRoute handler={ChatInterface}/>
-
+    <DefaultRoute handler={ChatInterface} />
+    <Route path='session-history' handler={SessionHistory} />
     <NotFoundRoute handler={ChatInterface} />
   </Route>
 );
-
 
 Router.run(routes, function(Root) {
   React.render(<Root/>, document.getElementById('app'));
