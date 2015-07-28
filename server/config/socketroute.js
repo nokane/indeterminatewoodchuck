@@ -38,6 +38,8 @@ socket.staff = {};
       value: the name of the room that the staff member is currently in
 */
 
+socket.staffDetails = {};
+
 socket.socketroute = function(io, user) {
 
   /*
@@ -77,10 +79,14 @@ socket.socketroute = function(io, user) {
   */
 
   if (user.handshake.query.hasOwnProperty('orgName')) {
+    user.staffId = user.handshake.query.staffId;
+    user.email = user.handshake.query.email;
     user.organizationName = user.handshake.query.orgName;
     socket.staff[user.organizationName] = socket.staff[user.organizationName] || {};
+    socket.staffDetails[user.organizationName] = socket.staffDetails[user.organizationName] || {};
     socket.staff[user.organizationName][user.id] = false;
     socket.rooms[user.organizationName] = socket.rooms[user.organizationName] || [];
+    socket.staffDetails[user.organizationName][user.id] = { staffId: user.staffId, email: user.email};
     user.category = "staff";
     queueStatus(user.organizationName);
   }
@@ -199,6 +205,7 @@ socket.socketroute = function(io, user) {
         socket.rooms[user.organizationName].splice(roomIndex, 1);
       }
       delete socket.staff[user.organizationName][user.id];
+      delete socket.staffDetails[user.organizationName][user.id];
     } else if (user.category === "customer") {
       /*
         For a customer, check to see if that customer's Socket Id is in
