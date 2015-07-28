@@ -1,17 +1,34 @@
+#supportal-slide {
+  position: fixed;
+  right: 100px;
+  width: 300px;
+  padding: 0px 10px;
+}
+
+.supportal-slide-up {
+  bottom: 0px;
+}
+
+.supportal-slide-down {
+  bottom: -400px;
+}
+
 #supportal-window {
   position: relative;
   width: auto;
-  height: auto;
-  padding: 0px;
-  margin-bottom: 20px;
-  display: none;
+  height: 400px;
+  padding: 10px;
+  display: block;
+  background-color: white;
+  border: 1px solid black;
+  border-radius: 4px;
 }
 
 #supportal-local-video {
   width: 25%;
   position: absolute;
-  top: 0px;
-  right: 0px;
+  top: 10px;
+  right: 10px;
   z-index: 1;
 }
 
@@ -36,9 +53,13 @@
   border-radius: 4px;
   margin-bottom: 5px;
   width: 100%;
-  height: 100px;
+  height: 135px;
   overflow: auto;
   overflow-y: scroll;
+}
+
+#supportal-form-question {
+  height: 100px;
 }
 
 .supportal-message-container {
@@ -54,3 +75,4 @@
   right: 0px;
   top: 0px;
 }
+

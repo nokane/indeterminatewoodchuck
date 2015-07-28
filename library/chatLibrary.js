@@ -4,11 +4,21 @@ var Supportal = function(orgName){
   this.customerName = null;
   this.chatListenersExist = false;
 
-  // Client will need to add a button and div with these IDs for library to work
-  this.chatButton = document.getElementById('supportal-init-button');
-  this.chatButton.className = 'btn btn-default';
+  this.supportalSlide = document.createElement('div');
+  this.supportalSlide.id = 'supportal-slide';
+  this.supportalSlide.className = 'supportal-slide-down';
+  document.body.appendChild(this.supportalSlide);
 
-  this.chatWindow = document.getElementById('supportal-window');
+  // Client will need to add a button and div with these IDs for library to work
+  this.chatButton = document.createElement('button');
+  this.chatButton.id = 'supportal-init-button';
+  this.chatButton.className = 'btn btn-default';
+  this.chatButton.textContent = 'Chat with a representative';
+  this.supportalSlide.appendChild(this.chatButton);
+
+  this.chatWindow = document.createElement('div');
+  this.chatWindow.id = 'supportal-window';
+  this.supportalSlide.appendChild(this.chatWindow);
 
   // Cached content from business
   this.chatButtonContent = this.chatButton.textContent;
@@ -17,18 +27,12 @@ var Supportal = function(orgName){
   this.localVideo = document.createElement('video');
   this.remoteVideo = document.createElement('video');
   this.textChat = document.createElement('div');
-  this.disconnectButton = document.createElement('button');
 
   this.localVideo.autoplay = true;
   this.localVideo.id = 'supportal-local-video';
 
   this.remoteVideo.autoplay = true;
   this.remoteVideo.id = 'supportal-remote-video';
-
-  this.disconnectButton.id = 'supportal-disconnect-button';
-  this.disconnectButton.className = 'btn btn-xs';
-  this.disconnectButton.innerHTML = '<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>';
-  this.disconnectButton.addEventListener('click', this._cancelClickHandler.bind(this), false);
 
   this.textChat.id = 'supportal-text-chat';
 
@@ -47,20 +51,27 @@ var Supportal = function(orgName){
 
 Supportal.prototype._initialClickHandler = function(){
   this.renderDetailForm();
-  this.chatWindow.appendChild(this.disconnectButton);
-  this.disconnectButton.style.display = 'block';
-  this.chatButton.style.display = 'none';
-  this.chatWindow.style.display = 'block';
+  this.supportalSlide.classList.remove('supportal-slide-down');
+  this.supportalSlide.classList.add('supportal-slide-up');
+  this._changeEventListener('click', this._cancelClickHandler.bind(this), 'Cancel Request');
 };
 
 Supportal.prototype._cancelClickHandler = function(){
   this.chatWindow.innerHTML = '';
-  this.disconnectButton.style.display = 'none';
-  this.chatButton.style.display = 'block';
-  this.chatWindow.style.display = 'none';
+  this.supportalSlide.classList.remove('supportal-slide-up');
+  this.supportalSlide.classList.add('supportal-slide-down');
+  this._changeEventListener('click', this._initialClickHandler.bind(this), this.chatButtonContent);
   this.socket.emit('exitQueue');
   this.comm.close();
   this.comm.leave(true);
+};
+
+Supportal.prototype._changeEventListener = function(eventType, newHandler, textContent){
+  var elClone = this.chatButton.cloneNode(true);
+  this.chatButton.parentNode.replaceChild(elClone, this.chatButton);
+  this.chatButton = elClone;
+  this.chatButton.textContent = textContent;
+  this.chatButton.addEventListener(eventType, newHandler);
 };
 
 Supportal.prototype.renderDetailForm = function(){
@@ -95,7 +106,7 @@ Supportal.prototype.renderDetailForm = function(){
                     </div> \
                     <div class="form-group"> \
                       <label>Question</label> \
-                      <textarea class="form-control" required></textarea> \
+                      <textarea id="supportal-form-question" class="form-control" required></textarea> \
                     </div> \
                     <button type="submit" class="btn btn-default">Submit</button>';
 
@@ -113,13 +124,13 @@ Supportal.prototype.init = function(){
   bootStrapLink.setAttribute('href', 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css');
   stylesLink.setAttribute('rel', 'stylesheet');
   stylesLink.setAttribute('type', 'text/css');
-  stylesLink.setAttribute('href', 'http://localhost:3000/librarystyles');
+  stylesLink.setAttribute('href', 'http://hidden-sands-2214.herokuapp.com/librarystyles');
   socketScript.src = 'https://cdn.socket.io/socket.io-1.3.5.js';
   icecommScript.src = 'https://cdn.icecomm.io/icecomm.js';
 
   socketScript.onload = function(){
     // need to change io connection point if want to test locally
-    this.socket = io('http://localhost:3000');
+    this.socket = io('http://hidden-sands-2214.herokuapp.com');
   }.bind(this);
 
   icecommScript.onload = function(){
@@ -156,8 +167,6 @@ Supportal.prototype.setupSocketListeners = function(){
     this.chatWindow.innerHTML = '';
     this.chatWindow.appendChild(container);
     container.appendChild(notAvailable);
-    this.chatWindow.appendChild(this.disconnectButton);
-    this.disconnectButton.style.display = 'block';
   }.bind(this));
 
   this.socket.on('customerQueueStatus', function(position){
@@ -166,11 +175,10 @@ Supportal.prototype.setupSocketListeners = function(){
 
     var queueStatus = document.createElement('h4');
     queueStatus.textContent = 'A customer service representative will be with you shortly. There are currently ' + position + ' customers ahead of you in the queue.';
+    queueStatus.style['margin-top'] = '0px';
     this.chatWindow.innerHTML = '';
     this.chatWindow.appendChild(container);
     container.appendChild(queueStatus);
-    this.chatWindow.appendChild(this.disconnectButton);
-    this.disconnectButton.style.display = 'block';
   }.bind(this));
 
   // should we pass in company name or other identifier?
