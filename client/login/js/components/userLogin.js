@@ -4,14 +4,14 @@ var helper = require('./helper.js');
 var UserLogin = React.createClass({
   render: function() {
     return (
-      <div>
-        <ul className="form-fields">
-            <label>Email</label>
-            <input className='shortfield' type="email" ref="email" />
-            <label>Password</label>
-            <input className='shortfield' type="password" ref="password" />
-            <button onClick={this.handleLogin}>Login</button>
-        </ul>
+      <div className="form-fields">
+        <label>Email</label>
+        <input className='shortfield' type="email" ref="email" />
+        <span>        </span>
+        <label>Password</label>
+        <input className='shortfield' type="password" ref="password" />
+        <span>        </span>
+        <button className='login' onClick={this.handleLogin}>Login</button>
       </div>
     )
   },
@@ -26,16 +26,24 @@ var UserLogin = React.createClass({
 
     this.props.saveValues(resData);
 
-    console.log(resData);
-
     var xmlhttp = helper.makePostRequest("/api/users/signin", resData);
-    xmlhttp.onreadystatechange = function() {
-      if (xmlhttp.readyState == 4) {
-         var answer = JSON.parse(xmlhttp.responseText);
-         window.location.href=window.location.origin;
+    var _this = this;
+    if (helper.userDataValid(resData, function(message) {
+      _this.props.handleError("userLoginErrorMessage", message);
+    })) {    
+      xmlhttp.onreadystatechange = function() {
+        if (xmlhttp.readyState == 4) {
+           var answer = JSON.parse(xmlhttp.responseText);
+           if (answer.success === 'false') {
+             _this.props.handleError("userLoginErrorMessage", answer.message);
+           }
+           else {
+             window.location.href=window.location.origin;
+           }
+        }
       }
     }
   }
-})
+});
 
 module.exports = UserLogin;
