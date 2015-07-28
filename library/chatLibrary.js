@@ -2,6 +2,7 @@ var Supportal = function(orgName){
   this.init();
   this.orgName = orgName;
   this.customerName = null;
+  this.chatListenersExist = false;
 
   // Client will need to add a button and div with these IDs for library to work
   this.chatButton = document.getElementById('supportal-init-button');
@@ -72,6 +73,7 @@ Supportal.prototype._cancelClickHandler = function(){
   this.disconnectButton.style.display = 'none';
   this.chatButton.style.display = 'block';
   this.chatWindow.style.display = 'none';
+  this.socket.emit('exitQueue');
   this.comm.close();
   this.comm.leave(true);
 };
@@ -146,8 +148,12 @@ Supportal.prototype.init = function(){
 };
 
 Supportal.prototype.createChatSession = function(userDetails) {
-  this.setupPeerConnListeners();
-  this.setupSocketListeners();
+  // Only set up listeners if they haven't yet been created
+  if (!this.chatListenersExist) {
+    this.chatListenersExist = true;
+    this.setupPeerConnListeners();
+    this.setupSocketListeners();
+  }
 
   // emit 'customerRequest' with orgName passed in on object instantiation
   this.socket.emit('customerRequest', userDetails);
@@ -215,7 +221,7 @@ Supportal.prototype.setupPeerConnListeners = function(){
     this.chatWindow.style.display = 'none';
 
     var thankYou = document.createElement('div');
-    thankYou.innerHTML = 'Thank you for using Supportal.';
+    thankYou.innerHTML = 'Thank you for using Portalize.';
     this.chatButton.parentNode.replaceChild(thankYou, this.chatButton);
 
     // client leaves iceComm room
