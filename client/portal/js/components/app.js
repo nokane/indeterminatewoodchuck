@@ -3,6 +3,7 @@ var NavBar = require('./navBar');
 var VideoChat = require('./videoChat');
 var Queue = require('./queue');
 var TextChat = require('./textChat');
+var ChatInterface = require('./chatInterface');
 var appStore = require('../stores/appStore');
 var appActions = require('../actions/appActions');
 var Router = require('react-router');
