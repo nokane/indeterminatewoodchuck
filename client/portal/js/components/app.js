@@ -11,19 +11,6 @@ var Router = require('react-router');
 var Route = Router.Route;
 var RouteHandler = Router.RouteHandler;
 
-  var wn = undefined;
-  var firstname = undefined;
-  var lastname = undefined;
-  var em = undefined;
-
-var wrapComponent = function(Component, props) {
-  return React.createClass({
-    render: function() {
-      return React.createElement(Component, props);
-    }
-  });
-};
-
 var Main = React.createClass({
 
   // Ask server for org name, employee name / ID, other employee info
@@ -59,17 +46,12 @@ var Main = React.createClass({
     var lastName = this.state.employeeLastName;
     var email = this.state.employeeEmail;
 
-    wn = web_name;
-    firstname = firstName;
-    lastname = lastName;
-    em = email;
-
     return (
       <div className='container'>
         <div className = 'row'>
           <NavBar firstName={firstName} lastName={lastName} email={email} web_name={web_name} />
         </div>
-        <RouteHandler/>
+        <RouteHandler web_name={web_name} />
       </div>
     );
   }
@@ -77,12 +59,7 @@ var Main = React.createClass({
 
 var routes = (
   <Route handler={Main}>
-    <Route path="interface" handler={wrapComponent(ChatInterface, {
-      'web_name': wn,
-      'firstName': firstname,
-      'lastName': lastname,
-      'email': em
-    })}/>
+    <Route path="" handler={ChatInterface}/>
   </Route>
 );
 
