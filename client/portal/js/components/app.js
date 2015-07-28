@@ -9,6 +9,7 @@ var appActions = require('../actions/appActions');
 var Router = require('react-router');
 
 var Route = Router.Route;
+var DefaultRoute = Router.DefaultRoute;
 var NotFoundRoute = Router.NotFoundRoute;
 var RouteHandler = Router.RouteHandler;
 
@@ -60,7 +61,8 @@ var Main = React.createClass({
 
 var routes = (
   <Route handler={Main}>
-    <Route path="" handler={ChatInterface}/>
+    <DefaultRoute handler={ChatInterface}/>
+
     <NotFoundRoute handler={ChatInterface} />
   </Route>
 );
