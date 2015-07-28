@@ -1,4 +1,5 @@
 var socket = module.exports = {};
+var sessionController = require('../controllers/sessionController.js');
 
 socket.rooms = {};
 /*
@@ -37,6 +38,8 @@ socket.staff = {};
       key: the user Socket Id of the staff member
       value: the name of the room that the staff member is currently in
 */
+
+socket.staffDetails = {};
 
 socket.socketroute = function(io, user) {
 
@@ -77,10 +80,14 @@ socket.socketroute = function(io, user) {
   */
 
   if (user.handshake.query.hasOwnProperty('orgName')) {
+    user.staffId = user.handshake.query.staffId;
+    user.email = user.handshake.query.email;
     user.organizationName = user.handshake.query.orgName;
     socket.staff[user.organizationName] = socket.staff[user.organizationName] || {};
+    socket.staffDetails[user.organizationName] = socket.staffDetails[user.organizationName] || {};
     socket.staff[user.organizationName][user.id] = false;
     socket.rooms[user.organizationName] = socket.rooms[user.organizationName] || [];
+    socket.staffDetails[user.organizationName][user.id] = { staffId: user.staffId, email: user.email};
     user.category = "staff";
     queueStatus(user.organizationName);
   }
@@ -128,7 +135,9 @@ socket.socketroute = function(io, user) {
     */
     if (socket.customerQueue[orgName] && socket.customerQueue[orgName].length > 0) {
       var customerData = socket.customerQueue[orgName].shift();
-      io.to(customerData.userId).emit('customerRoom', socket.rooms[orgName].shift());
+      var room_name = socket.rooms[orgName].shift();
+      io.to(customerData.userId).emit('customerRoom', room_name);
+      sessionController.addSession(socket.staffDetails[orgName][user.id].staffId, room_name, customerData);
     }
     queueStatus(orgName);
   });
@@ -163,8 +172,16 @@ socket.socketroute = function(io, user) {
       added to socket.rooms[orgName].
     */
     if (socket.rooms[orgName] && socket.rooms[orgName].length > 0) {
-      io.to(user.id).emit('customerRoom', socket.rooms[orgName].shift());
-      socket.customerQueue[orgName].shift();
+      var room_name = socket.rooms[orgName].shift();
+      var staffId;
+      for (var key in socket.staff[user.organizationName]) {
+        if (socket.staff[user.organizationName][key] === room_name) {
+          staffId = key;
+        }
+      }
+      io.to(user.id).emit('customerRoom', room_name);
+      var customerData = socket.customerQueue[orgName].shift();
+      sessionController.addSession(socket.staffDetails[orgName][staffId].staffId, room_name, customerData);
     }
     queueStatus(orgName);
   });
@@ -199,6 +216,7 @@ socket.socketroute = function(io, user) {
         socket.rooms[user.organizationName].splice(roomIndex, 1);
       }
       delete socket.staff[user.organizationName][user.id];
+      delete socket.staffDetails[user.organizationName][user.id];
     } else if (user.category === "customer") {
       /*
         For a customer, check to see if that customer's Socket Id is in
