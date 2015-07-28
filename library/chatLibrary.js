@@ -168,6 +168,8 @@ Supportal.prototype.setupSocketListeners = function(){
     this.chatWindow.innerHTML = '';
     this.chatWindow.appendChild(container);
     container.appendChild(notAvailable);
+    this.chatWindow.appendChild(this.disconnectButton);
+    this.disconnectButton.style.display = 'block';
   }.bind(this));
 
   this.socket.on('customerQueueStatus', function(position){
@@ -182,6 +184,8 @@ Supportal.prototype.setupSocketListeners = function(){
     this.chatWindow.innerHTML = '';
     this.chatWindow.appendChild(container);
     container.appendChild(queueStatus);
+    this.chatWindow.appendChild(this.disconnectButton);
+    this.disconnectButton.style.display = 'block';
   }.bind(this));
 
   // should we pass in company name or other identifier?
