@@ -3,8 +3,15 @@ var NavBar = require('./navBar');
 var VideoChat = require('./videoChat');
 var Queue = require('./queue');
 var TextChat = require('./textChat');
+var ChatInterface = require('./chatInterface');
 var appStore = require('../stores/appStore');
 var appActions = require('../actions/appActions');
+var Router = require('react-router');
+
+var Route = Router.Route;
+var DefaultRoute = Router.DefaultRoute;
+var NotFoundRoute = Router.NotFoundRoute;
+var RouteHandler = Router.RouteHandler;
 
 var Main = React.createClass({
 
@@ -46,20 +53,21 @@ var Main = React.createClass({
         <div className = 'row'>
           <NavBar firstName={firstName} lastName={lastName} email={email} web_name={web_name} />
         </div>
-        <div className = 'row'>
-          <div className='column1'>
-            <VideoChat />
-          </div>
-          <div className='column2'>
-            <Queue web_name={web_name} />
-          </div>
-        </div>
-        <div className = 'row'>
-          <TextChat />
-        </div>
+        <RouteHandler web_name={web_name} />
       </div>
     );
   }
 });
 
-React.render(<Main />, document.getElementById('app'));
+var routes = (
+  <Route handler={Main}>
+    <DefaultRoute handler={ChatInterface}/>
+
+    <NotFoundRoute handler={ChatInterface} />
+  </Route>
+);
+
+
+Router.run(routes, function(Root) {
+  React.render(<Root/>, document.getElementById('app'));
+});
