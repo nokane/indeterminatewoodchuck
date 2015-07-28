@@ -4,23 +4,25 @@ var UserSignup      = require('./userSignup.js');
 var OrgAccountQuery = require('./orgAccountQuery.js');
 var OrgLogin        = require('./orgLogin.js');
 var OrgSignup       = require('./orgSignup.js');
+var Error           = require('./error.js');
 var assign          = require('object-assign');
-
-var fieldValues = {
-  email        : null,
-  password     : null,
-  firstName    : null,
-  lastName     : null,
-  jobTitle     : null,
-  email2       : null,
-  password2    : null,
-};
 
 var Login = React.createClass({
   getInitialState: function() {
     return {
+      fieldValues: {email        : null,
+                    password     : null,
+                    firstName    : null,
+                    lastName     : null,
+                    jobTitle     : null,
+                    email2       : null,
+                    password2    : null},
       showOrgLogin : 0,
-      showOrgSignup : 0
+      showOrgSignup : 0,
+      userLoginErrorMessage: null,
+      userSignupErrorMessage: null,
+      orgLoginErrorMessage: null,
+      orgSignupErrorMessage: null      
     };
   },
 
@@ -28,7 +30,8 @@ var Login = React.createClass({
     this.setState({
       showOrgLogin: 1,
       showOrgSignup: 0
-    });      
+    });
+    this.clearErrors();      
   },
 
   showOrgSignup: function() {
@@ -36,16 +39,34 @@ var Login = React.createClass({
       showOrgLogin: 0,
       showOrgSignup: 1
     });     
+    this.clearErrors();      
   },
 
-  saveValues: function(field_value) {
-    return function() {
-      fieldValues = assign({}, fieldValues, field_value)
-    }.bind(this)()
+  handleError: function(section, errorMessage) {
+    var newState = {};
+    newState[section] = errorMessage;
+    this.setState(newState);
   },
 
-  showValues: function() {
-    console.log(fieldValues);
+  saveValues: function(fieldValues) {
+    var newFields = {};
+    var oldFields = this.state.fieldValues;
+    for (var key in oldFields) {
+      newFields[key] = oldFields[key];
+    }
+    for (var key in fieldValues) {
+      newFields[key] = fieldValues[key];
+    }
+    this.setState({
+      fieldValues: newFields 
+    });
+  },
+
+  clearErrors: function() {
+    this.setState({userLoginErrorMessage: null,
+    userSignupErrorMessage: null,
+    orgLoginErrorMessage: null,
+    orgSignupErrorMessage: null});
   },
 
   render: function() {
@@ -53,12 +74,18 @@ var Login = React.createClass({
     return (
       <main className = 'container'>
 
-        <section className='logo'>
-         S U P P O R T A L
+        <section>
+          <nav className='navbar navbar-default'>
+              <div className='navbar-brand'>Supportal</div>
+          </nav>
         </section>
         <section>
-          <UserLogin fieldValues={fieldValues}
-                                saveValues={this.saveValues} />
+          <UserLogin fieldValues={this.state.fieldValues}
+                                 saveValues={this.saveValues} handleError={this.handleError} />
+          {this.state.userLoginErrorMessage ? <Error errorMessage={this.state.userLoginErrorMessage} /> :
+          <div className='errorView'></div> }
+
+
         </section>
         <div className='view'>
         <section>
@@ -69,8 +96,9 @@ var Login = React.createClass({
         </section>
 
         <section>
-          <UserSignup fieldValues={fieldValues}
-                               saveValues={this.saveValues} />
+          <UserSignup fieldValues={this.state.fieldValues}
+                               saveValues={this.saveValues} handleError={this.handleError} />
+ 
         </section>
 
         </div>
@@ -80,7 +108,7 @@ var Login = React.createClass({
         </section>
 
         <section>
-          <OrgAccountQuery fieldValues={fieldValues}
+          <OrgAccountQuery fieldValues={this.state.fieldValues}
                                saveValues={this.saveValues}
                                showOrgLogin = {this.showOrgLogin}
                                showOrgSignup = {this.showOrgSignup} />                                                           
@@ -94,12 +122,15 @@ var Login = React.createClass({
 
         <section>
 
-          {this.state.showOrgLogin ? <OrgLogin fieldValues={fieldValues}
-                               saveValues={this.saveValues}
-                               showValues={this.showValues} /> :                               
-          this.state.showOrgSignup ? <OrgSignup fieldValues={fieldValues}
-                               saveValues={this.saveValues}
-                               showValues={this.showValues} />:<div></div>}                              
+          {this.state.showOrgLogin ? <OrgLogin fieldValues={this.state.fieldValues}
+                               saveValues={this.saveValues} clearErrors={this.clearErrors}
+                               handleError={this.handleError} /> :                               
+          this.state.showOrgSignup ? <OrgSignup fieldValues={this.state.fieldValues}
+                               saveValues={this.saveValues} clearErrors={this.clearErrors}
+                               handleError={this.handleError} />:<div></div>}                              
+          {this.state.orgSignupErrorMessage ? <Error errorMessage={this.state.orgSignupErrorMessage} /> :
+          this.state.orgLoginErrorMessage ? <Error errorMessage={this.state.orgLoginErrorMessage} /> : <div className='errorView'> </div> }
+
         </section>
 
         </div>
