@@ -5,15 +5,22 @@ var EventEmitter = require('events').EventEmitter;
 
 var CHANGE = 'CHANGE';
 
-var _messages = [];
+var _state = {
+  messages: [],
+  connected: false
+};
 
-// I DON'T THINK THIS addMessage IS USED ANYWHERE
-var addMessage = function(message) {
-  _messages.push(message);
+var addMessage = function(user, message) {
+  _state.messages.push([ user, message ]);
 };
 
 var clearMessages = function() {
-  _messages = [];
+  _state.messages = [];
+};
+
+var setConnect = function(status){
+  console.log('button status now changing to: ', status);
+  _state.connected = status;
 };
 
 var textChatStore = objectAssign({}, EventEmitter.prototype, {
@@ -23,20 +30,24 @@ var textChatStore = objectAssign({}, EventEmitter.prototype, {
   removeChangeListener: function(cb){
     this.removeListener(CHANGE, cb);
   },
-  getMessages: function() {
-    return _messages;
+  getState: function() {
+    return _state;
   }
 });
 
 textChatStore.dispatchToken = AppDispatcher.register(function(payload) {
   if (payload.actionType === appConstants.SEND_TEXT_MESSAGE) {
-    _messages.push([payload.user, payload.message]);
+    addMessage(payload.user, payload.message);
     textChatStore.emit(CHANGE);
-  }
-  else if (payload.actionType === appConstants.CLEAR_MESSAGES) {
+  } else if (payload.actionType === appConstants.CLEAR_MESSAGES) {
     clearMessages();
     textChatStore.emit(CHANGE);
+  } else if( payload.actionType === appConstants.CONNECT_STATUS ){
+    console.log('do we even get to the button reset value');
+    setConnect(payload.connected);
+    textChatStore.emit(CHANGE);
   }
+
   return true;
 });
 
