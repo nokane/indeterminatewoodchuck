@@ -34,20 +34,20 @@ var Queue = React.createClass({
   render: function(){
     var customerQueue = this.state.customerQueue;
 
-    var customerCount = <div>There are {customerQueue.length} users in the queue.</div>;
+    var customerCount = <h4 className='queue-count'>Customers Waiting: {customerQueue.length}</h4>;
 
     var queuedCustomers = this.state.customerQueue.map(function(custData, index) {
       return (
-        <div key={custData.userId}>
-          <div>Customer {index}: {custData.name}</div>
-          <div>E-mail Address: {custData.email}</div>
-          <div>Help: {custData.question}</div>
+        <div className='customer-data' key={custData.userId}>
+          <div><strong>Customer {index}</strong>: {custData.name}</div>
+          <div><strong>Email: </strong>{custData.email}</div>
+          <div><strong>Request: </strong>{custData.question}</div>
         </div>
         );
     });
 
-    var dequeue = <button className='dequeue' onClick={ this.handleStaffReady }>Next Customer</button>;
-    var disconnect = <button className='disconnect' onClick={ this.disconnect }>End Session</button>;
+    var dequeue = <button className='btn btn-success dequeue' onClick={ this.handleStaffReady }>Next Customer</button>;
+    var disconnect = <button className='btn btn-danger disconnect' onClick={ this.disconnect }>End Session</button>;
 
     return (
       <div className='queue'>
