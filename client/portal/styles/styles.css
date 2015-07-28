@@ -131,3 +131,9 @@ div#localStreamVideo {
   margin: 0px;
   padding: 10px;
 }
+
+.customer-data {
+  padding: 5px;
+  border-bottom: 1px solid #ccc;
+  color: #777;
+}
