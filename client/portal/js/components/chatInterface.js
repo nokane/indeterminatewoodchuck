@@ -8,9 +8,9 @@ var appActions = require('../actions/appActions');
 
 var ChatInterface = React.createClass({
   render: function() {
-
+    var web_name = this.props.web_name;
     return (
-      <div>
+      <div className='interface'>
         <div className='row'>
           <div className='column1'>
             <VideoChat />
