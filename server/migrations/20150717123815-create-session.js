@@ -21,6 +21,15 @@ module.exports = {
       room_name: {
         type: Sequelize.STRING
       },
+      cust_name: {
+        type: Sequelize.STRING
+      },
+      cust_email: {
+        type: Sequelize.STRING
+      },
+      question: {
+        type: Sequelize.STRING
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE
