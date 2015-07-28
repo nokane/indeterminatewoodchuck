@@ -4,16 +4,14 @@ var helper = require('./helper.js');
 var UserLogin = React.createClass({
   render: function() {
     return (
-      <div>
-        <ul className="form-fields">
-            <label>Email</label>
-            <input className='shortfield' type="email" ref="email" />
-            <span>        </span>
-            <label>Password</label>
-            <input className='shortfield' type="password" ref="password" />
-            <span>        </span>
-            <button className='login' onClick={this.handleLogin}>Login</button>
-        </ul>
+      <div className="form-fields">
+        <label>Email</label>
+        <input className='shortfield' type="email" ref="email" />
+        <span>        </span>
+        <label>Password</label>
+        <input className='shortfield' type="password" ref="password" />
+        <span>        </span>
+        <button className='login' onClick={this.handleLogin}>Login</button>
       </div>
     )
   },
@@ -35,7 +33,6 @@ var UserLogin = React.createClass({
          var answer = JSON.parse(xmlhttp.responseText);
          if (answer.success === 'false') {
            _this.props.handleError("userLoginErrorMessage", answer.message);
-           console.log(answer.message);
          }
          else
          {

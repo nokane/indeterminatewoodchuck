@@ -73,20 +73,19 @@ var Login = React.createClass({
 
     return (
       <main className = 'container'>
+      <div className='center'>
+         <nav className='navbar navbar-default'>
+          <section>
+                <div className='navbar-brand logo'>Portalize</div>
+          </section>
+          <section>
+            <UserLogin fieldValues={this.state.fieldValues}
+                                   saveValues={this.saveValues} handleError={this.handleError} />
+            {this.state.userLoginErrorMessage ? <Error errorMessage={this.state.userLoginErrorMessage} /> :
+            <div className='errorView'></div> }
+          </section>
+        </nav>
 
-        <section>
-          <nav className='navbar navbar-default'>
-              <div className='navbar-brand'>Supportal</div>
-          </nav>
-        </section>
-        <section>
-          <UserLogin fieldValues={this.state.fieldValues}
-                                 saveValues={this.saveValues} handleError={this.handleError} />
-          {this.state.userLoginErrorMessage ? <Error errorMessage={this.state.userLoginErrorMessage} /> :
-          <div className='errorView'></div> }
-
-
-        </section>
         <div className='view'>
         <section>
           The quick brown fox jumped quickly over the yellow dog.  Lorem ipsum dolorem amet.  
@@ -133,6 +132,7 @@ var Login = React.createClass({
 
         </section>
 
+        </div>
         </div>
       </main>
     )
