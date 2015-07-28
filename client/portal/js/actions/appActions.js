@@ -19,7 +19,7 @@ var appActions = {
           return;
         }
         setEmployeeData(res.body);
-        socketActions.socketConnect(res.body.web_name);
+        socketActions.socketConnect(res.body.web_name, res.body.employeeId, res.body.employeeEmail);
       });
   },
 
