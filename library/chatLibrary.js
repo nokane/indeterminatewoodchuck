@@ -168,8 +168,8 @@ Supportal.prototype.setupSocketListeners = function(){
     container.style.height = '100%';
     container.style.padding = '10px';
 
-    var notAvailable = document.createElement('h2');
-    notAvailable.innerHTML = 'No staff available right now. Please come back at a later time.';
+    var notAvailable = document.createElement('h4');
+    notAvailable.textContent = 'No customer service representatives are available right now. Please try again at a later time.';
     notAvailable.style['margin-top'] = '0px';
     this.chatWindow.innerHTML = '';
     this.chatWindow.appendChild(container);
@@ -185,8 +185,8 @@ Supportal.prototype.setupSocketListeners = function(){
     container.style.height = '100%';
     container.style.padding = '10px';
 
-    var queueStatus = document.createElement('h2');
-    queueStatus.innerHTML = 'There are' + position + 'customers ahead of you in the queue.';
+    var queueStatus = document.createElement('h4');
+    queueStatus.textContent = 'A customer service representative will be with you shortly. There are currently ' + position + ' customers ahead of you in the queue.';
     this.chatWindow.innerHTML = '';
     this.chatWindow.appendChild(container);
     container.appendChild(queueStatus);
