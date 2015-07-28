@@ -11,7 +11,7 @@ var NavBar = React.createClass({
     return (
       <nav className='navbar navbar-default'>
         <div className='container-fluid'>
-          <div className='navbar-brand'>Supportal</div>
+          <div className='navbar-brand'>Portalize</div>
           <div className='collapse navbar-collapse'>
             <ul className='nav navbar-nav navbar-right'>
               <li className='dropdown'>
