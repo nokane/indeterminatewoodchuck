@@ -28,19 +28,22 @@ var UserLogin = React.createClass({
 
     var xmlhttp = helper.makePostRequest("/api/users/signin", resData);
     var _this = this;
-    xmlhttp.onreadystatechange = function() {
-      if (xmlhttp.readyState == 4) {
-         var answer = JSON.parse(xmlhttp.responseText);
-         if (answer.success === 'false') {
-           _this.props.handleError("userLoginErrorMessage", answer.message);
-         }
-         else
-         {
-           window.location.href=window.location.origin;
-         }
+    if (helper.userDataValid(resData, function(message) {
+      _this.props.handleError("userLoginErrorMessage", message);
+    })) {    
+      xmlhttp.onreadystatechange = function() {
+        if (xmlhttp.readyState == 4) {
+           var answer = JSON.parse(xmlhttp.responseText);
+           if (answer.success === 'false') {
+             _this.props.handleError("userLoginErrorMessage", answer.message);
+           }
+           else {
+             window.location.href=window.location.origin;
+           }
+        }
       }
     }
   }
-})
+});
 
 module.exports = UserLogin;
