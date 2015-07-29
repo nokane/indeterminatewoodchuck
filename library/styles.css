@@ -89,3 +89,16 @@
   top: 0px;
 }
 
+#supportal-thank-you {
+  border: 1.5px solid #ccc;
+  border-radius: 4px 4px 0 0;
+  border-bottom: none;
+  background-color: #ccc;
+  padding: 6px 12px;
+  margin-bottom: 0;
+  font-size: 14px;
+  font-weight: 400;
+  text-align: center;
+  vertical-align: middle;
+
+}

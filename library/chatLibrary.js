@@ -208,6 +208,7 @@ Supportal.prototype.setupPeerConnListeners = function(){
     this.chatWindow.style.display = 'none';
 
     var thankYou = document.createElement('div');
+    thankYou.id = 'supportal-thank-you';
     thankYou.innerHTML = 'Thank you for using Portalize.';
     this.chatButton.parentNode.replaceChild(thankYou, this.chatButton);
 
