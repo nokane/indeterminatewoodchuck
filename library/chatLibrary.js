@@ -281,18 +281,40 @@ Portalize.prototype.setupPeerConnListeners = function(){
 
 var PortalizeEmbed = function(orgName) {
   Portalize.call(this, orgName);
+  
+  // Add initial click handler to chatButton
+  this.chatButton.addEventListener('click', this._initialClickHandler.bind(this), false);
+  
+  // Add cancel click handler to disconnectButton
   this.disconnectButton.addEventListener('click', this._cancelClickHandler.bind(this), false);
 };
 
 PortalizeEmbed.prototype = Object.create(Portalize.prototype);
 PortalizeEmbed.constructor = Portalize;
 
+PortalizeEmbed.prototype._initialClickHandler = function(){
+  this.renderDetailForm();
+  this.chatWindow.appendChild(this.disconnectButton);
+  this.disconnectButton.style.display = 'block';
+  this.chatButton.style.display = 'none';
+  this.chatWindow.style.display = 'block';
+};
+
+PortalizeEmbed.prototype._cancelClickHandler = function(){
+  this.chatWindow.innerHTML = '';
+  this.disconnectButton.style.display = 'none';
+  this.chatButton.style.display = 'block';
+  this.chatWindow.style.display = 'none';
+  this.socket.emit('exitQueue');
+  this.comm.close();
+  this.comm.leave(true);
+};
+
 
 /////////////////////////////  Slide Up Subclass /////////////////////////////
 
 var PortalizeSlide = function(orgName) {
   Portalize.call(this, orgName);
-
 
   // Add initial click handler to chatButton
   this.chatButton.addEventListener('click', this._initialClickHandler.bind(this), false);
