@@ -38,49 +38,68 @@ Portalize.prototype.init = function(){
   head.appendChild(icecommScript);
 };
 
-Portalize.prototype.createDOMElements = function() {
-  this.portalizeContainer = document.createElement('div');
-  this.portalizeContainer.id = 'portalize-slide';
-  this.portalizeContainer.className = 'portalize-slide-down';
-  document.body.appendChild(this.portalizeContainer);
+Portalize.prototype.createDOMElements = function(option) {
+  // Pass in an object for the option parameter. If option.method = 'embed', use embedded method.
+  // If option.method == slide or no option passed in, use slide method.
+  if (!option || option.method !== 'embed') {
+    option = option || {};
+    option.method = 'slide';
+  }
 
-  // Client will need to add a button and div with these IDs for library to work
-  this.chatButton = document.createElement('button');
-  this.chatButton.id = 'portalize-init-button';
-  this.chatButton.className = 'btn btn-default';
-  this.chatButton.textContent = 'Chat with a representative';
-  this.portalizeContainer.appendChild(this.chatButton);
+  var createContainer = function(option) {
+    this.portalizeContainer = document.createElement('div');
+    this.portalizeContainer.id = 'portalize-container';
+    this.portalizeContainer.className = 'portalize-slide-down';
+    document.body.appendChild(this.portalizeContainer);
+  }.bind(this);
 
-  this.chatWindow = document.createElement('div');
-  this.chatWindow.id = 'portalize-window';
-  this.portalizeContainer.appendChild(this.chatWindow);
+  var createChatButton = function() {
+    // Client will need to add a button and div with these IDs for library to work
+    this.chatButton = document.createElement('button');
+    this.chatButton.id = 'portalize-init-button';
+    this.chatButton.className = 'btn btn-default';
+    this.chatButton.textContent = 'Chat with a representative';
+    this.portalizeContainer.appendChild(this.chatButton);
+  }.bind(this);
+
+  var createChatWindow = function() {
+    this.chatWindow = document.createElement('div');
+    this.chatWindow.id = 'portalize-window';
+    this.portalizeContainer.appendChild(this.chatWindow);
+  }.bind(this);
+
+  var createChatElements = function() {
+    // Elements to be appended on icecomm connect
+    this.localVideo = document.createElement('video');
+    this.localVideo.autoplay = true;
+    this.localVideo.id = 'portalize-local-video';
+    
+    this.remoteVideo = document.createElement('video');
+    this.remoteVideo.autoplay = true;
+    this.remoteVideo.id = 'portalize-remote-video';
+
+    this.textChat = document.createElement('div');
+    this.textChat.id = 'portalize-text-chat';
+    this.textChat.innerHTML = '<div id="portalize-message-log"></div> \
+                               <form id="portalize-chat-form" class="form-group"> \
+                                 <div class="input-group"> \
+                                   <input type="text" id="portalize-text-chat-input" class="form-control" required /> \
+                                   <span class="input-group-btn"> \
+                                     <button class="btn btn-primary" type="submit">Submit</button> \
+                                   </span> \
+                                  </div> \
+                                </form>';
+  }.bind(this);
+
+  createContainer();
+  createChatButton();
+  createChatWindow();
+  createChatElements();
 
   // Cached content from business
   this.chatButtonContent = this.chatButton.textContent;
 
-  // Elements to be appended on icecomm connect
-  this.localVideo = document.createElement('video');
-  this.remoteVideo = document.createElement('video');
-  this.textChat = document.createElement('div');
-
-  this.localVideo.autoplay = true;
-  this.localVideo.id = 'portalize-local-video';
-
-  this.remoteVideo.autoplay = true;
-  this.remoteVideo.id = 'portalize-remote-video';
-
-  this.textChat.id = 'portalize-text-chat';
-
-  this.textChat.innerHTML = '<div id="portalize-message-log"></div> \
-                             <form id="portalize-chat-form" class="form-group"> \
-                               <div class="input-group"> \
-                                 <input type="text" id="portalize-text-chat-input" class="form-control" required /> \
-                                 <span class="input-group-btn"> \
-                                   <button class="btn btn-primary" type="submit">Submit</button> \
-                                 </span> \
-                                </div> \
-                              </form>';
-
+  // Add initial click handler to chatButton
   this.chatButton.addEventListener('click', this._initialClickHandler.bind(this), false);
 };
 
