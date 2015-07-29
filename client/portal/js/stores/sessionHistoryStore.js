@@ -13,7 +13,6 @@ var _state = {
   ]
 };
 
-
 var setSessions = function(logHistory) {
   _state.sessions = logHistory;
 };
@@ -31,13 +30,10 @@ var sessionHistoryStore = objectAssign({}, EventEmitter.prototype, {
 });
 
 sessionHistoryStore.dispatchToken = AppDispatcher.register(function(payload) {
-//   if (payload.actionType === appConstants.QUEUE_STATUS) {
-//     setQueue(payload.data);
-//     queueStore.emit(CHANGE);
-//   } else if( payload.actionType === appConstants.CONNECT_STATUS ){
-//     setConnect(payload.connected);
-//     queueStore.emit(CHANGE);
-//   }
+  if( payload.actionType === appConstants.SESSION_DATA ){
+    setSessions(payload.data);
+    sessionHistoryStore.emit(CHANGE);
+  }
 
   return true;
 });

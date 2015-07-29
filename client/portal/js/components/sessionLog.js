@@ -1,5 +1,7 @@
 var React = require('react');
 var SessionHistoryStore = require('../stores/sessionHistoryStore');
+var sessionActions = require('../actions/sessionActions');
+
 
 var SessionLog = React.createClass({
 
@@ -19,6 +21,10 @@ var SessionLog = React.createClass({
     this.setState(SessionHistoryStore.getState());
   },
 
+  getLogs: function(){
+    sessionActions.getLogs();
+  },
+
   render: function(){
     var sessions = this.state.sessions.map(function(session){
       return (
@@ -36,7 +42,7 @@ var SessionLog = React.createClass({
     return (
       <table className='table table-striped'>
         <caption>
-          <button type="button" className=" refresh btn btn-default">
+          <button type="button" className="refresh btn btn-default" onClick={ this.getLogs }>
             <span className="glyphicon glyphicon-refresh" aria-hidden="true"></span>
           </button>
           <span>Session History Log</span>

@@ -20,6 +20,10 @@ var apiUtil = {
 
     return request
       .post(path);
+  },
+
+  getLogs: function(){
+    // TODO: make a post request after john is done with his api
   }
 };
 
