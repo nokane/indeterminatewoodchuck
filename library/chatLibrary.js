@@ -65,9 +65,6 @@ Portalize.prototype.createDOMElements = function(option) {
  
     // Cached content from business
     this.chatButtonContent = this.chatButton.textContent;
- 
-    // Add initial click handler to chatButton
-    this.chatButton.addEventListener('click', this._initialClickHandler.bind(this), false);
   }.bind(this);
 
   var createChatWindow = function() {
@@ -106,7 +103,6 @@ Portalize.prototype.createDOMElements = function(option) {
     this.disconnectButton.id = 'portalize-disconnect-button';
     this.disconnectButton.className = 'btn btn-xs';
     this.disconnectButton.innerHTML = '<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>';
-    this.disconnectButton.addEventListener('click', this._cancelClickHandler.bind(this), false);
   }.bind(this);
 
   createChatButton();
@@ -120,31 +116,6 @@ Portalize.prototype.createDOMElements = function(option) {
   } else if (option.display === 'embed') {
     createDisconnectButton();
   }
-};
-
-Portalize.prototype._initialClickHandler = function(){
-  this.renderDetailForm();
-  this.portalizeContainer.classList.remove('portalize-slide-down');
-  this.portalizeContainer.classList.add('portalize-slide-up');
-  this._changeEventListener('click', this._cancelClickHandler.bind(this), 'Cancel Request');
-};
-
-Portalize.prototype._cancelClickHandler = function(){
-  this.chatWindow.innerHTML = '';
-  this.portalizeContainer.classList.remove('portalize-slide-up');
-  this.portalizeContainer.classList.add('portalize-slide-down');
-  this._changeEventListener('click', this._initialClickHandler.bind(this), this.chatButtonContent);
-  this.socket.emit('exitQueue');
-  this.comm.close();
-  this.comm.leave(true);
-};
-
-Portalize.prototype._changeEventListener = function(eventType, newHandler, textContent){
-  var elClone = this.chatButton.cloneNode(true);
-  this.chatButton.parentNode.replaceChild(elClone, this.chatButton);
-  this.chatButton = elClone;
-  this.chatButton.textContent = textContent;
-  this.chatButton.addEventListener(eventType, newHandler);
 };
 
 Portalize.prototype.renderDetailForm = function(){
@@ -310,7 +281,7 @@ Portalize.prototype.setupPeerConnListeners = function(){
 
 var PortalizeEmbed = function(orgName) {
   Portalize.call(this, orgName);
-
+  this.disconnectButton.addEventListener('click', this._cancelClickHandler.bind(this), false);
 };
 
 PortalizeEmbed.prototype = Object.create(Portalize.prototype);
@@ -321,7 +292,36 @@ PortalizeEmbed.constructor = Portalize;
 
 var PortalizeSlide = function(orgName) {
   Portalize.call(this, orgName);
+
+
+  // Add initial click handler to chatButton
+  this.chatButton.addEventListener('click', this._initialClickHandler.bind(this), false);
 };
 
 PortalizeSlide.prototype = Object.create(Portalize.prototype);
 PortalizeSlide.constructor = Portalize;
+
+PortalizeSlide.prototype._initialClickHandler = function(){
+  this.renderDetailForm();
+  this.portalizeContainer.classList.remove('portalize-slide-down');
+  this.portalizeContainer.classList.add('portalize-slide-up');
+  this._changeEventListener('click', this._cancelClickHandler.bind(this), 'Cancel Request');
+};
+
+PortalizeSlide.prototype._cancelClickHandler = function(){
+  this.chatWindow.innerHTML = '';
+  this.portalizeContainer.classList.remove('portalize-slide-up');
+  this.portalizeContainer.classList.add('portalize-slide-down');
+  this._changeEventListener('click', this._initialClickHandler.bind(this), this.chatButtonContent);
+  this.socket.emit('exitQueue');
+  this.comm.close();
+  this.comm.leave(true);
+};
+
+PortalizeSlide.prototype._changeEventListener = function(eventType, newHandler, textContent){
+  var elClone = this.chatButton.cloneNode(true);
+  this.chatButton.parentNode.replaceChild(elClone, this.chatButton);
+  this.chatButton = elClone;
+  this.chatButton.textContent = textContent;
+  this.chatButton.addEventListener(eventType, newHandler);
+};
