@@ -10,6 +10,7 @@ var sessionActions = {
           console.log('Error with getEmployeeSessionData: ', err);
           return;
         }
+
         AppDispatcher.dispatch({
           actionType: appConstants.SESSION_DATA,
           employeeData: res.body

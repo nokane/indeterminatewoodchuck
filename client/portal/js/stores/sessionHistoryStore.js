@@ -27,7 +27,7 @@ var sessionHistoryStore = objectAssign({}, EventEmitter.prototype, {
 
 sessionHistoryStore.dispatchToken = AppDispatcher.register(function(payload) {
   if( payload.actionType === appConstants.SESSION_DATA ){
-    setSessions(payload.data);
+    setSessions(payload.employeeData);
     sessionHistoryStore.emit(CHANGE);
   }
 
