@@ -1,5 +1,6 @@
 var React = require('react');
 var appActions = require('../actions/appActions');
+var Link = require('react-router').Link;
 
 var NavBar = React.createClass({
 
@@ -12,6 +13,11 @@ var NavBar = React.createClass({
       <nav className='navbar navbar-default'>
         <div className='container-fluid'>
           <div className='navbar-brand'>Portalize</div>
+          <div className='navbar-brand links'>
+            <div className='portal-btn'><Link to={"/"}>Chat Portal</Link></div>
+            <span> / </span>
+            <div className='portal-btn'><Link to={"/session-history"}>Session Portal</Link></div>
+          </div>
           <div className='collapse navbar-collapse'>
             <ul className='nav navbar-nav navbar-right'>
               <li className='dropdown'>

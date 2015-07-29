@@ -137,3 +137,11 @@ div#localStreamVideo {
   border-bottom: 1px solid #ccc;
   color: #777;
 }
+
+.links {
+  padding-left: 100px;
+}
+
+.portal-btn {
+  display: inline-block;
+}
