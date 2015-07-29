@@ -1,19 +1,23 @@
 var React = require('react');
+var SessionHistoryStore = require('../stores/sessionHistoryStore');
 
 var SessionLog = React.createClass({
 
   getInitialState: function(){
-    return {
-      sessions: [
-        { time: '2:00 PM', employeeName: 'Batman', roomName: 'Arkham City', customerName: 'Naruto', email: 'naruto@sasuke.com', question: 'wahhhh??' },
-        { time: '2:00 PM', employeeName: 'Batman', roomName: 'Arkham City', customerName: 'Naruto', email: 'naruto@sasuke.com', question: 'wahhhh??' },
-        { time: '2:00 PM', employeeName: 'Batman', roomName: 'Arkham City', customerName: 'Naruto', email: 'naruto@sasuke.com', question: 'wahhhh??' }
-      ]
-    };
-
+    return SessionHistoryStore.getState();
   },
 
+  componentDidMount: function(){
+    SessionHistoryStore.addChangeListener(this._onChange);
+  },
 
+  componentWillUnmount: function(){
+    SessionHistoryStore.removeChangeListener(this._onChange);
+  },
+
+  _onChange: function() {
+    this.setState(SessionHistoryStore.getState());
+  },
 
   render: function(){
     var sessions = this.state.sessions.map(function(session){
@@ -31,7 +35,12 @@ var SessionLog = React.createClass({
 
     return (
       <table className='table table-striped'>
-        <caption>Session History Log</caption>
+        <caption>
+          <button type="button" className=" refresh btn btn-default">
+            <span className="glyphicon glyphicon-refresh" aria-hidden="true"></span>
+          </button>
+          <span>Session History Log</span>
+        </caption>
         <thead>
           <tr>
             <th>Time</th><th>Employee Name</th><th>Room Name</th><th>Customer Name</th><th>Email</th><th>Question</th>
