@@ -49,6 +49,37 @@ var Supportal = function(orgName){
   this.chatButton.addEventListener('click', this._initialClickHandler.bind(this), false);
 };
 
+// Init function which initializes all scripts and style links
+Supportal.prototype.init = function(){
+  var head = document.getElementsByTagName('head')[0];
+  var bootStrapLink = document.createElement('link');
+  var stylesLink = document.createElement('link');
+  var socketScript = document.createElement('script');
+  var icecommScript = document.createElement('script');
+  bootStrapLink.setAttribute('rel', 'stylesheet');
+  bootStrapLink.setAttribute('type', 'text/css');
+  bootStrapLink.setAttribute('href', 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css');
+  stylesLink.setAttribute('rel', 'stylesheet');
+  stylesLink.setAttribute('type', 'text/css');
+  stylesLink.setAttribute('href', 'https://62f56623.ngrok.com/librarystyles');
+  socketScript.src = 'https://cdn.socket.io/socket.io-1.3.5.js';
+  icecommScript.src = 'https://cdn.icecomm.io/icecomm.js';
+
+  socketScript.onload = function(){
+    // need to change io connection point if want to test locally
+    this.socket = io('https://62f56623.ngrok.com');
+  }.bind(this);
+
+  icecommScript.onload = function(){
+    this.comm = new Icecomm('ZZ2RA1DsHd9xdCqdoeJ8Wwra5A5fUKipAVrvzX6vOGHlLiAdO');
+  }.bind(this);
+
+  head.appendChild(bootStrapLink);
+  head.appendChild(stylesLink);
+  head.appendChild(socketScript);
+  head.appendChild(icecommScript);
+};
+
 Supportal.prototype._initialClickHandler = function(){
   this.renderDetailForm();
   this.supportalSlide.classList.remove('supportal-slide-down');
@@ -111,36 +142,6 @@ Supportal.prototype.renderDetailForm = function(){
                     <button type="submit" class="btn btn-default">Submit</button>';
 
   this.chatWindow.appendChild(form);
-};
-
-Supportal.prototype.init = function(){
-  var head = document.getElementsByTagName('head')[0];
-  var bootStrapLink = document.createElement('link');
-  var stylesLink = document.createElement('link');
-  var socketScript = document.createElement('script');
-  var icecommScript = document.createElement('script');
-  bootStrapLink.setAttribute('rel', 'stylesheet');
-  bootStrapLink.setAttribute('type', 'text/css');
-  bootStrapLink.setAttribute('href', 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css');
-  stylesLink.setAttribute('rel', 'stylesheet');
-  stylesLink.setAttribute('type', 'text/css');
-  stylesLink.setAttribute('href', 'http://localhost:3000/librarystyles');
-  socketScript.src = 'https://cdn.socket.io/socket.io-1.3.5.js';
-  icecommScript.src = 'https://cdn.icecomm.io/icecomm.js';
-
-  socketScript.onload = function(){
-    // need to change io connection point if want to test locally
-    this.socket = io('http://localhost:3000');
-  }.bind(this);
-
-  icecommScript.onload = function(){
-    this.comm = new Icecomm('ZZ2RA1DsHd9xdCqdoeJ8Wwra5A5fUKipAVrvzX6vOGHlLiAdO');
-  }.bind(this);
-
-  head.appendChild(bootStrapLink);
-  head.appendChild(stylesLink);
-  head.appendChild(socketScript);
-  head.appendChild(icecommScript);
 };
 
 Supportal.prototype.createChatSession = function(userDetails) {
