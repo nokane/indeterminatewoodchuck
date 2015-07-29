@@ -1,10 +1,13 @@
 var React = require('react');
+var SessionLog = require('./sessionLog');
 
 var SessionHistory = React.createClass({
 
   render: function(){
     return (
-      <p>This is where we include our session history</p>
+      <div>
+        <SessionLog />
+      </div>
     );
   }
 
