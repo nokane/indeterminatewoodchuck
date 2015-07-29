@@ -1,16 +1,29 @@
 #supportal-slide {
   position: fixed;
-  right: 100px;
+  left: 50px;
   width: 300px;
   padding: 0px 10px;
 }
 
+#supportal-init-button {
+  border-radius: 4px 4px 0 0;
+  border-bottom: none;
+}
+
 .supportal-slide-up {
   bottom: 0px;
+  transition: bottom 0.2s ease-in;
+  -ms-transition: bottom 0.2s ease-in;
+  -moz-transition: bottom 0.2s ease-in;
+  -webkit-transition: bottom 0.2s ease-in;
 }
 
 .supportal-slide-down {
   bottom: -400px;
+  transition: bottom 0.2s ease-in;
+  -ms-transition: bottom 0.2s ease-in;
+  -moz-transition: bottom 0.2s ease-in;
+  -webkit-transition: bottom 0.2s ease-in;
 }
 
 #supportal-window {
@@ -20,8 +33,8 @@
   padding: 10px;
   display: block;
   background-color: white;
-  border: 1px solid black;
-  border-radius: 4px;
+  border: 1.5px solid #ccc;
+  border-radius: 0 4px 4px 4px;
 }
 
 #supportal-local-video {
