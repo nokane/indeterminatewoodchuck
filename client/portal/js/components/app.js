@@ -39,11 +39,6 @@ var Main = React.createClass({
     appActions.getEmployeeUserData();
   },
 
-  getEmployeeSessionData: function() {
-    // Could check local storage first?
-    appActions.getEmployeeSessionData();
-  },
-
   _onChange: function() {
     this.setState(appStore.getState());
   },
