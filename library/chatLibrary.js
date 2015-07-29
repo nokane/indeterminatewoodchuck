@@ -1,24 +1,24 @@
-var Supportal = function(orgName){
+var Portalize = function(orgName){
   this.init();
   this.orgName = orgName;
   this.customerName = null;
   this.chatListenersExist = false;
 
-  this.supportalSlide = document.createElement('div');
-  this.supportalSlide.id = 'supportal-slide';
-  this.supportalSlide.className = 'supportal-slide-down';
-  document.body.appendChild(this.supportalSlide);
+  this.portalizeSlide = document.createElement('div');
+  this.portalizeSlide.id = 'portalize-slide';
+  this.portalizeSlide.className = 'portalize-slide-down';
+  document.body.appendChild(this.portalizeSlide);
 
   // Client will need to add a button and div with these IDs for library to work
   this.chatButton = document.createElement('button');
-  this.chatButton.id = 'supportal-init-button';
+  this.chatButton.id = 'portalize-init-button';
   this.chatButton.className = 'btn btn-default';
   this.chatButton.textContent = 'Chat with a representative';
-  this.supportalSlide.appendChild(this.chatButton);
+  this.portalizeSlide.appendChild(this.chatButton);
 
   this.chatWindow = document.createElement('div');
-  this.chatWindow.id = 'supportal-window';
-  this.supportalSlide.appendChild(this.chatWindow);
+  this.chatWindow.id = 'portalize-window';
+  this.portalizeSlide.appendChild(this.chatWindow);
 
   // Cached content from business
   this.chatButtonContent = this.chatButton.textContent;
@@ -29,17 +29,17 @@ var Supportal = function(orgName){
   this.textChat = document.createElement('div');
 
   this.localVideo.autoplay = true;
-  this.localVideo.id = 'supportal-local-video';
+  this.localVideo.id = 'portalize-local-video';
 
   this.remoteVideo.autoplay = true;
-  this.remoteVideo.id = 'supportal-remote-video';
+  this.remoteVideo.id = 'portalize-remote-video';
 
-  this.textChat.id = 'supportal-text-chat';
+  this.textChat.id = 'portalize-text-chat';
 
-  this.textChat.innerHTML = '<div id="supportal-message-log"></div> \
-                             <form id="supportal-chat-form" class="form-group"> \
+  this.textChat.innerHTML = '<div id="portalize-message-log"></div> \
+                             <form id="portalize-chat-form" class="form-group"> \
                                <div class="input-group"> \
-                                 <input type="text" id="supportal-text-chat-input" class="form-control" required /> \
+                                 <input type="text" id="portalize-text-chat-input" class="form-control" required /> \
                                  <span class="input-group-btn"> \
                                    <button class="btn btn-primary" type="submit">Submit</button> \
                                  </span> \
@@ -50,7 +50,7 @@ var Supportal = function(orgName){
 };
 
 // Init function which initializes all scripts and style links
-Supportal.prototype.init = function(){
+Portalize.prototype.init = function(){
   var head = document.getElementsByTagName('head')[0];
   var bootStrapLink = document.createElement('link');
   var stylesLink = document.createElement('link');
@@ -61,13 +61,13 @@ Supportal.prototype.init = function(){
   bootStrapLink.setAttribute('href', 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css');
   stylesLink.setAttribute('rel', 'stylesheet');
   stylesLink.setAttribute('type', 'text/css');
-  stylesLink.setAttribute('href', 'https://62f56623.ngrok.com/librarystyles');
+  stylesLink.setAttribute('href', 'https://10c22e6b.ngrok.com/librarystyles');
   socketScript.src = 'https://cdn.socket.io/socket.io-1.3.5.js';
   icecommScript.src = 'https://cdn.icecomm.io/icecomm.js';
 
   socketScript.onload = function(){
     // need to change io connection point if want to test locally
-    this.socket = io('https://62f56623.ngrok.com');
+    this.socket = io('https://10c22e6b.ngrok.com');
   }.bind(this);
 
   icecommScript.onload = function(){
@@ -80,24 +80,24 @@ Supportal.prototype.init = function(){
   head.appendChild(icecommScript);
 };
 
-Supportal.prototype._initialClickHandler = function(){
+Portalize.prototype._initialClickHandler = function(){
   this.renderDetailForm();
-  this.supportalSlide.classList.remove('supportal-slide-down');
-  this.supportalSlide.classList.add('supportal-slide-up');
+  this.portalizeSlide.classList.remove('portalize-slide-down');
+  this.portalizeSlide.classList.add('portalize-slide-up');
   this._changeEventListener('click', this._cancelClickHandler.bind(this), 'Cancel Request');
 };
 
-Supportal.prototype._cancelClickHandler = function(){
+Portalize.prototype._cancelClickHandler = function(){
   this.chatWindow.innerHTML = '';
-  this.supportalSlide.classList.remove('supportal-slide-up');
-  this.supportalSlide.classList.add('supportal-slide-down');
+  this.portalizeSlide.classList.remove('portalize-slide-up');
+  this.portalizeSlide.classList.add('portalize-slide-down');
   this._changeEventListener('click', this._initialClickHandler.bind(this), this.chatButtonContent);
   this.socket.emit('exitQueue');
   this.comm.close();
   this.comm.leave(true);
 };
 
-Supportal.prototype._changeEventListener = function(eventType, newHandler, textContent){
+Portalize.prototype._changeEventListener = function(eventType, newHandler, textContent){
   var elClone = this.chatButton.cloneNode(true);
   this.chatButton.parentNode.replaceChild(elClone, this.chatButton);
   this.chatButton = elClone;
@@ -105,9 +105,9 @@ Supportal.prototype._changeEventListener = function(eventType, newHandler, textC
   this.chatButton.addEventListener(eventType, newHandler);
 };
 
-Supportal.prototype.renderDetailForm = function(){
+Portalize.prototype.renderDetailForm = function(){
   var form = document.createElement('form');
-  form.id = 'supportal-user-detail';
+  form.id = 'portalize-user-detail';
 
   form.addEventListener('submit', function(e){
     e.preventDefault();
@@ -137,14 +137,14 @@ Supportal.prototype.renderDetailForm = function(){
                     </div> \
                     <div class="form-group"> \
                       <label>Question</label> \
-                      <textarea id="supportal-form-question" class="form-control" required></textarea> \
+                      <textarea id="portalize-form-question" class="form-control" required></textarea> \
                     </div> \
                     <button type="submit" class="btn btn-default">Submit</button>';
 
   this.chatWindow.appendChild(form);
 };
 
-Supportal.prototype.createChatSession = function(userDetails) {
+Portalize.prototype.createChatSession = function(userDetails) {
   // Only set up listeners if they haven't yet been created
   if (!this.chatListenersExist) {
     this.chatListenersExist = true;
@@ -156,11 +156,11 @@ Supportal.prototype.createChatSession = function(userDetails) {
   this.socket.emit('customerRequest', userDetails);
 };
 
-Supportal.prototype.setupSocketListeners = function(){
+Portalize.prototype.setupSocketListeners = function(){
 
   this.socket.on('staffUnavailable', function(){
     var container = document.createElement('div');
-    container.className = 'supportal-message-container';
+    container.className = 'portalize-message-container';
 
     var notAvailable = document.createElement('h4');
     notAvailable.textContent = 'No customer service representatives are available right now. Please try again at a later time.';
@@ -172,7 +172,7 @@ Supportal.prototype.setupSocketListeners = function(){
 
   this.socket.on('customerQueueStatus', function(position){
     var container = document.createElement('div');
-    container.className = 'supportal-message-container';
+    container.className = 'portalize-message-container';
 
     var queueStatus = document.createElement('h4');
     queueStatus.textContent = 'A customer service representative will be with you shortly. You are currently in position ' + position + ' in the queue.';
@@ -188,13 +188,13 @@ Supportal.prototype.setupSocketListeners = function(){
   }.bind(this));
 };
 
-Supportal.prototype.setupPeerConnListeners = function(){
-  // helper function to append message node to supportal-message-log element
+Portalize.prototype.setupPeerConnListeners = function(){
+  // helper function to append message node to portalize-message-log element
   var appendTextMessage = function(user, message) {
     var messageNode = document.createElement('div');
     messageNode.textContent = user + ': ' + message;
-    document.getElementById('supportal-message-log').appendChild(messageNode);
-    var chatView = document.getElementById('supportal-message-log');
+    document.getElementById('portalize-message-log').appendChild(messageNode);
+    var chatView = document.getElementById('portalize-message-log');
     chatView.scrollTop = chatView.scrollHeight;
   };
 
@@ -204,13 +204,13 @@ Supportal.prototype.setupPeerConnListeners = function(){
     this.chatWindow.style.display = 'none';
 
     var thankYou = document.createElement('div');
-    thankYou.id = 'supportal-thank-you';
+    thankYou.id = 'portalize-thank-you';
     thankYou.innerHTML = 'Thank you for using Portalize.';
     this.chatButton.parentNode.replaceChild(thankYou, this.chatButton);
 
     // slide up so that thank you message is displayed
-    this.supportalSlide.classList.remove('supportal-slide-down');
-    this.supportalSlide.classList.add('supportal-slide-up');
+    this.portalizeSlide.classList.remove('portalize-slide-down');
+    this.portalizeSlide.classList.add('portalize-slide-up');
 
     // closes audio/video stream
     this.comm.close();
@@ -225,16 +225,16 @@ Supportal.prototype.setupPeerConnListeners = function(){
     this.remoteVideo.src = peer.stream;
     this.chatWindow.appendChild(this.textChat);
 
-    var chatView = document.getElementById('supportal-message-log');
+    var chatView = document.getElementById('portalize-message-log');
 
     // after connecting, set up listener for text chat submit
-    var submitForm = document.getElementById('supportal-chat-form');
+    var submitForm = document.getElementById('portalize-chat-form');
     var handleSubmit = function(event) {
       var message = event.target[0].value;
       event.preventDefault();
       this.comm.send(message);
       appendTextMessage(this.customerName, message);
-      document.getElementById('supportal-text-chat-input').value = '';
+      document.getElementById('portalize-text-chat-input').value = '';
     }.bind(this);
 
     if(submitForm.addEventListener) { // for modern browsers

@@ -1,17 +1,17 @@
-#supportal-slide {
+#portalize-slide {
   position: fixed;
   left: 50px;
   width: 300px;
   padding: 0px 10px;
 }
 
-#supportal-init-button {
+#portalize-init-button {
   border-radius: 4px 4px 0 0;
   border-bottom: none;
   background-color: #f5f5f5;
 }
 
-.supportal-slide-up {
+.portalize-slide-up {
   bottom: 0px;
   transition: bottom 0.2s ease-in;
   -ms-transition: bottom 0.2s ease-in;
@@ -19,7 +19,7 @@
   -webkit-transition: bottom 0.2s ease-in;
 }
 
-.supportal-slide-down {
+.portalize-slide-down {
   bottom: -400px;
   transition: bottom 0.2s ease-in;
   -ms-transition: bottom 0.2s ease-in;
@@ -27,7 +27,7 @@
   -webkit-transition: bottom 0.2s ease-in;
 }
 
-#supportal-window {
+#portalize-window {
   position: relative;
   width: auto;
   height: 400px;
@@ -38,7 +38,7 @@
   border-radius: 0 4px 4px 4px;
 }
 
-#supportal-local-video {
+#portalize-local-video {
   width: 25%;
   position: absolute;
   top: 10px;
@@ -46,12 +46,12 @@
   z-index: 1;
 }
 
-#supportal-remote-video {
+#portalize-remote-video {
   width: 100%;
   position: relative;
 }
 
-#supportal-disconnect-button {
+#portalize-disconnect-button {
   position: absolute;
   top: 0px;
   right: 0px;
@@ -62,7 +62,7 @@
   height: 10px;
 }
 
-#supportal-message-log {
+#portalize-message-log {
   border: 1px solid #ccc;
   border-radius: 4px;
   margin-bottom: 5px;
@@ -72,11 +72,11 @@
   overflow-y: scroll;
 }
 
-#supportal-form-question {
+#portalize-form-question {
   height: 100px;
 }
 
-.supportal-message-container {
+.portalize-message-container {
   opacity: 0.6;
   width: 100%;
   height: 100%;
@@ -90,7 +90,7 @@
   top: 0px;
 }
 
-#supportal-thank-you {
+#portalize-thank-you {
   border: 1.5px solid #ccc;
   border-radius: 4px 4px 0 0;
   border-bottom: none;
