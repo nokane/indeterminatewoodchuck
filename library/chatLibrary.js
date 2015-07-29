@@ -4,12 +4,21 @@ var Supportal = function(orgName){
   this.customerName = null;
   this.chatListenersExist = false;
 
-  // Client will need to add a button and div with these IDs for library to work
-  this.chatButton = document.getElementById('supportal-init-button');
-  this.chatButton.className = 'btn btn-default';
+  this.supportalSlide = document.createElement('div');
+  this.supportalSlide.id = 'supportal-slide';
+  this.supportalSlide.className = 'supportal-slide-down';
+  document.body.appendChild(this.supportalSlide);
 
-  this.chatWindow = document.getElementById('supportal-window');
-  this.chatWindow.style.position = 'relative';
+  // Client will need to add a button and div with these IDs for library to work
+  this.chatButton = document.createElement('button');
+  this.chatButton.id = 'supportal-init-button';
+  this.chatButton.className = 'btn btn-default';
+  this.chatButton.textContent = 'Chat with a representative';
+  this.supportalSlide.appendChild(this.chatButton);
+
+  this.chatWindow = document.createElement('div');
+  this.chatWindow.id = 'supportal-window';
+  this.supportalSlide.appendChild(this.chatWindow);
 
   // Cached content from business
   this.chatButtonContent = this.chatButton.textContent;
@@ -18,32 +27,12 @@ var Supportal = function(orgName){
   this.localVideo = document.createElement('video');
   this.remoteVideo = document.createElement('video');
   this.textChat = document.createElement('div');
-  this.disconnectButton = document.createElement('button');
 
   this.localVideo.autoplay = true;
   this.localVideo.id = 'supportal-local-video';
-  this.localVideo.style.width = '25%';
-  this.localVideo.style.position = 'absolute';
-  this.localVideo.style.top = '0px';
-  this.localVideo.style.right = '0px';
-  this.localVideo.style['z-index'] = '1';
 
   this.remoteVideo.autoplay = true;
   this.remoteVideo.id = 'supportal-remote-video';
-  this.remoteVideo.style.width = '100%';
-  this.remoteVideo.style.position = 'relative';
-
-  this.disconnectButton.style.position = 'absolute';
-  this.disconnectButton.className = 'btn btn-xs';
-  this.disconnectButton.style.top = '0px';
-  this.disconnectButton.style.right = '0px';
-  this.disconnectButton.style.border = 'none';
-  this.disconnectButton.style['background-color'] = 'transparent';
-  this.disconnectButton.style['z-index'] = '100';
-  this.disconnectButton.style.width = '10px';
-  this.disconnectButton.style.height = '10px';
-  this.disconnectButton.innerHTML = '<span class="glyphicon glyphicon-remove" style="font-size:10px;position:absolute;right:0px;top:0px" aria-hidden="true"></span>';
-  this.disconnectButton.addEventListener('click', this._cancelClickHandler.bind(this), false);
 
   this.textChat.id = 'supportal-text-chat';
 
@@ -62,20 +51,27 @@ var Supportal = function(orgName){
 
 Supportal.prototype._initialClickHandler = function(){
   this.renderDetailForm();
-  this.chatWindow.appendChild(this.disconnectButton);
-  this.disconnectButton.style.display = 'block';
-  this.chatButton.style.display = 'none';
-  this.chatWindow.style.display = 'block';
+  this.supportalSlide.classList.remove('supportal-slide-down');
+  this.supportalSlide.classList.add('supportal-slide-up');
+  this._changeEventListener('click', this._cancelClickHandler.bind(this), 'Cancel Request');
 };
 
 Supportal.prototype._cancelClickHandler = function(){
   this.chatWindow.innerHTML = '';
-  this.disconnectButton.style.display = 'none';
-  this.chatButton.style.display = 'block';
-  this.chatWindow.style.display = 'none';
+  this.supportalSlide.classList.remove('supportal-slide-up');
+  this.supportalSlide.classList.add('supportal-slide-down');
+  this._changeEventListener('click', this._initialClickHandler.bind(this), this.chatButtonContent);
   this.socket.emit('exitQueue');
   this.comm.close();
   this.comm.leave(true);
+};
+
+Supportal.prototype._changeEventListener = function(eventType, newHandler, textContent){
+  var elClone = this.chatButton.cloneNode(true);
+  this.chatButton.parentNode.replaceChild(elClone, this.chatButton);
+  this.chatButton = elClone;
+  this.chatButton.textContent = textContent;
+  this.chatButton.addEventListener(eventType, newHandler);
 };
 
 Supportal.prototype.renderDetailForm = function(){
@@ -110,7 +106,7 @@ Supportal.prototype.renderDetailForm = function(){
                     </div> \
                     <div class="form-group"> \
                       <label>Question</label> \
-                      <textarea class="form-control" required></textarea> \
+                      <textarea id="supportal-form-question" class="form-control" required></textarea> \
                     </div> \
                     <button type="submit" class="btn btn-default">Submit</button>';
 
@@ -128,13 +124,13 @@ Supportal.prototype.init = function(){
   bootStrapLink.setAttribute('href', 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css');
   stylesLink.setAttribute('rel', 'stylesheet');
   stylesLink.setAttribute('type', 'text/css');
-  stylesLink.setAttribute('href', 'http://localhost:3000/librarystyles');
+  stylesLink.setAttribute('href', 'https://62f56623.ngrok.com/librarystyles');
   socketScript.src = 'https://cdn.socket.io/socket.io-1.3.5.js';
   icecommScript.src = 'https://cdn.icecomm.io/icecomm.js';
 
   socketScript.onload = function(){
     // need to change io connection point if want to test locally
-    this.socket = io('http://localhost:3000');
+    this.socket = io('https://62f56623.ngrok.com');
   }.bind(this);
 
   icecommScript.onload = function(){
@@ -163,10 +159,7 @@ Supportal.prototype.setupSocketListeners = function(){
 
   this.socket.on('staffUnavailable', function(){
     var container = document.createElement('div');
-    container.style.opacity = '0.6';
-    container.style.width = '100%';
-    container.style.height = '100%';
-    container.style.padding = '10px';
+    container.className = 'supportal-message-container';
 
     var notAvailable = document.createElement('h4');
     notAvailable.textContent = 'No customer service representatives are available right now. Please try again at a later time.';
@@ -174,24 +167,18 @@ Supportal.prototype.setupSocketListeners = function(){
     this.chatWindow.innerHTML = '';
     this.chatWindow.appendChild(container);
     container.appendChild(notAvailable);
-    this.chatWindow.appendChild(this.disconnectButton);
-    this.disconnectButton.style.display = 'block';
   }.bind(this));
 
   this.socket.on('customerQueueStatus', function(position){
     var container = document.createElement('div');
-    container.style.opacity = '0.6';
-    container.style.width = '100%';
-    container.style.height = '100%';
-    container.style.padding = '10px';
+    container.className = 'supportal-message-container';
 
     var queueStatus = document.createElement('h4');
-    queueStatus.textContent = 'A customer service representative will be with you shortly. There are currently ' + position + ' customers ahead of you in the queue.';
+    queueStatus.textContent = 'A customer service representative will be with you shortly. You are currently in position ' + position + ' in the queue.';
+    queueStatus.style['margin-top'] = '0px';
     this.chatWindow.innerHTML = '';
     this.chatWindow.appendChild(container);
     container.appendChild(queueStatus);
-    this.chatWindow.appendChild(this.disconnectButton);
-    this.disconnectButton.style.display = 'block';
   }.bind(this));
 
   // should we pass in company name or other identifier?
@@ -211,18 +198,21 @@ Supportal.prototype.setupPeerConnListeners = function(){
   };
 
   var disconnect = function() {
-    console.log('Disconnect happened.');
-
-    // closes audio/video stream
-    this.comm.close();
-
     // remove all children nodes of chatWindow (should just be local)
     this.chatWindow.innerHTML = '';
     this.chatWindow.style.display = 'none';
 
     var thankYou = document.createElement('div');
+    thankYou.id = 'supportal-thank-you';
     thankYou.innerHTML = 'Thank you for using Portalize.';
     this.chatButton.parentNode.replaceChild(thankYou, this.chatButton);
+
+    // slide up so that thank you message is displayed
+    this.supportalSlide.classList.remove('supportal-slide-down');
+    this.supportalSlide.classList.add('supportal-slide-up');
+
+    // closes audio/video stream
+    this.comm.close();
 
     // client leaves iceComm room
     this.comm.leave(true);
@@ -235,13 +225,6 @@ Supportal.prototype.setupPeerConnListeners = function(){
     this.chatWindow.appendChild(this.textChat);
 
     var chatView = document.getElementById('supportal-message-log');
-    chatView.style.border = '1px solid #ccc';
-    chatView.style['border-radius'] = '4px';
-    chatView.style['margin-bottom'] = '5px';
-    chatView.style.width = '100%';
-    chatView.style.height = '100px';
-    chatView.style['overflow-y'] = 'scroll';
-    chatView.style.overflow = 'auto';
 
     // after connecting, set up listener for text chat submit
     var submitForm = document.getElementById('supportal-chat-form');
