@@ -24,7 +24,6 @@ var Main = React.createClass({
 
   componentWillMount: function() {
     this.getEmployeeUserData();
-    this.getEmployeeSessionData();
   },
 
   componentDidMount: function(){

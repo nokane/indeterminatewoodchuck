@@ -15,13 +15,36 @@ module.exports = {
   },
 
   getEmployeeSessionData: function(req, res){
-    db.Session.findAll({attributes: ['cust_name', 'cust_email', 'createdAt', 'UserId', sequelize.col('User.title')], where: { OrganizationId: req.decoded.OrganizationId }, 
+    db.Session.findAll({attributes: ['cust_name', 'cust_email', 'createdAt', 'question', 'UserId'], where: { OrganizationId: req.decoded.OrganizationId }, 
       include: [ { model: db.Organization, attributes: ['name'] },
                  { model: db.User, attributes: ['first_name', 'last_name', 'email', 'title'] }
                ] }).then(function(sessions){
-      console.log("SESSION");
-      console.log(JSON.stringify(sessions));
-      res.json({john: "whatever"});
+
+      var flattenObject = function(ob) {
+        var toReturn = {};        
+        for (var i in ob) {
+          if (!ob.hasOwnProperty(i)) continue;          
+          if ((typeof ob[i]) == 'object') {
+            var flatObject = flattenObject(ob[i]);
+            for (var x in flatObject) {
+              if (!flatObject.hasOwnProperty(x)) continue;              
+                toReturn[x] = flatObject[x];
+            }
+          } else {
+            toReturn[i] = ob[i];
+          }
+        }
+        return toReturn;
+      };
+
+      var data = (JSON.parse(JSON.stringify(sessions)));
+      var resData = [];
+      var newRecord;
+      for (var i = 0; i < data.length; i++) {
+        newRecord = flattenObject(data[i]);
+        resData.push(newRecord);
+      }
+      res.json(resData);
     });
   }
 

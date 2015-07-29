@@ -30,6 +30,7 @@ var appActions = {
           console.log('Error with getEmployeeSessionData: ', err);
           return;
         }
+        console.log(res.body);
       });
   },
 
