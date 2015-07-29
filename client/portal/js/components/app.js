@@ -23,7 +23,7 @@ var Main = React.createClass({
   },
 
   componentWillMount: function() {
-    this.getEmployeeData();
+    this.getEmployeeUserData();
   },
 
   componentDidMount: function(){
@@ -34,9 +34,9 @@ var Main = React.createClass({
     appStore.removeChangeListener(this._onChange);
   },
 
-  getEmployeeData: function() {
+  getEmployeeUserData: function() {
     // Could check local storage first?
-    appActions.getEmployeeData();
+    appActions.getEmployeeUserData();
   },
 
   _onChange: function() {
