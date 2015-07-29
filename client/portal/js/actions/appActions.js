@@ -11,8 +11,8 @@ var setEmployeeData = function(data) {
 };
 
 var appActions = {
-  getEmployeeData: function() {
-    apiUtil.getEmployeeData()
+  getEmployeeUserData: function() {
+    apiUtil.getEmployeeUserData()
       .end(function(err, res) {
         if (err) {
           console.log('Error with getEmployeeData: ', err);
@@ -20,6 +20,16 @@ var appActions = {
         }
         setEmployeeData(res.body);
         socketActions.socketConnect(res.body.web_name, res.body.employeeId, res.body.employeeEmail);
+      });
+  },
+
+  getEmployeeSessionData: function() {
+    apiUtil.getEmployeeSessionData()
+      .end(function(err, res) {
+        if (err) {
+          console.log('Error with getEmployeeSessionData: ', err);
+          return;
+        }
       });
   },
 
