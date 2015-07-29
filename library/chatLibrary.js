@@ -262,3 +262,24 @@ Portalize.prototype.setupPeerConnListeners = function(){
   // listener to close video streams and leave room when peer disconnects
   this.comm.on('disconnect', disconnect);
 };
+
+
+/////////////////////////////  Embedded Subclass /////////////////////////////
+
+var PortalizeEmbed = function(orgName) {
+  Portalize.call(this, orgName);
+
+};
+
+PortalizeEmbed.prototype = Object.create(Portalize.prototype);
+PortalizeEmbed.constructor = Portalize;
+
+
+/////////////////////////////  Slide Up Subclass /////////////////////////////
+
+var PortalizeSlide = function(orgName) {
+  Portalize.call(this, orgName);
+};
+
+PortalizeSlide.prototype = Object.create(Portalize.prototype);
+PortalizeSlide.constructor = Portalize;
