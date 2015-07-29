@@ -174,7 +174,7 @@ Supportal.prototype.setupSocketListeners = function(){
     container.className = 'supportal-message-container';
 
     var queueStatus = document.createElement('h4');
-    queueStatus.textContent = 'A customer service representative will be with you shortly. There are currently ' + position + ' customers ahead of you in the queue.';
+    queueStatus.textContent = 'A customer service representative will be with you shortly. You are currently in position ' + position + ' in the queue.';
     queueStatus.style['margin-top'] = '0px';
     this.chatWindow.innerHTML = '';
     this.chatWindow.appendChild(container);
@@ -198,11 +198,6 @@ Supportal.prototype.setupPeerConnListeners = function(){
   };
 
   var disconnect = function() {
-    console.log('Disconnect happened.');
-
-    // closes audio/video stream
-    this.comm.close();
-
     // remove all children nodes of chatWindow (should just be local)
     this.chatWindow.innerHTML = '';
     this.chatWindow.style.display = 'none';
@@ -211,6 +206,13 @@ Supportal.prototype.setupPeerConnListeners = function(){
     thankYou.id = 'supportal-thank-you';
     thankYou.innerHTML = 'Thank you for using Portalize.';
     this.chatButton.parentNode.replaceChild(thankYou, this.chatButton);
+
+    // slide up so that thank you message is displayed
+    this.supportalSlide.classList.remove('supportal-slide-down');
+    this.supportalSlide.classList.add('supportal-slide-up');
+
+    // closes audio/video stream
+    this.comm.close();
 
     // client leaves iceComm room
     this.comm.leave(true);
