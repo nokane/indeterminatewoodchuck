@@ -6,11 +6,7 @@ var EventEmitter = require('events').EventEmitter;
 var CHANGE = 'CHANGE';
 
 var _state = {
-  sessions: [
-    { time: '2:00 PM', employeeName: 'Batman', roomName: 'Arkham City', customerName: 'Naruto', email: 'naruto@sasuke.com', question: 'wahhhh??' },
-    { time: '2:00 PM', employeeName: 'Superman', roomName: 'Metropolis', customerName: 'Naruto', email: 'naruto@sasuke.com', question: 'wahhhh??' },
-    { time: '2:00 PM', employeeName: 'Iron Man', roomName: 'Somewhere Cool', customerName: 'Naruto', email: 'naruto@sasuke.com', question: 'wahhhh??' }
-  ]
+  sessions: []
 };
 
 var setSessions = function(logHistory) {

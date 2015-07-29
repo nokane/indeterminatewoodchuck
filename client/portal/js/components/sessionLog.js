@@ -5,28 +5,8 @@ var sessionActions = require('../actions/sessionActions');
 
 var SessionLog = React.createClass({
 
-  getInitialState: function(){
-    return SessionHistoryStore.getState();
-  },
-
-  componentDidMount: function(){
-    SessionHistoryStore.addChangeListener(this._onChange);
-  },
-
-  componentWillUnmount: function(){
-    SessionHistoryStore.removeChangeListener(this._onChange);
-  },
-
-  _onChange: function() {
-    this.setState(SessionHistoryStore.getState());
-  },
-
-  getLogs: function(){
-    sessionActions.getLogs();
-  },
-
   render: function(){
-    var sessions = this.state.sessions.map(function(session){
+    var sessions = this.props.sessions.map(function(session){
       return (
         <tr>
           <td>{ session.time }</td>

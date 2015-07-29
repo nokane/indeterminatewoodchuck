@@ -23,17 +23,6 @@ var appActions = {
       });
   },
 
-  getEmployeeSessionData: function() {
-    apiUtil.getEmployeeSessionData()
-      .end(function(err, res) {
-        if (err) {
-          console.log('Error with getEmployeeSessionData: ', err);
-          return;
-        }
-        console.log(res.body);
-      });
-  },
-
   employeeSignOut: function(){
     // delete cookie
     // go to apiUtils and issue a get request to '/login'
