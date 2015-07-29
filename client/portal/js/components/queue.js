@@ -46,7 +46,14 @@ var Queue = React.createClass({
         );
     });
 
-    var dequeue = <button className='btn btn-success dequeue' onClick={ this.handleStaffReady }>Next Customer</button>;
+    var btnStatus;
+      if (this.state.customerQueue.length === 0) {
+        btnStatus = 'btn-disable btn btn-success dequeue';
+      } else {
+        btnStatus = 'btn-enable btn btn-success dequeue';
+      }
+
+    var dequeue = <button className={btnStatus} onClick={ this.handleStaffReady }>Next Customer</button>;
     var disconnect = <button className='btn btn-danger disconnect' onClick={ this.disconnect }>End Session</button>;
 
     return (
