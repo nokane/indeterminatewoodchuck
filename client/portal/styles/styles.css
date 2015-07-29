@@ -145,3 +145,8 @@ div#localStreamVideo {
 .portal-btn {
   display: inline-block;
 }
+
+.refresh {
+  border: none;
+  margin-right: 5px;
+}
