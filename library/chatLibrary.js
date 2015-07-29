@@ -39,44 +39,51 @@ Portalize.prototype.init = function(){
 };
 
 Portalize.prototype.createDOMElements = function(option) {
-  // Pass in an object for the option parameter. If option.method = 'embed', use embedded method.
-  // If option.method == slide or no option passed in, use slide method.
-  if (!option || option.method !== 'embed') {
+  // Pass in an object for the option parameter. If option.display = 'embed', use embedded display.
+  // If option.display == slide or no option passed in, use slide display.
+  if (!option || option.display !== 'embed') {
     option = option || {};
-    option.method = 'slide';
+    option.display = 'slide';
   }
 
-  var createContainer = function(option) {
+  var createContainer = function() {
     this.portalizeContainer = document.createElement('div');
-    this.portalizeContainer.id = 'portalize-container';
+    this.portalizeContainer.id = 'portalize-slide-container';
     this.portalizeContainer.className = 'portalize-slide-down';
-    document.body.appendChild(this.portalizeContainer);
   }.bind(this);
 
   var createChatButton = function() {
-    // Client will need to add a button and div with these IDs for library to work
-    this.chatButton = document.createElement('button');
-    this.chatButton.id = 'portalize-init-button';
+    if (option.display === 'slide') {
+      this.chatButton = document.createElement('button');      
+      this.chatButton.id = 'portalize-' + option.display + '-init-button';
+      this.chatButton.textContent = 'Chat with a representative';
+    } else if (option.display === 'embed') {
+      // Client will need to add a button with id of 'portalize-embed-init-button' in html to embed
+      this.chatButton = document.getElementById('portalize-' + option.display + '-init-button');
+    }
+    // Cached content from business
+    this.chatButtonContent = this.chatButton.textContent;
     this.chatButton.className = 'btn btn-default';
-    this.chatButton.textContent = 'Chat with a representative';
-    this.portalizeContainer.appendChild(this.chatButton);
   }.bind(this);
 
   var createChatWindow = function() {
-    this.chatWindow = document.createElement('div');
-    this.chatWindow.id = 'portalize-window';
-    this.portalizeContainer.appendChild(this.chatWindow);
+    if (option.display === 'slide') {
+      this.chatWindow = document.createElement('div');
+      this.chatWindow.id = 'portalize-slide-window';
+    } else if (option.display === 'embed') {
+      this.chatWindow = document.getElementById('portalize-' + option.display + '-window');
+    }
   }.bind(this);
 
   var createChatElements = function() {
     // Elements to be appended on icecomm connect
     this.localVideo = document.createElement('video');
     this.localVideo.autoplay = true;
-    this.localVideo.id = 'portalize-local-video';
-    
+    this.localVideo.id = 'portalize-' + option.display + '-local-video';
+
     this.remoteVideo = document.createElement('video');
     this.remoteVideo.autoplay = true;
-    this.remoteVideo.id = 'portalize-remote-video';
+    this.remoteVideo.id = 'portalize-' + option.display + '-remote-video';
 
     this.textChat = document.createElement('div');
     this.textChat.id = 'portalize-text-chat';
@@ -91,13 +98,20 @@ Portalize.prototype.createDOMElements = function(option) {
                                 </form>';
   }.bind(this);
 
+  var createDisconnectButton = function() {
+    this.disconnectButton.id = 'portalize-disconnect-button';
+    this.disconnectButton.className = 'btn btn-xs';
+    this.disconnectButton.innerHTML = '<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>';
+    this.disconnectButton.addEventListener('click', this._cancelClickHandler.bind(this), false);
+  }.bind(this);
+
   createContainer();
   createChatButton();
   createChatWindow();
   createChatElements();
-
-  // Cached content from business
-  this.chatButtonContent = this.chatButton.textContent;
+  document.body.appendChild(this.portalizeContainer);
+  this.portalizeContainer.appendChild(this.chatButton);
+  this.portalizeContainer.appendChild(this.chatWindow);
 
   // Add initial click handler to chatButton
   this.chatButton.addEventListener('click', this._initialClickHandler.bind(this), false);
