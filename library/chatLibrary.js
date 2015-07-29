@@ -61,9 +61,13 @@ Portalize.prototype.createDOMElements = function(option) {
       // Client will need to add a button with id of 'portalize-embed-init-button' in html to embed
       this.chatButton = document.getElementById('portalize-' + option.display + '-init-button');
     }
+    this.chatButton.className = 'btn btn-default';
+ 
     // Cached content from business
     this.chatButtonContent = this.chatButton.textContent;
-    this.chatButton.className = 'btn btn-default';
+ 
+    // Add initial click handler to chatButton
+    this.chatButton.addEventListener('click', this._initialClickHandler.bind(this), false);
   }.bind(this);
 
   var createChatWindow = function() {
@@ -105,16 +109,17 @@ Portalize.prototype.createDOMElements = function(option) {
     this.disconnectButton.addEventListener('click', this._cancelClickHandler.bind(this), false);
   }.bind(this);
 
-  createContainer();
   createChatButton();
   createChatWindow();
   createChatElements();
-  document.body.appendChild(this.portalizeContainer);
-  this.portalizeContainer.appendChild(this.chatButton);
-  this.portalizeContainer.appendChild(this.chatWindow);
-
-  // Add initial click handler to chatButton
-  this.chatButton.addEventListener('click', this._initialClickHandler.bind(this), false);
+  if (option.display === 'slide') {
+    createContainer();
+    document.body.appendChild(this.portalizeContainer);
+    this.portalizeContainer.appendChild(this.chatButton);
+    this.portalizeContainer.appendChild(this.chatWindow);
+  } else if (option.display === 'embed') {
+    createDisconnectButton();
+  }
 };
 
 Portalize.prototype._initialClickHandler = function(){
