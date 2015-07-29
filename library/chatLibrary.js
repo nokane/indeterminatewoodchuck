@@ -3,50 +3,8 @@ var Portalize = function(orgName){
   this.orgName = orgName;
   this.customerName = null;
   this.chatListenersExist = false;
-
-  this.portalizeSlide = document.createElement('div');
-  this.portalizeSlide.id = 'portalize-slide';
-  this.portalizeSlide.className = 'portalize-slide-down';
-  document.body.appendChild(this.portalizeSlide);
-
-  // Client will need to add a button and div with these IDs for library to work
-  this.chatButton = document.createElement('button');
-  this.chatButton.id = 'portalize-init-button';
-  this.chatButton.className = 'btn btn-default';
-  this.chatButton.textContent = 'Chat with a representative';
-  this.portalizeSlide.appendChild(this.chatButton);
-
-  this.chatWindow = document.createElement('div');
-  this.chatWindow.id = 'portalize-window';
-  this.portalizeSlide.appendChild(this.chatWindow);
-
-  // Cached content from business
-  this.chatButtonContent = this.chatButton.textContent;
-
-  // Elements to be appended on icecomm connect
-  this.localVideo = document.createElement('video');
-  this.remoteVideo = document.createElement('video');
-  this.textChat = document.createElement('div');
-
-  this.localVideo.autoplay = true;
-  this.localVideo.id = 'portalize-local-video';
-
-  this.remoteVideo.autoplay = true;
-  this.remoteVideo.id = 'portalize-remote-video';
-
-  this.textChat.id = 'portalize-text-chat';
-
-  this.textChat.innerHTML = '<div id="portalize-message-log"></div> \
-                             <form id="portalize-chat-form" class="form-group"> \
-                               <div class="input-group"> \
-                                 <input type="text" id="portalize-text-chat-input" class="form-control" required /> \
-                                 <span class="input-group-btn"> \
-                                   <button class="btn btn-primary" type="submit">Submit</button> \
-                                 </span> \
-                                </div> \
-                              </form>';
-
-  this.chatButton.addEventListener('click', this._initialClickHandler.bind(this), false);
+  this.chatButtonContent = null;
+  this.createDOMElements();
 };
 
 // Init function which initializes all scripts and style links
@@ -80,17 +38,63 @@ Portalize.prototype.init = function(){
   head.appendChild(icecommScript);
 };
 
+Portalize.prototype.createDOMElements = function() {
+  this.portalizeContainer = document.createElement('div');
+  this.portalizeContainer.id = 'portalize-slide';
+  this.portalizeContainer.className = 'portalize-slide-down';
+  document.body.appendChild(this.portalizeContainer);
+
+  // Client will need to add a button and div with these IDs for library to work
+  this.chatButton = document.createElement('button');
+  this.chatButton.id = 'portalize-init-button';
+  this.chatButton.className = 'btn btn-default';
+  this.chatButton.textContent = 'Chat with a representative';
+  this.portalizeContainer.appendChild(this.chatButton);
+
+  this.chatWindow = document.createElement('div');
+  this.chatWindow.id = 'portalize-window';
+  this.portalizeContainer.appendChild(this.chatWindow);
+
+  // Cached content from business
+  this.chatButtonContent = this.chatButton.textContent;
+
+  // Elements to be appended on icecomm connect
+  this.localVideo = document.createElement('video');
+  this.remoteVideo = document.createElement('video');
+  this.textChat = document.createElement('div');
+
+  this.localVideo.autoplay = true;
+  this.localVideo.id = 'portalize-local-video';
+
+  this.remoteVideo.autoplay = true;
+  this.remoteVideo.id = 'portalize-remote-video';
+
+  this.textChat.id = 'portalize-text-chat';
+
+  this.textChat.innerHTML = '<div id="portalize-message-log"></div> \
+                             <form id="portalize-chat-form" class="form-group"> \
+                               <div class="input-group"> \
+                                 <input type="text" id="portalize-text-chat-input" class="form-control" required /> \
+                                 <span class="input-group-btn"> \
+                                   <button class="btn btn-primary" type="submit">Submit</button> \
+                                 </span> \
+                                </div> \
+                              </form>';
+
+  this.chatButton.addEventListener('click', this._initialClickHandler.bind(this), false);
+};
+
 Portalize.prototype._initialClickHandler = function(){
   this.renderDetailForm();
-  this.portalizeSlide.classList.remove('portalize-slide-down');
-  this.portalizeSlide.classList.add('portalize-slide-up');
+  this.portalizeContainer.classList.remove('portalize-slide-down');
+  this.portalizeContainer.classList.add('portalize-slide-up');
   this._changeEventListener('click', this._cancelClickHandler.bind(this), 'Cancel Request');
 };
 
 Portalize.prototype._cancelClickHandler = function(){
   this.chatWindow.innerHTML = '';
-  this.portalizeSlide.classList.remove('portalize-slide-up');
-  this.portalizeSlide.classList.add('portalize-slide-down');
+  this.portalizeContainer.classList.remove('portalize-slide-up');
+  this.portalizeContainer.classList.add('portalize-slide-down');
   this._changeEventListener('click', this._initialClickHandler.bind(this), this.chatButtonContent);
   this.socket.emit('exitQueue');
   this.comm.close();
@@ -209,8 +213,8 @@ Portalize.prototype.setupPeerConnListeners = function(){
     this.chatButton.parentNode.replaceChild(thankYou, this.chatButton);
 
     // slide up so that thank you message is displayed
-    this.portalizeSlide.classList.remove('portalize-slide-down');
-    this.portalizeSlide.classList.add('portalize-slide-up');
+    this.portalizeContainer.classList.remove('portalize-slide-down');
+    this.portalizeContainer.classList.add('portalize-slide-up');
 
     // closes audio/video stream
     this.comm.close();
