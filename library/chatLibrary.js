@@ -1,82 +1,121 @@
-var Supportal = function(orgName){
+var Portalize = function(orgName, displayOption){
   this.init();
   this.orgName = orgName;
   this.customerName = null;
   this.chatListenersExist = false;
-
-  this.supportalSlide = document.createElement('div');
-  this.supportalSlide.id = 'supportal-slide';
-  this.supportalSlide.className = 'supportal-slide-down';
-  document.body.appendChild(this.supportalSlide);
-
-  // Client will need to add a button and div with these IDs for library to work
-  this.chatButton = document.createElement('button');
-  this.chatButton.id = 'supportal-init-button';
-  this.chatButton.className = 'btn btn-default';
-  this.chatButton.textContent = 'Chat with a representative';
-  this.supportalSlide.appendChild(this.chatButton);
-
-  this.chatWindow = document.createElement('div');
-  this.chatWindow.id = 'supportal-window';
-  this.supportalSlide.appendChild(this.chatWindow);
-
-  // Cached content from business
-  this.chatButtonContent = this.chatButton.textContent;
-
-  // Elements to be appended on icecomm connect
-  this.localVideo = document.createElement('video');
-  this.remoteVideo = document.createElement('video');
-  this.textChat = document.createElement('div');
-
-  this.localVideo.autoplay = true;
-  this.localVideo.id = 'supportal-local-video';
-
-  this.remoteVideo.autoplay = true;
-  this.remoteVideo.id = 'supportal-remote-video';
-
-  this.textChat.id = 'supportal-text-chat';
-
-  this.textChat.innerHTML = '<div id="supportal-message-log"></div> \
-                             <form id="supportal-chat-form" class="form-group"> \
-                               <div class="input-group"> \
-                                 <input type="text" id="supportal-text-chat-input" class="form-control" required /> \
-                                 <span class="input-group-btn"> \
-                                   <button class="btn btn-primary" type="submit">Submit</button> \
-                                 </span> \
-                                </div> \
-                              </form>';
-
-  this.chatButton.addEventListener('click', this._initialClickHandler.bind(this), false);
+  this.chatButtonContent = null;
+  this.displayOption = displayOption;
+  this.createDOMElements();
 };
 
-Supportal.prototype._initialClickHandler = function(){
-  this.renderDetailForm();
-  this.supportalSlide.classList.remove('supportal-slide-down');
-  this.supportalSlide.classList.add('supportal-slide-up');
-  this._changeEventListener('click', this._cancelClickHandler.bind(this), 'Cancel Request');
+// Init function which initializes all scripts and style links
+Portalize.prototype.init = function(){
+  var head = document.getElementsByTagName('head')[0];
+  var bootStrapLink = document.createElement('link');
+  var stylesLink = document.createElement('link');
+  var socketScript = document.createElement('script');
+  var icecommScript = document.createElement('script');
+  bootStrapLink.setAttribute('rel', 'stylesheet');
+  bootStrapLink.setAttribute('type', 'text/css');
+  bootStrapLink.setAttribute('href', 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css');
+  stylesLink.setAttribute('rel', 'stylesheet');
+  stylesLink.setAttribute('type', 'text/css');
+  stylesLink.setAttribute('href', 'https://10c22e6b.ngrok.com/librarystyles');
+  socketScript.src = 'https://cdn.socket.io/socket.io-1.3.5.js';
+  icecommScript.src = 'https://cdn.icecomm.io/icecomm.js';
+
+  socketScript.onload = function(){
+    // need to change io connection point if want to test locally
+    this.socket = io('https://10c22e6b.ngrok.com');
+  }.bind(this);
+
+  icecommScript.onload = function(){
+    this.comm = new Icecomm('ZZ2RA1DsHd9xdCqdoeJ8Wwra5A5fUKipAVrvzX6vOGHlLiAdO');
+  }.bind(this);
+
+  head.appendChild(bootStrapLink);
+  head.appendChild(stylesLink);
+  head.appendChild(socketScript);
+  head.appendChild(icecommScript);
 };
 
-Supportal.prototype._cancelClickHandler = function(){
-  this.chatWindow.innerHTML = '';
-  this.supportalSlide.classList.remove('supportal-slide-up');
-  this.supportalSlide.classList.add('supportal-slide-down');
-  this._changeEventListener('click', this._initialClickHandler.bind(this), this.chatButtonContent);
-  this.socket.emit('exitQueue');
-  this.comm.close();
-  this.comm.leave(true);
+Portalize.prototype.createDOMElements = function() {
+  var createContainer = function() {
+    this.portalizeContainer = document.createElement('div');
+    this.portalizeContainer.id = 'portalize-slide-container';
+    this.portalizeContainer.className = 'portalize-slide-down';
+  }.bind(this);
+
+  var createChatButton = function() {
+    if (this.displayOption === 'slide') {
+      this.chatButton = document.createElement('button');      
+      this.chatButton.id = 'portalize-' + this.displayOption + '-init-button';
+      this.chatButton.textContent = 'Chat with a representative';
+    } else if (this.displayOption === 'embed') {
+      // Client will need to add a button with id of 'portalize-embed-init-button' in html to embed
+      this.chatButton = document.getElementById('portalize-' + this.displayOption + '-init-button');
+    }
+    this.chatButton.className = 'btn btn-default';
+ 
+    // Cached content from business
+    this.chatButtonContent = this.chatButton.textContent;
+  }.bind(this);
+
+  var createChatWindow = function() {
+    if (this.displayOption === 'slide') {
+      this.chatWindow = document.createElement('div');
+      this.chatWindow.id = 'portalize-slide-window';
+    } else if (this.displayOption === 'embed') {
+      this.chatWindow = document.getElementById('portalize-' + this.displayOption + '-window');
+    }
+  }.bind(this);
+
+  var createChatElements = function() {
+    // Elements to be appended on icecomm connect
+    this.localVideo = document.createElement('video');
+    this.localVideo.autoplay = true;
+    this.localVideo.id = 'portalize-' + this.displayOption + '-local-video';
+
+    this.remoteVideo = document.createElement('video');
+    this.remoteVideo.autoplay = true;
+    this.remoteVideo.id = 'portalize-' + this.displayOption + '-remote-video';
+
+    this.textChat = document.createElement('div');
+    this.textChat.id = 'portalize-text-chat';
+    this.textChat.innerHTML = '<div id="portalize-message-log"></div> \
+                               <form id="portalize-chat-form" class="form-group"> \
+                                 <div class="input-group"> \
+                                   <input type="text" id="portalize-text-chat-input" class="form-control" required /> \
+                                   <span class="input-group-btn"> \
+                                     <button class="btn btn-primary" type="submit">Submit</button> \
+                                   </span> \
+                                  </div> \
+                                </form>';
+  }.bind(this);
+
+  var createDisconnectButton = function() {
+    this.disconnectButton = document.createElement('button');
+    this.disconnectButton.id = 'portalize-disconnect-button';
+    this.disconnectButton.className = 'btn btn-xs';
+    this.disconnectButton.innerHTML = '<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>';
+  }.bind(this);
+
+  createChatButton();
+  createChatWindow();
+  createChatElements();
+  if (this.displayOption === 'slide') {
+    createContainer();
+    document.body.appendChild(this.portalizeContainer);
+    this.portalizeContainer.appendChild(this.chatButton);
+    this.portalizeContainer.appendChild(this.chatWindow);
+  } else if (this.displayOption === 'embed') {
+    createDisconnectButton();
+  }
 };
 
-Supportal.prototype._changeEventListener = function(eventType, newHandler, textContent){
-  var elClone = this.chatButton.cloneNode(true);
-  this.chatButton.parentNode.replaceChild(elClone, this.chatButton);
-  this.chatButton = elClone;
-  this.chatButton.textContent = textContent;
-  this.chatButton.addEventListener(eventType, newHandler);
-};
-
-Supportal.prototype.renderDetailForm = function(){
+Portalize.prototype.renderDetailForm = function(){
   var form = document.createElement('form');
-  form.id = 'supportal-user-detail';
+  form.id = 'portalize-user-detail';
 
   form.addEventListener('submit', function(e){
     e.preventDefault();
@@ -92,7 +131,6 @@ Supportal.prototype.renderDetailForm = function(){
 
     this.createChatSession(userDetails);
     this.chatWindow.removeChild(this.chatWindow.firstChild);
-
   }.bind(this), false);
 
   form.innerHTML = '<legend>How Can We Help?</legend> \
@@ -106,44 +144,14 @@ Supportal.prototype.renderDetailForm = function(){
                     </div> \
                     <div class="form-group"> \
                       <label>Question</label> \
-                      <textarea id="supportal-form-question" class="form-control" required></textarea> \
+                      <textarea id="portalize-form-question" class="form-control" required></textarea> \
                     </div> \
                     <button type="submit" class="btn btn-default">Submit</button>';
 
   this.chatWindow.appendChild(form);
 };
 
-Supportal.prototype.init = function(){
-  var head = document.getElementsByTagName('head')[0];
-  var bootStrapLink = document.createElement('link');
-  var stylesLink = document.createElement('link');
-  var socketScript = document.createElement('script');
-  var icecommScript = document.createElement('script');
-  bootStrapLink.setAttribute('rel', 'stylesheet');
-  bootStrapLink.setAttribute('type', 'text/css');
-  bootStrapLink.setAttribute('href', 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css');
-  stylesLink.setAttribute('rel', 'stylesheet');
-  stylesLink.setAttribute('type', 'text/css');
-  stylesLink.setAttribute('href', 'http://localhost:3000/librarystyles');
-  socketScript.src = 'https://cdn.socket.io/socket.io-1.3.5.js';
-  icecommScript.src = 'https://cdn.icecomm.io/icecomm.js';
-
-  socketScript.onload = function(){
-    // need to change io connection point if want to test locally
-    this.socket = io('http://localhost:3000');
-  }.bind(this);
-
-  icecommScript.onload = function(){
-    this.comm = new Icecomm('ZZ2RA1DsHd9xdCqdoeJ8Wwra5A5fUKipAVrvzX6vOGHlLiAdO');
-  }.bind(this);
-
-  head.appendChild(bootStrapLink);
-  head.appendChild(stylesLink);
-  head.appendChild(socketScript);
-  head.appendChild(icecommScript);
-};
-
-Supportal.prototype.createChatSession = function(userDetails) {
+Portalize.prototype.createChatSession = function(userDetails) {
   // Only set up listeners if they haven't yet been created
   if (!this.chatListenersExist) {
     this.chatListenersExist = true;
@@ -155,11 +163,10 @@ Supportal.prototype.createChatSession = function(userDetails) {
   this.socket.emit('customerRequest', userDetails);
 };
 
-Supportal.prototype.setupSocketListeners = function(){
-
+Portalize.prototype.setupSocketListeners = function(){
   this.socket.on('staffUnavailable', function(){
     var container = document.createElement('div');
-    container.className = 'supportal-message-container';
+    container.className = 'portalize-message-container';
 
     var notAvailable = document.createElement('h4');
     notAvailable.textContent = 'No customer service representatives are available right now. Please try again at a later time.';
@@ -167,11 +174,15 @@ Supportal.prototype.setupSocketListeners = function(){
     this.chatWindow.innerHTML = '';
     this.chatWindow.appendChild(container);
     container.appendChild(notAvailable);
+    if (this.displayOption === 'embed') {
+      this.chatWindow.appendChild(this.disconnectButton);
+      this.disconnectButton.style.display = 'block';
+    }
   }.bind(this));
 
   this.socket.on('customerQueueStatus', function(position){
     var container = document.createElement('div');
-    container.className = 'supportal-message-container';
+    container.className = 'portalize-message-container';
 
     var queueStatus = document.createElement('h4');
     queueStatus.textContent = 'A customer service representative will be with you shortly. You are currently in position ' + position + ' in the queue.';
@@ -179,21 +190,24 @@ Supportal.prototype.setupSocketListeners = function(){
     this.chatWindow.innerHTML = '';
     this.chatWindow.appendChild(container);
     container.appendChild(queueStatus);
+    if (this.displayOption === 'embed') {
+      this.chatWindow.appendChild(this.disconnectButton);
+      this.disconnectButton.style.display = 'block';
+    }
   }.bind(this));
 
-  // should we pass in company name or other identifier?
   this.socket.on('customerRoom', function(data) {
     this.comm.connect(data);
   }.bind(this));
 };
 
-Supportal.prototype.setupPeerConnListeners = function(){
-  // helper function to append message node to supportal-message-log element
+Portalize.prototype.setupPeerConnListeners = function(){
+  // helper function to append message node to portalize-message-log element
   var appendTextMessage = function(user, message) {
     var messageNode = document.createElement('div');
     messageNode.textContent = user + ': ' + message;
-    document.getElementById('supportal-message-log').appendChild(messageNode);
-    var chatView = document.getElementById('supportal-message-log');
+    document.getElementById('portalize-message-log').appendChild(messageNode);
+    var chatView = document.getElementById('portalize-message-log');
     chatView.scrollTop = chatView.scrollHeight;
   };
 
@@ -203,13 +217,15 @@ Supportal.prototype.setupPeerConnListeners = function(){
     this.chatWindow.style.display = 'none';
 
     var thankYou = document.createElement('div');
-    thankYou.id = 'supportal-thank-you';
+    thankYou.id = 'portalize-' + this.displayOption + '-thank-you';
     thankYou.innerHTML = 'Thank you for using Portalize.';
     this.chatButton.parentNode.replaceChild(thankYou, this.chatButton);
 
-    // slide up so that thank you message is displayed
-    this.supportalSlide.classList.remove('supportal-slide-down');
-    this.supportalSlide.classList.add('supportal-slide-up');
+    if (this.displayOption === 'slide') {
+      // slide up so that thank you message is displayed
+      this.portalizeContainer.classList.remove('portalize-slide-down');
+      this.portalizeContainer.classList.add('portalize-slide-up');
+    }
 
     // closes audio/video stream
     this.comm.close();
@@ -224,16 +240,16 @@ Supportal.prototype.setupPeerConnListeners = function(){
     this.remoteVideo.src = peer.stream;
     this.chatWindow.appendChild(this.textChat);
 
-    var chatView = document.getElementById('supportal-message-log');
+    var chatView = document.getElementById('portalize-message-log');
 
     // after connecting, set up listener for text chat submit
-    var submitForm = document.getElementById('supportal-chat-form');
+    var submitForm = document.getElementById('portalize-chat-form');
     var handleSubmit = function(event) {
       var message = event.target[0].value;
       event.preventDefault();
       this.comm.send(message);
       appendTextMessage(this.customerName, message);
-      document.getElementById('supportal-text-chat-input').value = '';
+      document.getElementById('portalize-text-chat-input').value = '';
     }.bind(this);
 
     if(submitForm.addEventListener) { // for modern browsers
@@ -260,4 +276,76 @@ Supportal.prototype.setupPeerConnListeners = function(){
 
   // listener to close video streams and leave room when peer disconnects
   this.comm.on('disconnect', disconnect);
+};
+
+
+/////////////////////////////  Embedded Subclass /////////////////////////////
+
+var PortalizeEmbed = function(orgName) {
+  Portalize.call(this, orgName, 'embed');
+  
+  // Add initial click handler to chatButton
+  this.chatButton.addEventListener('click', this._initialClickHandler.bind(this), false);
+  
+  // Add cancel click handler to disconnectButton
+  this.disconnectButton.addEventListener('click', this._cancelClickHandler.bind(this), false);
+};
+
+PortalizeEmbed.prototype = Object.create(Portalize.prototype);
+PortalizeEmbed.constructor = Portalize;
+
+PortalizeEmbed.prototype._initialClickHandler = function(){
+  this.renderDetailForm();
+  this.chatWindow.appendChild(this.disconnectButton);
+  this.disconnectButton.style.display = 'block';
+  this.chatButton.style.display = 'none';
+  this.chatWindow.style.display = 'block';
+};
+
+PortalizeEmbed.prototype._cancelClickHandler = function(){
+  this.chatWindow.innerHTML = '';
+  this.disconnectButton.style.display = 'none';
+  this.chatButton.style.display = 'block';
+  this.chatWindow.style.display = 'none';
+  this.socket.emit('exitQueue');
+  this.comm.close();
+  this.comm.leave(true);
+};
+
+
+/////////////////////////////  Slide Up Subclass /////////////////////////////
+
+var PortalizeSlide = function(orgName) {
+  Portalize.call(this, orgName, 'slide');
+
+  // Add initial click handler to chatButton
+  this.chatButton.addEventListener('click', this._initialClickHandler.bind(this), false);
+};
+
+PortalizeSlide.prototype = Object.create(Portalize.prototype);
+PortalizeSlide.constructor = Portalize;
+
+PortalizeSlide.prototype._initialClickHandler = function(){
+  this.renderDetailForm();
+  this.portalizeContainer.classList.remove('portalize-slide-down');
+  this.portalizeContainer.classList.add('portalize-slide-up');
+  this._changeEventListener('click', this._cancelClickHandler.bind(this), 'Cancel Request');
+};
+
+PortalizeSlide.prototype._cancelClickHandler = function(){
+  this.chatWindow.innerHTML = '';
+  this.portalizeContainer.classList.remove('portalize-slide-up');
+  this.portalizeContainer.classList.add('portalize-slide-down');
+  this._changeEventListener('click', this._initialClickHandler.bind(this), this.chatButtonContent);
+  this.socket.emit('exitQueue');
+  this.comm.close();
+  this.comm.leave(true);
+};
+
+PortalizeSlide.prototype._changeEventListener = function(eventType, newHandler, textContent){
+  var elClone = this.chatButton.cloneNode(true);
+  this.chatButton.parentNode.replaceChild(elClone, this.chatButton);
+  this.chatButton = elClone;
+  this.chatButton.textContent = textContent;
+  this.chatButton.addEventListener(eventType, newHandler);
 };
