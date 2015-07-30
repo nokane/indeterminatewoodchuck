@@ -41,7 +41,7 @@ input.shortfield {
   padding: 1px;
   height: 28px;
   width: 30%;
-}  
+}
 nav {
   margin-top: 10px !important;
   margin-bottom: 0px !important;
@@ -65,7 +65,7 @@ button.formChoice {
   border: 2px solid #ccc;
   background-color: #5cb85c;
   height: 32px;
-  border-radius: 4px;  
+  border-radius: 4px;
 }
 button.formConfirm {
   margin-top: 12px;
@@ -89,16 +89,50 @@ ul, li {
 label {
   margin-top: 2px;
   margin-bottom: 2px;
-}  
+}
 .errorView {
   margin-bottom: 0px;
   padding-bottom: 0px;
   color: red;
   height: 6px;
 }
+
 .portal-btn {
   display: inline-block;
 }
 .first-btn {
   margin-left: 25px;
+
+/*About Us*/
+.about-us-container {
+  font-size: 16px;
+}
+
+.profile-image {
+  width: 80%;
+  height: auto;
+  border-radius: 4px;
+}
+
+.profile-name {
+  margin-top: 10px;
+  color: rgb(90, 82, 82);
+  font-size: 16px;
+}
+
+.about-us-nav {
+  float: none;
+  text-align: center;
+  display: inline-block;
+  font-size: 22px;
+}
+
+.attribution {
+  margin-top: 40px;
+}
+
+hr {
+  max-width: 50px;
+  border-color: #ccc;
+  border-width: 3px;
 }

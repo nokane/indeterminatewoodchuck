@@ -20,7 +20,7 @@ var Login = React.createClass({
       userLoginErrorMessage: null,
       userSignupErrorMessage: null,
       orgLoginErrorMessage: null,
-      orgSignupErrorMessage: null      
+      orgSignupErrorMessage: null
     };
   },
 
@@ -29,15 +29,15 @@ var Login = React.createClass({
       showOrgLogin: 1,
       showOrgSignup: 0
     });
-    this.clearErrors();      
+    this.clearErrors();
   },
 
   showOrgSignup: function() {
     this.setState({
       showOrgLogin: 0,
       showOrgSignup: 1
-    });     
-    this.clearErrors();      
+    });
+    this.clearErrors();
   },
 
   handleError: function(section, errorMessage) {
@@ -56,7 +56,7 @@ var Login = React.createClass({
       newFields[key] = fieldValues[key];
     }
     this.setState({
-      fieldValues: newFields 
+      fieldValues: newFields
     });
   },
 
@@ -73,6 +73,7 @@ var Login = React.createClass({
         <div className='view'>
           <div className='column'>
             <div className='column-left'>
+<<<<<<< 3b3a526b869fc73e30acbe7f80f6df805db9aa92
               <div className='login-content'>
                 <span className='intro-text'>
                   Portalize's customer support platform is a simple solution for e-commerce businesses to
@@ -83,6 +84,12 @@ var Login = React.createClass({
                   for businesses to provide live customer support, improving their customers' shopping experience
                 </span>
               </div>
+=======
+              The quick brown fox jumped quickly over the yellow dog.  Lorem ipsum dolorem amet.
+              The quick brown fox jumped quickly over the yellow dog.  Lorem ipsum dolorem amet.
+              The quick brown fox jumped quickly over the yellow dog.  Lorem ipsum dolorem amet.
+              The quick brown fox jumped quickly over the yellow dog.  Lorem ipsum dolorem amet.
+>>>>>>> (feat) first iteration on about section
             </div>
           </div>
 
@@ -90,7 +97,7 @@ var Login = React.createClass({
             <div className='column-right'>
               <UserSignup fieldValues={this.state.fieldValues}
                                    saveValues={this.saveValues} handleError={this.handleError} />
-            </div> 
+            </div>
           </div>
         </div>
 
@@ -104,7 +111,7 @@ var Login = React.createClass({
               <OrgAccountQuery fieldValues={this.state.fieldValues}
                                    saveValues={this.saveValues}
                                    showOrgLogin = {this.showOrgLogin}
-                                   showOrgSignup = {this.showOrgSignup} />                                                           
+                                   showOrgSignup = {this.showOrgSignup} />
             </div>
           </div>
         </div>
@@ -120,10 +127,10 @@ var Login = React.createClass({
             <div className='column-right'>
               {this.state.showOrgLogin ? <OrgLogin fieldValues={this.state.fieldValues}
                                    saveValues={this.saveValues} clearErrors={this.clearErrors}
-                                   handleError={this.handleError} /> :                               
+                                   handleError={this.handleError} /> :
               this.state.showOrgSignup ? <OrgSignup fieldValues={this.state.fieldValues}
                                    saveValues={this.saveValues} clearErrors={this.clearErrors}
-                                   handleError={this.handleError} />:<div></div>}                              
+                                   handleError={this.handleError} />:<div></div>}
               {this.state.orgSignupErrorMessage ? <Error errorMessage={this.state.orgSignupErrorMessage} /> :
               this.state.orgLoginErrorMessage ? <Error errorMessage={this.state.orgLoginErrorMessage} /> : <div className='errorView'> </div> }
             </div>
