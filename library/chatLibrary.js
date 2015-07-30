@@ -131,11 +131,11 @@ Portalize.prototype.renderDetailForm = function(){
   form.innerHTML = '<legend>How Can We Help?</legend> \
                     <div class="form-group"> \
                       <label>Name</label> \
-                      <input type="name" class="form-control" required /> \
+                      <input id="portalize-form-name" type="name" class="form-control" required /> \
                     </div> \
                     <div class="form-group"> \
                       <label>Email Address</label> \
-                      <input type="email" class="form-control" required /> \
+                      <input id="portalize-form-email" type="email" class="form-control" required /> \
                     </div> \
                     <div class="form-group"> \
                       <label>Question</label> \
