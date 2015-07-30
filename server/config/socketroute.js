@@ -23,8 +23,15 @@ socket.customerQueue = {};
 
   key: the Organization name (same name as Organization model's "web_name" parameter)
 
-  value: an array of user Socket Ids of those customers who are waiting to be helped by
-  staff members.
+  value: an array of objects, each object containing information for a specific customer who is
+  waiting to be helped by a staff member. This following is a representation of the stored objects:
+    {
+      name: customer's name,
+      email: customer's email address,
+      question: a summary of the customer's question/problem,
+      orgName: the name of the organization that the customer wants to speak with
+      userId: the socket id of the customer's socket connection
+    }
 */
 
 socket.staff = {};
