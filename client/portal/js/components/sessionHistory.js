@@ -2,7 +2,6 @@ var React = require('react');
 var sessionActions = require('../actions/sessionActions');
 var SessionHistoryStore = require('../stores/sessionHistoryStore');
 var SessionLog = require('./sessionLog');
-var SessionGraph = require('./sessionGraph');
 
 var SessionHistory = React.createClass({
 
@@ -36,7 +35,6 @@ var SessionHistory = React.createClass({
         <button type="button" className="refresh btn btn-default" onClick={ this.getLogs }>
           <span className="glyphicon glyphicon-refresh" aria-hidden="true"></span>
         </button>
-        <SessionGraph />
         <SessionLog sessions={ this.state.sessions } />
       </div>
     );
