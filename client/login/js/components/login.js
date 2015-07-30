@@ -70,69 +70,78 @@ var Login = React.createClass({
   },
 
   render: function() {
-
     return (
       <main className = 'container'>
-      <div className='center'>
-         <nav className='navbar navbar-default'>
-          <section>
-                <div className='navbar-brand logo'>Portalize</div>
-          </section>
-          <section>
-            <UserLogin fieldValues={this.state.fieldValues}
-                                   saveValues={this.saveValues} handleError={this.handleError} />
-            {this.state.userLoginErrorMessage ? <Error errorMessage={this.state.userLoginErrorMessage} /> :
-            <div className='errorView'></div> }
-          </section>
+        <nav className='navbar navbar-default'>
+          <div className='container-fluid'>
+            <div className='navbar-brand'>Portalize</div>
+            <div className='login'>
+              <UserLogin fieldValues={this.state.fieldValues}
+                                     saveValues={this.saveValues} handleError={this.handleError} />
+            </div>            
+          </div>
         </nav>
 
-        <div className='view'>
-        <section>
-          The quick brown fox jumped quickly over the yellow dog.  Lorem ipsum dolorem amet.  
-          The quick brown fox jumped quickly over the yellow dog.  Lorem ipsum dolorem amet.  
-          The quick brown fox jumped quickly over the yellow dog.  Lorem ipsum dolorem amet.  
-          The quick brown fox jumped quickly over the yellow dog.  Lorem ipsum dolorem amet.    
-        </section>
-
-        <section>
-          <UserSignup fieldValues={this.state.fieldValues}
-                               saveValues={this.saveValues} handleError={this.handleError} />
- 
-        </section>
-
+        <div className='column'>
         </div>
+        <div className='column'>
+            {this.state.userLoginErrorMessage ? <Error errorMessage={this.state.userLoginErrorMessage} /> :
+            <div className='errorView'></div> }
+        </div>
+
+        <div className='view'>
+          <div className='column'>
+            <div className='column-left'>
+              The quick brown fox jumped quickly over the yellow dog.  Lorem ipsum dolorem amet.  
+              The quick brown fox jumped quickly over the yellow dog.  Lorem ipsum dolorem amet.  
+              The quick brown fox jumped quickly over the yellow dog.  Lorem ipsum dolorem amet.  
+              The quick brown fox jumped quickly over the yellow dog.  Lorem ipsum dolorem amet.    
+            </div>
+          </div>
+
+          <div className='column'>
+            <div className='column-right'>
+              <UserSignup fieldValues={this.state.fieldValues}
+                                   saveValues={this.saveValues} handleError={this.handleError} />
+            </div> 
+          </div>
+        </div>
+
+        <div className='view'>
+          <div className='column'>
+            <div className = 'column-left'>
+            </div>
+          </div>
+          <div className='column'>
+            <div className = 'column-right'>
+              <OrgAccountQuery fieldValues={this.state.fieldValues}
+                                   saveValues={this.saveValues}
+                                   showOrgLogin = {this.showOrgLogin}
+                                   showOrgSignup = {this.showOrgSignup} />                                                           
+            </div>
+          </div>
+        </div>
+
         <div className='view'>
 
-        <section>
-        </section>
+          <div className='column'>
+            <div className = 'column-left'>
+            </div>
+          </div>
 
-        <section>
-          <OrgAccountQuery fieldValues={this.state.fieldValues}
-                               saveValues={this.saveValues}
-                               showOrgLogin = {this.showOrgLogin}
-                               showOrgSignup = {this.showOrgSignup} />                                                           
-        </section>
+          <div className='column'>
+            <div className='column-right'>
+              {this.state.showOrgLogin ? <OrgLogin fieldValues={this.state.fieldValues}
+                                   saveValues={this.saveValues} clearErrors={this.clearErrors}
+                                   handleError={this.handleError} /> :                               
+              this.state.showOrgSignup ? <OrgSignup fieldValues={this.state.fieldValues}
+                                   saveValues={this.saveValues} clearErrors={this.clearErrors}
+                                   handleError={this.handleError} />:<div></div>}                              
+              {this.state.orgSignupErrorMessage ? <Error errorMessage={this.state.orgSignupErrorMessage} /> :
+              this.state.orgLoginErrorMessage ? <Error errorMessage={this.state.orgLoginErrorMessage} /> : <div className='errorView'> </div> }
+            </div>
+          </div>
 
-        </div>
-        <div className='view'>
-
-        <section>
-        </section>
-
-        <section>
-
-          {this.state.showOrgLogin ? <OrgLogin fieldValues={this.state.fieldValues}
-                               saveValues={this.saveValues} clearErrors={this.clearErrors}
-                               handleError={this.handleError} /> :                               
-          this.state.showOrgSignup ? <OrgSignup fieldValues={this.state.fieldValues}
-                               saveValues={this.saveValues} clearErrors={this.clearErrors}
-                               handleError={this.handleError} />:<div></div>}                              
-          {this.state.orgSignupErrorMessage ? <Error errorMessage={this.state.orgSignupErrorMessage} /> :
-          this.state.orgLoginErrorMessage ? <Error errorMessage={this.state.orgLoginErrorMessage} /> : <div className='errorView'> </div> }
-
-        </section>
-
-        </div>
         </div>
       </main>
     )

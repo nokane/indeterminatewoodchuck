@@ -5,13 +5,13 @@ var OrgLogin = React.createClass({
   render: function() {
     return (
       <div>
-        <h2>Join Existing Organization</h2>
+        <h4>Join Existing Organization</h4>
         <ul className="form-fields">
             <label>Business Name</label>
             <input type="text" ref="businessname" />
             <label>Password</label>
             <input type="password" ref="businesspassword" />
-            <button onClick={this.handleLogin}>Create Account</button>
+            <button className='formConfirm' onClick={this.handleLogin}>Create Account</button>
         </ul>
       </div>
     )

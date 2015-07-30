@@ -10,8 +10,7 @@ var UserLogin = React.createClass({
         <span>        </span>
         <label>Password</label>
         <input className='shortfield' type="password" ref="password" />
-        <span>        </span>
-        <button className='login' onClick={this.handleLogin}>Login</button>
+        <span>        </span><button className='btn btn-default custom' onClick={this.handleLogin}>Login</button>
       </div>
     )
   },

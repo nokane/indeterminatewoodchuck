@@ -6,7 +6,7 @@ var OrgSignup = React.createClass({
     return (
       <div>
         <div>
-          <h2>Create Organization</h2>
+          <h4>Create Organization</h4>
           <ul className="form-fields">
             <li>
               <label>Business Name</label>
@@ -41,7 +41,7 @@ var OrgSignup = React.createClass({
               <input type="password" ref="businesspassword2" />
             </li>
             <li className="form-footer">
-              <button onClick={this.signup}>Create Account and Organization</button>
+              <button className='formConfirm' onClick={this.signup}>Create Account and Organization</button>
             </li>
           </ul>
         </div>
