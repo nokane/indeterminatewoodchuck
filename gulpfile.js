@@ -102,7 +102,7 @@ gulp.task('watch-portal', function(){
 });
 
 gulp.task('watch-login', function(){
-  gulp.watch(path.HTML, [ 'htmlReplaceDev-login' ]);
+  gulp.watch(path2.HTML, [ 'htmlReplaceDev-login' ]);
   gulp.watch('client/login/styles/styles.css', [ 'copy-css-login' ]);
 
   var watcher = watchify(browserify({
