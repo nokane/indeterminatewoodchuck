@@ -94,6 +94,7 @@ Portalize.prototype.createDOMElements = function() {
   }.bind(this);
 
   var createDisconnectButton = function() {
+    this.disconnectButton = document.createElement('button');
     this.disconnectButton.id = 'portalize-disconnect-button';
     this.disconnectButton.className = 'btn btn-xs';
     this.disconnectButton.innerHTML = '<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>';
@@ -216,7 +217,7 @@ Portalize.prototype.setupPeerConnListeners = function(){
     this.chatWindow.style.display = 'none';
 
     var thankYou = document.createElement('div');
-    thankYou.id = 'portalize-thank-you';
+    thankYou.id = 'portalize-' + this.displayOption + '-thank-you';
     thankYou.innerHTML = 'Thank you for using Portalize.';
     this.chatButton.parentNode.replaceChild(thankYou, this.chatButton);
 
