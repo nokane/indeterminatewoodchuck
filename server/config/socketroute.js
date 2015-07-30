@@ -43,10 +43,25 @@ socket.staff = {};
 
   value: an object with the following key-value pair:
       key: the user Socket Id of the staff member
-      value: the name of the room that the staff member is currently in
+      value: the name of the room that the staff member is currently in (if value === false, staff
+        member is not in a room)
 */
 
 socket.staffDetails = {};
+/*
+  socket.staffDetails contains information about the staff members who are currently logged
+  into the portal, specific to each Organization
+
+  key: the Organization name (same name as Organization model's "web_name" parameter)
+  value: an object with the following key-value pair:
+      key: the user Socket Id of the staff member
+      value: an object containing data on the staff member. The following is a
+             representation of the stored objects:
+            {
+              staffId: staff member's unique id from Postgres DB,
+              email: staff member's email address
+            }
+*/
 
 socket.socketroute = function(io, user) {
 
@@ -86,6 +101,13 @@ socket.socketroute = function(io, user) {
     side socket connection
   */
 
+
+  /*
+    If a user connection to the socket server contains a handshake.query.orgName, then the user
+    connection is a staff member. Add that staff member to socket.staff[orgName] and
+    socket.staffDetails[orgName]. This allows the staff member to be sent the queue status right
+    after connecting to the socket server
+  */
   if (user.handshake.query.hasOwnProperty('orgName')) {
     user.staffId = user.handshake.query.staffId;
     user.email = user.handshake.query.email;
