@@ -5,16 +5,38 @@
 }
 
 #portalize-embed-window {
-  
+  position: relative;
+  width: auto;
+  height: auto;
+  padding: 0px;
+  margin-bottom: 20px;
+  display: none;
 }
 
 #portalize-embed-local-video {
-
+  width: 25%;
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  z-index: 1;
 }
 
 #portalize-embed-remote-video {
-
+  width: 100%;
+  position: relative;
 }
+
+#portalize-disconnect-button {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  border: none;
+  background-color: transparent;
+  z-index: 100;
+  width: 10px;
+  height: 10px;
+}
+
 
 /* Slide Styles */
 
@@ -71,15 +93,17 @@
   position: relative;
 }
 
-#portalize-disconnect-button {
-  position: absolute;
-  top: 0px;
-  right: 0px;
-  border: none;
-  background-color: transparent;
-  z-index: 100;
-  width: 10px;
-  height: 10px;
+#portalize-thank-you {
+  border: 1.5px solid #ccc;
+  border-radius: 4px 4px 0 0;
+  border-bottom: none;
+  background-color: #ccc;
+  padding: 6px 12px;
+  margin-bottom: 0;
+  font-size: 14px;
+  font-weight: 400;
+  text-align: center;
+  vertical-align: middle;
 }
 
 /* Shared Styles */
@@ -112,16 +136,3 @@
   top: 0px;
 }
 
-#portalize-thank-you {
-  border: 1.5px solid #ccc;
-  border-radius: 4px 4px 0 0;
-  border-bottom: none;
-  background-color: #ccc;
-  padding: 6px 12px;
-  margin-bottom: 0;
-  font-size: 14px;
-  font-weight: 400;
-  text-align: center;
-  vertical-align: middle;
-
-}
