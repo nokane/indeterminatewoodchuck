@@ -22,7 +22,7 @@ Portalize.prototype.init = function(){
 
   socketScript.onload = function(){
     // need to change io connection point if want to test locally
-    this.socket = io('https://www.portalize.io');
+    this.socket = io('http://www.portalize.io');
   }.bind(this);
 
   icecommScript.onload = function(){
