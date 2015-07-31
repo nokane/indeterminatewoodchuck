@@ -51,22 +51,36 @@ var Main = React.createClass({
     return (
       <div className = 'container'>
       
-        <nav className='navbar navbar-default'>
-          <div className='container-fluid'>
-            <div className='navbar-brand'>Portalize</div>
-
-            <div className='navbar-brand links'>
-              <div className='portal-btn first-btn'><Link to={"/about"}>About</Link></div>
-              <span> / </span>
-              <div className='portal-btn'><Link to={"/getting-started"}>Getting Started</Link></div>
-              <span> / </span>
-              <div className='portal-btn'><Link to={"/"}>Sign Up</Link></div>
+        <nav id="mainNav" className="navbar navbar-default navbar-fixed-top">
+          <div className="container-fluid">
+            <div className="navbar-header">
+              <button type="button" className="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span className="sr-only">Toggle navigation</span>
+                <span className="icon-bar"></span>
+                <span className="icon-bar"></span>
+                <span className="icon-bar"></span>
+              </button>
+              <a className="navbar-brand page-scroll" href="#page-top">Portalize</a>
             </div>
 
-            <div className='login'>
-              <UserLogin fieldValues={this.state.fieldValues}
-                                     saveValues={this.saveValues} handleError={this.handleError} />
-            </div>            
+            <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+              <ul className="nav navbar-nav navbar-left">
+                <li>
+                  <Link to={"/about"}>About</Link>
+                </li>
+                <li>
+                  <Link to={"/getting-started"}>Getting Started</Link>
+                </li>
+                <li>
+                  <Link to={"/"}>Sign Up</Link>
+                </li>
+              </ul>
+              <ul className="nav navbar-nav navbar-right">
+                <li>
+                  <UserLogin fieldValues={this.state.fieldValues} saveValues={this.saveValues} handleError={this.handleError} />
+                </li>
+              </ul>
+            </div>
           </div>
         </nav>
 
