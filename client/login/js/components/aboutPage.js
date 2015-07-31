@@ -7,8 +7,8 @@ var AboutPage = React.createClass({
   render: function() {
     return (
       <div>
-        <About />
         <TechStack />
+        <About />
       </div>
     )
   }
