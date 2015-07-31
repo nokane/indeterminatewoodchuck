@@ -10,7 +10,7 @@ var About = React.createClass({
           <hr className="primary"></hr>
           <div className="member-profiles row text-left">
             <div className="member-profile col-xs-3" id="jack-profile">
-              <img src="./assets/niall.jpeg" className="profile-image center-block" />
+              <img src="./assets/team/niall.jpeg" className="profile-image center-block" />
               <h3 className="text-center row profile-name">Niall OKane</h3>
               <p className="text-muted text-center">Product Owner</p>
               <div className="text-center row">
@@ -28,7 +28,7 @@ var About = React.createClass({
               </div>
             </div>
             <div className="member-profile col-xs-3" id="jack-profile">
-              <img src="./assets/brett.jpeg" className="profile-image center-block" />
+              <img src="./assets/team/brett.jpeg" className="profile-image center-block" />
               <h3 className="text-center row profile-name">Brett Kan</h3>
               <p className="text-muted text-center">Scrum Master</p>
               <div className="text-center row">
@@ -46,7 +46,7 @@ var About = React.createClass({
               </div>
             </div>
             <div className="member-profile col-xs-3" id="jack-profile">
-              <img src="./assets/leon.jpeg" className="profile-image center-block" />
+              <img src="./assets/team/leon.jpeg" className="profile-image center-block" />
               <h3 className="text-center row profile-name">Leon Yip</h3>
               <p className="text-muted text-center">Full-Stack Engineer</p>
               <div className="text-center row">
@@ -64,7 +64,7 @@ var About = React.createClass({
               </div>
             </div>
             <div className="member-profile col-xs-3" id="jack-profile">
-              <img src="./assets/john.jpeg" className="profile-image center-block" />
+              <img src="./assets/team/john.jpeg" className="profile-image center-block" />
               <h3 className="text-center row profile-name">John Paulino</h3>
               <p className="text-muted text-center">Full-Stack Engineer</p>
               <div className="text-center row">
