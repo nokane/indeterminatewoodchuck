@@ -150,3 +150,7 @@ div#localStreamVideo {
   border: none;
   margin-right: 5px;
 }
+
+.table > tbody > tr > td {
+     vertical-align: middle;
+}
