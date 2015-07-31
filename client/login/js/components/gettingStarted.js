@@ -30,7 +30,7 @@ var AboutPage = React.createClass({
                       </code></pre>
                       <p>
                         Additionally, add the Portalize CSS link to your HTML file to import the Portalize default styles.  
-                        Place this link before all other CSS links in your HTML file if you plan on overriding the default CSS styles.
+                        Place this link <b>before</b> all other CSS links in your HTML file if you plan on overriding the default CSS styles.
                       </p>
                       <pre><code className='hljs html'>
                         &lt;link href="https://portalize.io/librarystyles" rel="stylesheet"&gt;
@@ -51,10 +51,10 @@ var AboutPage = React.createClass({
                       <h3 id="sec1-1">Sliding Panel Interface</h3>
                       <p>
                         Adding Portalize to your site using the sliding panel interface is the quickest way to get started. 
-                        Simply create a new instance of the PortalizeSlide object, passing in the name of your organization 
+                        Simply create a new instance of the <b>PortalizeSlide</b> object, passing in the name of your organization 
                         as the parameter, and the Portalize interface will be dynamically created on your site.
                       </p>
-                      <pre><code className='hljs html'>
+                      <pre><code className='hljs javascript'>
                         var portalize = new PortalizeSlide(‘YOUR_ORG_NAME_HERE’);
                       </code></pre>
                       <p>
@@ -66,10 +66,10 @@ var AboutPage = React.createClass({
                       <p>
                         Portalize can also be added to your site by attaching specific IDs to HTML elements you manually create 
                         on your site.  This allows for greater customization of the Portalize interface, but requires a few 
-                        extra steps. Begin by creating a new instance of the PortalizeEmbed object, passing in the name of your 
+                        extra steps. Begin by creating a new instance of the <b>PortalizeEmbed</b> object, passing in the name of your 
                         organization as the parameter.
                       </p>
-                      <pre><code className='hljs html'>
+                      <pre><code className='hljs javascript'>
                         var portalize = new PortalizeEmbed(‘YOUR_ORG_NAME_HERE’);
                       </code></pre>
                       <p>
@@ -86,33 +86,46 @@ var AboutPage = React.createClass({
                         &lt;div id="portalize-embed-window"&gt;&lt;/div&gt;
                       </code></pre>
                       <p>
-                        Please ensure that button element has an ID attribute of “portalize-embed-init-button”, and that the div 
-                        element has an ID attribute of “portalize-embed-window”.  Additionally, please ensure that the 
-                        “portalize-embed-window” div element does not have any children elements or text content.
+                        Please ensure that button element has an ID attribute of <i>portalize-embed-init-button</i>, and that the div 
+                        element has an ID attribute of <i>portalize-embed-window</i>.  Additionally, please ensure that the 
+                        <i> portalize-embed-window</i> div element does not have any children elements or text content.
                       </p>
                       <p>
-                        The embedded interface will allow users to click on the “portalize-embed-init-button” element to display 
-                        the Portalize user interface inside of the “portalize-embed-window” element.
+                        The embedded interface will allow users to click on the <i>portalize-embed-init-button</i> element to display 
+                        the Portalize user interface inside of the <i>portalize-embed-window</i> element.
                       </p>
                     
+
                     
-                      <h2 id="sec2">Section 2</h2>
+                      <h2 id="sec2">Styling</h2>
                       <p>
-                      Rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae 
-                      dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia cor magni dolores 
-                      eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, 
-                      sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. 
-                      Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut!
+                        Elements within the Portalize user interface are very customizable and can be styled by manipulating each 
+                        element’s CSS properties through their ID selectors.  If you intend to override Portalize’s default CSS properties, 
+                        please ensure that the Portalize stylesheet link is placed <b>before</b> all other stylesheet links in your HTML file.
                       </p>
+                      <p>
+                        Each element within Portalize’s user interface has a unique ID attribute, which used to manipulate the CSS properties 
+                        of each element using the appropriate CSS selector.  See the example interfaces below for a summary of the appropriate 
+                        CSS selectors to use to change the properties of each element.  Please note that sliding panel interface and the embedded 
+                        interface have slightly different IDs for similar elements.
+                      </p><br />
+
+                      <h5>Sliding Panel Interface</h5>
                       <div className="row">
-                        <div className="col-md-4"><img src="//placehold.it/300x300" className="img-responsive" /></div>
-                          <div className="col-md-4"><img src="//placehold.it/300x300" className="img-responsive" /></div>
-                          <div className="col-md-4"><img src="//placehold.it/300x300" className="img-responsive" /></div>
-                      </div>
+                        <div className="col-md-6"><img src="//placehold.it/300x300" className="img-responsive" /></div>
+                        <div className="col-md-6"><img src="//placehold.it/300x300" className="img-responsive" /></div>
+                      </div><br />
                     
+                      <h5>Embedded Interface</h5>
+                      <div className="row">
+                        <div className="col-md-6"><img src="//placehold.it/300x300" className="img-responsive" /></div>
+                        <div className="col-md-6"><img src="//placehold.it/300x300" className="img-responsive" /></div>
+                      </div>
+                      
+
                     
                       <h2 id="sec3">Section 3</h2>
-                  Images are responsive sed @mdo but sum are more fun peratis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, 
+                      Images are responsive sed @mdo but sum are more fun peratis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, 
                       totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae 
                       dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia cor magni dolores 
                       eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, 
@@ -124,6 +137,7 @@ var AboutPage = React.createClass({
                       Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut..
                     
                     
+
                       <h2 id="sec4">Section 4</h2>
                   Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, 
                       totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae 
@@ -132,7 +146,6 @@ var AboutPage = React.createClass({
                       sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. 
                       Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut
                     
-                      
                       
                 </div> 
           </div>
