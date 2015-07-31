@@ -96,3 +96,9 @@ label {
   color: red;
   height: 6px;
 }
+.portal-btn {
+  display: inline-block;
+}
+.first-btn {
+  margin-left: 25px;
+}
