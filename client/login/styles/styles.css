@@ -169,3 +169,7 @@ label {
   display: inline-block !important;
 >>>>>>> (fix) social icons stay on same row
 }
+
+.thumbnail {
+  border: none;
+}
