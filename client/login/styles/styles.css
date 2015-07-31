@@ -148,3 +148,7 @@ hr {
     vertical-align: middle;
     float: none;
 }
+
+.borderless {
+  border: none;
+}
