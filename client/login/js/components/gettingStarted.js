@@ -20,29 +20,30 @@ var AboutPage = React.createClass({
 
                 </div>  
                 <div className="col-md-9">
-                      <h2 id="sec0">Content</h2>
-                      At Bootply we like to build simple Bootstrap templates that utilize the code Bootstap CSS without a lot of customization. Sure you can 
-                      find a lot of Bootstrap themes and inspiration, but these templates tend to be heavy on customization.
-                      
-                  
-                 
-                      Rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae 
-                      dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia cor magni dolores 
-                      eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, 
-                      sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. 
-                      Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut.              
-                      Rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae 
-                      dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia cor magni dolores 
-                      eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, 
-                      sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. 
-                      Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut!
-                      
-                    
-                    
-                      <h2 id="sec1">Content</h2>
+                      <h2 id="sec0">Getting Started</h2>
+
+                      <p>Inject the Portalize script by inserting the following line of code into your HTML file:</p>
+                      <pre><code className='hljs html'>
+                        &lt;script src="http://www.portalize.io/library"&gt;&lt;/script&gt;
+                      </code></pre>
                       <p>
-                      Rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae 
-                      dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut.
+                        Additionally, add the Portalize CSS link to your HTML file to import the Portalize default styles.  
+                        Place this link before all other CSS links in your HTML file if you plan on overriding the default CSS styles.
+                      </p>
+                      <pre><code className='hljs html'>
+                        &lt;link href="https://portalize.io/librarystyles" rel="stylesheet"&gt;
+                      </code></pre>
+                      
+
+
+                      <h2 id="sec1">Choosing a Customer Interface Style</h2>
+                      <p>
+                        You have two options for displaying the Portalize interface to your customers. Your first option 
+                        is to display a button which is fixed to the bottom of the user’s screen, which displays the the 
+                        full Portalize interface through a sliding panel.  Alternatively, you can embed your own button 
+                        and div element which will house the Portalize customer interface.  Please see the following links 
+                        for examples of the <span><a href='http://sheltered-citadel-9273.herokuapp.com/' target="_blank">sliding interface</a> </span>
+                        and the <span><a href='http://sheltered-citadel-9273.herokuapp.com/index-alt.html' target="_blank">embedded interface</a></span>.
                       </p>
                       <div className="row">
                         <div className="col-md-6">
