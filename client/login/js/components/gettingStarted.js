@@ -112,7 +112,7 @@ var AboutPage = React.createClass({
 
                       <h5>Sliding Panel Interface</h5>
                       <div className="row">
-                        <div className="col-md-6"><img src="//placehold.it/300x300" className="img-responsive" /></div>
+                        <div className="col-md-6"><img src="./assets/getting_started/slide_form_view.png" className="img-responsive" /></div>
                         <div className="col-md-6"><img src="//placehold.it/300x300" className="img-responsive" /></div>
                       </div><br />
                     
