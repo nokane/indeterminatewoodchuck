@@ -48,6 +48,11 @@ gulp.task('minify-css-login', function() {
     .pipe(gulp.dest('client/dist/login/styles'));
 });
 
+gulp.task('copy-assets-login', function(){
+  gulp.src('client/login/assets/**/*.*')
+    .pipe(gulp.dest('client/dist/login/assets'));
+});
+
 gulp.task('copy-css-portal', function(){
   gulp.src('client/portal/styles/*.css')
     .pipe(gulp.dest('client/dist/portal/styles'));
@@ -97,7 +102,7 @@ gulp.task('watch-portal', function(){
 });
 
 gulp.task('watch-login', function(){
-  gulp.watch(path.HTML, [ 'htmlReplaceDev-login' ]);
+  gulp.watch(path2.HTML, [ 'htmlReplaceDev-login' ]);
   gulp.watch('client/login/styles/styles.css', [ 'copy-css-login' ]);
 
   var watcher = watchify(browserify({
@@ -229,6 +234,7 @@ gulp.task('default', [
   'htmlReplaceDev-login',
   'copy-css-portal',
   'copy-css-login',
+  'copy-assets-login',
   'watch-portal',
   'watch-login'
 ]);
@@ -240,6 +246,7 @@ gulp.task('production', [
   'build-login',
   'minify-css-portal',
   'minify-css-login',
+  'copy-assets-login',
   'libraryReplace'
 ]);
 

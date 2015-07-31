@@ -20,7 +20,7 @@ var Login = React.createClass({
       userLoginErrorMessage: null,
       userSignupErrorMessage: null,
       orgLoginErrorMessage: null,
-      orgSignupErrorMessage: null      
+      orgSignupErrorMessage: null
     };
   },
 
@@ -29,15 +29,15 @@ var Login = React.createClass({
       showOrgLogin: 1,
       showOrgSignup: 0
     });
-    this.clearErrors();      
+    this.clearErrors();
   },
 
   showOrgSignup: function() {
     this.setState({
       showOrgLogin: 0,
       showOrgSignup: 1
-    });     
-    this.clearErrors();      
+    });
+    this.clearErrors();
   },
 
   handleError: function(section, errorMessage) {
@@ -56,7 +56,7 @@ var Login = React.createClass({
       newFields[key] = fieldValues[key];
     }
     this.setState({
-      fieldValues: newFields 
+      fieldValues: newFields
     });
   },
 
@@ -90,7 +90,7 @@ var Login = React.createClass({
             <div className='column-right'>
               <UserSignup fieldValues={this.state.fieldValues}
                                    saveValues={this.saveValues} handleError={this.handleError} />
-            </div> 
+            </div>
           </div>
         </div>
 
@@ -104,7 +104,7 @@ var Login = React.createClass({
               <OrgAccountQuery fieldValues={this.state.fieldValues}
                                    saveValues={this.saveValues}
                                    showOrgLogin = {this.showOrgLogin}
-                                   showOrgSignup = {this.showOrgSignup} />                                                           
+                                   showOrgSignup = {this.showOrgSignup} />
             </div>
           </div>
         </div>
@@ -120,10 +120,10 @@ var Login = React.createClass({
             <div className='column-right'>
               {this.state.showOrgLogin ? <OrgLogin fieldValues={this.state.fieldValues}
                                    saveValues={this.saveValues} clearErrors={this.clearErrors}
-                                   handleError={this.handleError} /> :                               
+                                   handleError={this.handleError} /> :
               this.state.showOrgSignup ? <OrgSignup fieldValues={this.state.fieldValues}
                                    saveValues={this.saveValues} clearErrors={this.clearErrors}
-                                   handleError={this.handleError} />:<div></div>}                              
+                                   handleError={this.handleError} />:<div></div>}
               {this.state.orgSignupErrorMessage ? <Error errorMessage={this.state.orgSignupErrorMessage} /> :
               this.state.orgLoginErrorMessage ? <Error errorMessage={this.state.orgLoginErrorMessage} /> : <div className='errorView'> </div> }
             </div>
