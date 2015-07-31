@@ -112,14 +112,30 @@ var AboutPage = React.createClass({
 
                       <h5>Sliding Panel Interface</h5>
                       <div className="row">
-                        <div className="col-md-6"><img src="./assets/gettingStarted/slide_form_view.png" className="img-responsive" /></div>
-                        <div className="col-md-6"><img src="./assets/gettingStarted/slide_chat_view.png" className="img-responsive" /></div>
+                        <div className="col-md-6">
+                          <a href='./assets/gettingStarted/slide_form_view.png' target="_blank">
+                            <img src="./assets/gettingStarted/slide_form_view.png" className="img-responsive" />
+                          </a>
+                        </div>
+                        <div className="col-md-6">
+                          <a href='./assets/gettingStarted/slide_chat_view.png' target="_blank">
+                            <img src="./assets/gettingStarted/slide_chat_view.png" className="img-responsive" />
+                          </a>
+                        </div>
                       </div><hr />
                     
                       <h5>Embedded Interface</h5>
                       <div className="row">
-                        <div className="col-md-6"><img src="./assets/gettingStarted/embed_form_view.png" className="img-responsive" /></div>
-                        <div className="col-md-6"><img src="./assets/gettingStarted/embed_chat_view.png" className="img-responsive" /></div>
+                        <div className="col-md-6">
+                          <a href='./assets/gettingStarted/embed_form_view.png' target="_blank">
+                            <img src="./assets/gettingStarted/embed_form_view.png" className="img-responsive" />
+                          </a>
+                        </div>
+                        <div className="col-md-6">
+                          <a href='./assets/gettingStarted/embed_chat_view.png' target="_blank">
+                            <img src="./assets/gettingStarted/embed_chat_view.png" className="img-responsive" />
+                          </a>
+                        </div>
                       </div>
                       
 
