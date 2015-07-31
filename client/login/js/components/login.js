@@ -69,14 +69,20 @@ var Login = React.createClass({
 
   render: function() {
     return (
-      <div className = 'loginSection'>
+      <div className='loginSection'>
         <div className='view'>
           <div className='column'>
             <div className='column-left'>
-              The quick brown fox jumped quickly over the yellow dog.  Lorem ipsum dolorem amet.  
-              The quick brown fox jumped quickly over the yellow dog.  Lorem ipsum dolorem amet.  
-              The quick brown fox jumped quickly over the yellow dog.  Lorem ipsum dolorem amet.  
-              The quick brown fox jumped quickly over the yellow dog.  Lorem ipsum dolorem amet.    
+              <div className='login-content'>
+                <span className='intro-text'>
+                  Portalize's customer support platform is a simple solution for e-commerce businesses to
+                  utilize video chat on their websites, providing a means to communicate face to face with
+                  customers. With just a few lines of code from our JavaScript library, businesses are able
+                  to add a customer facing video chat interface to their website. In addition, Portalize provides
+                  support staff with a portal to interact with their customers. Our service makes it easy
+                  for businesses to provide live customer support, improving their customers' shopping experience
+                </span>
+              </div>
             </div>
           </div>
 
