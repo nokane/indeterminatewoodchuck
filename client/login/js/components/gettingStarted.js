@@ -20,6 +20,8 @@ var AboutPage = React.createClass({
 
                 </div>  
                 <div className="col-md-9">
+
+
                       <h2 id="sec0">Getting Started</h2>
 
                       <p>Inject the Portalize script by inserting the following line of code into your HTML file:</p>
@@ -45,28 +47,53 @@ var AboutPage = React.createClass({
                         for examples of the <span><a href='http://sheltered-citadel-9273.herokuapp.com/' target="_blank">sliding interface</a> </span>
                         and the <span><a href='http://sheltered-citadel-9273.herokuapp.com/index-alt.html' target="_blank">embedded interface</a></span>.
                       </p>
-                      <div className="row">
-                        <div className="col-md-6">
-                          <div className="panel panel-default">
-                            <div className="panel-heading"><h3>Hello.</h3></div>
-                            <div className="panel-body">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis pharetra varius quam sit amet vulputate. 
-                            Quisque mauris augue, molestie tincidunt condimentum vitae, gravida a libero. Aenean sit amet felis 
-                            dolor, in sagittis nisi. Sed ac orci quis tortor imperdiet venenatis. Duis elementum auctor accumsan. 
-                            Aliquam in felis sit amet augue.
-                            </div>
-                          </div>
-                        </div>
-                        <div className="col-md-6">
-                            <div className="panel panel-default">
-                            <div className="panel-heading"><h3>Hello.</h3></div>
-                            <div className="panel-body">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis pharetra varius quam sit amet vulputate. 
-                            Quisque mauris augue, molestie tincidunt condimentum vitae, gravida a libero. Aenean sit amet felis 
-                            dolor, in sagittis nisi. Sed ac orci quis tortor imperdiet venenatis. Duis elementum auctor accumsan. 
-                            Aliquam in felis sit amet augue.
-                            </div>
-                          </div>
-                        </div>  
-                      </div>
+
+                      <h3 id="sec1-1">Sliding Panel Interface</h3>
+                      <p>
+                        Adding Portalize to your site using the sliding panel interface is the quickest way to get started. 
+                        Simply create a new instance of the PortalizeSlide object, passing in the name of your organization 
+                        as the parameter, and the Portalize interface will be dynamically created on your site.
+                      </p>
+                      <pre><code className='hljs html'>
+                        var portalize = new PortalizeSlide(‘YOUR_ORG_NAME_HERE’);
+                      </code></pre>
+                      <p>
+                        Your organization name should match the name of the organization provided to us when your organization 
+                        was created on the Portalize <span><a href='http://www.portalize.io/login/' target="_blank">login page</a></span>.
+                      </p>
+
+                      <h3 id="sec1-2">Embedded Interface</h3>
+                      <p>
+                        Portalize can also be added to your site by attaching specific IDs to HTML elements you manually create 
+                        on your site.  This allows for greater customization of the Portalize interface, but requires a few 
+                        extra steps. Begin by creating a new instance of the PortalizeEmbed object, passing in the name of your 
+                        organization as the parameter.
+                      </p>
+                      <pre><code className='hljs html'>
+                        var portalize = new PortalizeEmbed(‘YOUR_ORG_NAME_HERE’);
+                      </code></pre>
+                      <p>
+                        Your organization name should match the name of the organization provided to us when your organization 
+                        was created on the Portalize <span><a href='http://www.portalize.io/login/' target="_blank">login page</a></span>.
+                      </p>
+                      <p>
+                        When using the embedded interface, Portalize will look for two HTML elements, a button element and a div 
+                        element, to determine where to attach its event listeners and where to display the Portalize chat interface.  
+                        These elements should be created and placed in your HTML file as follows:
+                      </p>
+                      <pre><code className='hljs html'>
+                        &lt;button id="portalize-embed-init-button"&gt;Chat with a representative&lt;/button&gt;<br />
+                        &lt;div id="portalize-embed-window"&gt;&lt;/div&gt;
+                      </code></pre>
+                      <p>
+                        Please ensure that button element has an ID attribute of “portalize-embed-init-button”, and that the div 
+                        element has an ID attribute of “portalize-embed-window”.  Additionally, please ensure that the 
+                        “portalize-embed-window” div element does not have any children elements or text content.
+                      </p>
+                      <p>
+                        The embedded interface will allow users to click on the “portalize-embed-init-button” element to display 
+                        the Portalize user interface inside of the “portalize-embed-window” element.
+                      </p>
                     
                     
                       <h2 id="sec2">Section 2</h2>
