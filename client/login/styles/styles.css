@@ -148,3 +148,7 @@ label {
     vertical-align: middle;
     float: none;
 }
+
+.hljs {
+  background: #f5f5f5;
+}
