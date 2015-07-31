@@ -52,7 +52,7 @@ var TechStack = React.createClass({
             </div>
             <div className="col-lg-3 col-md-4 col-xs-6 thumb vcenter">
               <a className="thumbnail" href="#">
-                <img className="img-responsive" src="./assets/techStack/heroku.png" alt="" />
+                <img className="img-responsive" src="./assets/techStack/heroku.jpg" alt="" />
               </a>
             </div>
           </div>
@@ -75,7 +75,7 @@ var TechStack = React.createClass({
             </div>
             <div className="col-lg-3 col-md-4 col-xs-6 thumb vcenter">
               <a className="thumbnail" href="#">
-                <img className="img-responsive" src="./assets/techStack/gulp.jpg" alt="" />
+                <img className="img-responsive" src="./assets/techStack/gulp.png" alt="" />
               </a>
             </div>
           </div>
