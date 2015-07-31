@@ -75,11 +75,7 @@ var Main = React.createClass({
                   <Link to={"/"}>Sign Up</Link>
                 </li>
               </ul>
-              <ul className="nav navbar-nav navbar-right">
-                <li>
-                  <UserLogin fieldValues={this.state.fieldValues} saveValues={this.saveValues} handleError={this.handleError} />
-                </li>
-              </ul>
+              <UserLogin fieldValues={this.state.fieldValues} saveValues={this.saveValues} handleError={this.handleError} />
             </div>
           </div>
         </nav>
