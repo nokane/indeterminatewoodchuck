@@ -108,18 +108,18 @@ var AboutPage = React.createClass({
                         of each element using the appropriate CSS selector.  See the example interfaces below for a summary of the appropriate 
                         CSS selectors to use to change the properties of each element.  Please note that sliding panel interface and the embedded 
                         interface have slightly different IDs for similar elements.
-                      </p><br />
+                      </p><hr />
 
                       <h5>Sliding Panel Interface</h5>
                       <div className="row">
-                        <div className="col-md-6"><img src="./assets/getting_started/slide_form_view.png" className="img-responsive" /></div>
-                        <div className="col-md-6"><img src="//placehold.it/300x300" className="img-responsive" /></div>
-                      </div><br />
+                        <div className="col-md-6"><img src="./assets/gettingStarted/slide_form_view.png" className="img-responsive" /></div>
+                        <div className="col-md-6"><img src="./assets/gettingStarted/slide_chat_view.png" className="img-responsive" /></div>
+                      </div><hr />
                     
                       <h5>Embedded Interface</h5>
                       <div className="row">
-                        <div className="col-md-6"><img src="//placehold.it/300x300" className="img-responsive" /></div>
-                        <div className="col-md-6"><img src="//placehold.it/300x300" className="img-responsive" /></div>
+                        <div className="col-md-6"><img src="./assets/gettingStarted/embed_form_view.png" className="img-responsive" /></div>
+                        <div className="col-md-6"><img src="./assets/gettingStarted/embed_chat_view.png" className="img-responsive" /></div>
                       </div>
                       
 
