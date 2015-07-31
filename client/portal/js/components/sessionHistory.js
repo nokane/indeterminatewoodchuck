@@ -30,15 +30,7 @@ var SessionHistory = React.createClass({
 
   parseDate: function(unformatted){
     var preFormat = new Date(unformatted);
-    var hours = preFormat.getHours();
-    var preformatMinutes = preFormat.getMinutes().toString();
-    var minutes = preformatMinutes.length === 1 ? '0' + preformatMinutes : preformatMinutes;
-    var formattedTime = hours < 12 ?
-                        hours + ':' + minutes + ' A.M.' :
-                        (hours - 12) + ':' + minutes + ' P.M.';
-
-    return preFormat.getMonth() + '/' + preFormat.getDate() + '/' + preFormat.getFullYear() +
-           ', ' + formattedTime;
+    return preFormat.getMonth() + '/' + preFormat.getDate() + '/' + preFormat.getFullYear();
   },
 
   render: function(){
