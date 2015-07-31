@@ -73,7 +73,6 @@ var Login = React.createClass({
         <div className='view'>
           <div className='column'>
             <div className='column-left'>
-<<<<<<< 3b3a526b869fc73e30acbe7f80f6df805db9aa92
               <div className='login-content'>
                 <span className='intro-text'>
                   Portalize's customer support platform is a simple solution for e-commerce businesses to
@@ -84,12 +83,6 @@ var Login = React.createClass({
                   for businesses to provide live customer support, improving their customers' shopping experience
                 </span>
               </div>
-=======
-              The quick brown fox jumped quickly over the yellow dog.  Lorem ipsum dolorem amet.
-              The quick brown fox jumped quickly over the yellow dog.  Lorem ipsum dolorem amet.
-              The quick brown fox jumped quickly over the yellow dog.  Lorem ipsum dolorem amet.
-              The quick brown fox jumped quickly over the yellow dog.  Lorem ipsum dolorem amet.
->>>>>>> (feat) first iteration on about section
             </div>
           </div>
 
