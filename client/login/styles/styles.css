@@ -142,3 +142,9 @@ hr {
 .heading {
   color: #777;
 }
+
+.vcenter {
+    display: inline-block;
+    vertical-align: middle;
+    float: none;
+}
