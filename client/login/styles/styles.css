@@ -133,7 +133,7 @@ label {
   margin-top: 40px;
 }
 
-hr {
+.divider {
   max-width: 50px;
   border-color: #ccc;
   border-width: 3px;

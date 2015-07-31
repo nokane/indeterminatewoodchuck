@@ -8,7 +8,7 @@ var TechStack = React.createClass({
 
           <div className="col-lg-12 text-center">
               <h2 className="heading">Tech Stack</h2>
-              <hr className="primary"></hr>
+              <hr className="primary divider"></hr>
           </div>
 
           <div className="row">

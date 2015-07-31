@@ -7,7 +7,7 @@ var About = React.createClass({
       <div className="row">
         <div className="col-md-12 text-center" id="about-us-container">
           <h2 className="heading">Our Team</h2>
-          <hr className="primary"></hr>
+          <hr className="primary divider"></hr>
           <div className="member-profiles row text-left">
             <div className="member-profile col-xs-3" id="jack-profile">
               <img src="./assets/team/niall.jpeg" className="profile-image center-block" />

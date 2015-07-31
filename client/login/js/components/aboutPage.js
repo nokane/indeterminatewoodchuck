@@ -8,6 +8,7 @@ var AboutPage = React.createClass({
     return (
       <div>
         <TechStack />
+        <hr className="primary"></hr>
         <About />
       </div>
     )
