@@ -1,7 +1,6 @@
 var React = require('react');
 var sessionActions = require('../actions/sessionActions');
 var SessionHistoryStore = require('../stores/sessionHistoryStore');
-var SessionLog = require('./sessionLog');
 
 var SessionHistory = React.createClass({
 
@@ -29,28 +28,56 @@ var SessionHistory = React.createClass({
     sessionActions.getEmployeeSessionData();
   },
 
+  parseDate: function(unformatted){
+    var preFormat = new Date(unformatted);
+    var hours = preFormat.getHours();
+    var preformatMinutes = preFormat.getMinutes().toString();
+    var minutes = preformatMinutes.length === 1 ? '0' + preformatMinutes : preformatMinutes;
+    var formattedTime = hours < 12 ?
+                        hours + ':' + minutes + ' A.M.' :
+                        (hours - 12) + ':' + minutes + ' P.M.';
+
+    return preFormat.getMonth() + '/' + preFormat.getDate() + '/' + preFormat.getFullYear() +
+           ', ' + formattedTime;
+  },
+
   render: function(){
+    var sessions = this.state.sessions.map(function(session, index){
+      return (
+        <tr key={ index }>
+          <td>{ this.parseDate(session.createdAt) }</td>
+          <td>{ session.first_name + ' ' + session.last_name }</td>
+          <td>{ session.cust_name }</td>
+          <td>{ session.cust_email }</td>
+          <td>{ session.question }</td>
+        </tr>
+      );
+    }.bind(this));
+
     return (
-      <div>
-        <button type="button" className="refresh btn btn-default" onClick={ this.getLogs }>
-          <span className="glyphicon glyphicon-refresh" aria-hidden="true"></span>
-        </button>
-        <SessionLog sessions={ this.state.sessions } />
-      </div>
+      <table className='table table-striped'>
+        <caption>
+          <button type="button" className="refresh btn btn-default" onClick={ this.getEmployeeSessionData }>
+            <span className="glyphicon glyphicon-refresh" aria-hidden="true"></span>
+          </button>
+          <span>Session History Log</span>
+        </caption>
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Employee Name</th>
+            <th>Customer Name</th>
+            <th>Email</th>
+            <th>Question</th>
+          </tr>
+        </thead>
+        <tbody>
+          { sessions }
+        </tbody>
+      </table>
     );
   }
 
 });
 
 module.exports = SessionHistory;
-
-/* [ { cust_name: 'first customer', -
-   cust_email: 'firstcustomer@gmail.com', -
-   createdAt: '2015-07-29T17:50:38.782Z', -
-   question: 'whatever', -
-   UserId: 1,
-   name: 'Hack Reactor',
-   first_name: 'John', -
-   last_name: 'Paulino', -
-   email: 'paulinoj@gmail.com',
-   title: 'Software Engineer' }] - */
