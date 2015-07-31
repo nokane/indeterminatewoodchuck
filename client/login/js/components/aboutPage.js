@@ -6,8 +6,10 @@ var AboutPage = React.createClass({
 
   render: function() {
     return (
-      <About />
-      <TechStack />
+      <div>
+        <About />
+        <TechStack />
+      </div>
     )
   }
 });
