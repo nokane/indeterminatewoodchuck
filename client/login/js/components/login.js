@@ -10,9 +10,7 @@ var assign          = require('object-assign');
 var Login = React.createClass({
   getInitialState: function() {
     return {
-      fieldValues: {email        : null,
-                    password     : null,
-                    firstName    : null,
+      fieldValues: {firstName    : null,
                     lastName     : null,
                     jobTitle     : null,
                     email2       : null,
@@ -71,24 +69,7 @@ var Login = React.createClass({
 
   render: function() {
     return (
-      <main className = 'container'>
-        <nav className='navbar navbar-default'>
-          <div className='container-fluid'>
-            <div className='navbar-brand'>Portalize</div>
-            <div className='login'>
-              <UserLogin fieldValues={this.state.fieldValues}
-                                     saveValues={this.saveValues} handleError={this.handleError} />
-            </div>            
-          </div>
-        </nav>
-
-        <div className='column'>
-        </div>
-        <div className='column'>
-            {this.state.userLoginErrorMessage ? <Error errorMessage={this.state.userLoginErrorMessage} /> :
-            <div className='errorView'></div> }
-        </div>
-
+      <div className = 'loginSection'>
         <div className='view'>
           <div className='column'>
             <div className='column-left'>
@@ -143,12 +124,9 @@ var Login = React.createClass({
           </div>
 
         </div>
-      </main>
+      </div>
     )
   }
-})
+});
 
-React.render(
-  <Login />,
-  document.getElementById('login-form')
-);
+module.exports = Login;

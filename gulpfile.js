@@ -32,7 +32,7 @@ var path2 = {
   DEST: 'client/dist/login',
   DEST_BUILD: 'client/dist/login/build',
   DEST_SRC: 'client/dist/login/src',
-  ENTRY_POINT: './client/login/js/components/login.js',
+  ENTRY_POINT: './client/login/js/components/app.js',
   TEST_DIR: ['spec/*.js', 'spec/**/*.js']
 };
 
