@@ -29,8 +29,8 @@ var customerDetailsStore = objectAssign({}, EventEmitter.prototype, {
 });
 
 customerDetailsStore.dispatchToken = AppDispatcher.register(function(payload) {
-  if (payload.actionType === appConstants.START_LOCAL_CONN) {
-    setCustomerDetails(payload.customerDetails);
+  if (payload.actionType === appConstants.CUSTOMER_DETAILS) {
+    setCustomerDetails(payload.data);
     customerDetailsStore.emit(CHANGE);
   }
 
