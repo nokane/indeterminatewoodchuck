@@ -2,6 +2,7 @@ var React = require('react');
 var VideoChat = require('./videoChat');
 var Queue = require('./queue');
 var TextChat = require('./textChat');
+var CustomerDetails = require('./customerDetails');
 var appStore = require('../stores/appStore');
 var appActions = require('../actions/appActions');
 
@@ -20,7 +21,12 @@ var ChatInterface = React.createClass({
           </div>
         </div>
         <div className='row'>
-          <TextChat />
+          <div className='column1'>
+            <TextChat />
+          </div>
+          <div className='column2'>
+            <CustomerDetails />
+          </div>
         </div>
     </div>
     );
