@@ -143,8 +143,8 @@ var AboutPage = React.createClass({
                         <p>Portalize is a customer support solution that allows 
                         businesses to add video chat functionality to their websites and manage customer 
                         help requests.</p>
-                        <h3>How do I implement the Portalize Chat Library on my e-commerce website?</h3>
-                        <p>In order to integrate Portalize Video Chat into your e-commerce platform, 
+                        <h3>How do I implement the Portalize Chat Library on my e&#8209;commerce website?</h3>
+                        <p>In order to integrate Portalize Video Chat into your e&#8209;commerce platform, 
                         one member of your company will need to create a company login account with Portalize.  
                         Additional staff members of your company wishing to interact with customers 
                         using Portalize Video Chat should sign up for an individual account linked to the 
