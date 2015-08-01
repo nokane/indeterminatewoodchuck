@@ -82,7 +82,7 @@ var OrgSignup = React.createClass({
            }
            else
            {
-             window.location.href=window.location.origin;
+             window.location.href=window.location.origin+'/portal';
            }
         }
       }

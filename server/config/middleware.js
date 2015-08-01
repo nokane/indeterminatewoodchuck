@@ -18,7 +18,7 @@ module.exports = function(app, express, server, io){
   // unprotected static routes
   app.use('/librarystyles', express.static(__dirname + '/../../library/styles.css'));
   app.use('/library', express.static(__dirname + '/../../library/chatLibrary.js'));
-  app.use('/login', express.static(__dirname + '/../../client/dist/login'));
+  app.use(express.static(__dirname + '/../../client/dist/login'));
 
   // unprotected api routes
   app.use('/api/users', userRouter);
@@ -42,7 +42,7 @@ module.exports = function(app, express, server, io){
 
   /* ----------PROTECTED ROUTES---------- */
   app.use(unless(['/src/build.js', 'build/build.min.js'], helpers.checkAuth));
-  app.use(express.static(__dirname + '/../../client/dist/portal'));
+  app.use('/portal', express.static(__dirname + '/../../client/dist/portal'));
   // app.use(helpers.errorLogger);
   // app.use(helpers.errorHandler);
   /* ----------PROTECTED ROUTES---------- */
