@@ -41,7 +41,7 @@ customerDetailsStore.dispatchToken = AppDispatcher.register(function(payload) {
     setCustomerDetails(payload.data);
     customerDetailsStore.emit(CHANGE);
   } else if (payload.actionType === appConstants.STOP_REMOTE_CONN) {
-    setCustomerDetails(payload.data);
+    removeCustomerDetails();
     customerDetailsStore.emit(CHANGE);
   }
 
