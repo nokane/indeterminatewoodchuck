@@ -5,7 +5,7 @@ var UserSignup = React.createClass({
     return (
       <div>
         <div>
-          <h4>Sign Up</h4>
+          <h3>Sign Up</h3>
           <ul className="form-fields">
             <li>
               <label>First Name</label>

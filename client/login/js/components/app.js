@@ -81,8 +81,6 @@ var Main = React.createClass({
         </nav>
 
         <div className='column'>
-        </div>
-        <div className='column'>
             {this.state.userLoginErrorMessage ? <Error errorMessage={this.state.userLoginErrorMessage} /> :
             <div className='errorView'></div> }
         </div>

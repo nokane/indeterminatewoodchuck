@@ -5,7 +5,7 @@ var OrgLogin = React.createClass({
   render: function() {
     return (
       <div>
-        <h4>Join Existing Organization</h4>
+        <h3>Join Existing Organization</h3>
         <ul className="form-fields">
             <label>Business Name</label>
             <input type="text" ref="businessname" />
