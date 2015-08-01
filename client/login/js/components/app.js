@@ -66,13 +66,13 @@ var Main = React.createClass({
             <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
               <ul className="nav navbar-nav navbar-left">
                 <li>
-                  <Link to={"/about"}>About</Link>
+                  <Link activeStyle={{color: '#2980B9'}} to={"/about"}>About</Link>
                 </li>
                 <li>
-                  <Link to={"/getting-started"}>Getting Started</Link>
+                  <Link activeStyle={{color: '#2980B9'}} to={"/getting-started"}>Getting Started</Link>
                 </li>
                 <li>
-                  <Link to={"/"}>Sign Up</Link>
+                  <Link activeStyle={{color: '#2980B9'}} to={"/"}>Sign Up</Link>
                 </li>
               </ul>
               <UserLogin fieldValues={this.state.fieldValues} saveValues={this.saveValues} handleError={this.handleError} />
