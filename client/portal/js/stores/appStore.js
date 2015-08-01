@@ -7,12 +7,12 @@ var CHANGE = 'CHANGE';
 
 var _state = {
   roomName: '',
-  web_name: 'ShoeLocker',
-  employeeId: '80',
-  employeeFirstName: 'Jerry',
-  employeeLastName: 'Rice',
-  employeeTitle: 'GOAT',
-  employeeEmail: 'flash80@IDontFollowBasketball.com'
+  web_name: '',
+  employeeId: '',
+  employeeFirstName: '',
+  employeeLastName: '',
+  employeeTitle: '',
+  employeeEmail: ''
 };
 
 var setRoom = function(roomName) {
