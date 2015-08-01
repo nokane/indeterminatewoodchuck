@@ -16,16 +16,19 @@ var Footer = React.createClass({
                 <h3>Around the Web</h3>
                 <ul className="list-inline">
                   <li>
-                    <a href="#" className="btn-social btn-outline"><i className="fa fa-fw fa-facebook"></i></a>
+                    <a href="https://www.facebook.com/sharer/sharer.php?u=portalize.io" className="btn-social btn-outline">
+                      <i className="fa fa-fw fa-facebook"></i>
+                    </a>
                   </li>
                   <li>
-                    <a href="#" className="btn-social btn-outline"><i className="fa fa-fw fa-google-plus"></i></a>
+                    <a href="https://plus.google.com/share?url=portalize.io" className="btn-social btn-outline">
+                      <i className="fa fa-fw fa-google-plus"></i>
+                    </a>
                   </li>
                   <li>
-                    <a href="#" className="btn-social btn-outline"><i className="fa fa-fw fa-twitter"></i></a>
-                  </li>
-                  <li>
-                    <a href="#" className="btn-social btn-outline"><i className="fa fa-fw fa-linkedin"></i></a>
+                    <a href="https://twitter.com/share?text=Portalize&url=portilize.io" className="btn-social btn-outline">
+                      <i className="fa fa-fw fa-twitter"></i>
+                    </a>
                   </li>
                 </ul>
               </div>
