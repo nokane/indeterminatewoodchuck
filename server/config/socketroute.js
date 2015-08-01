@@ -166,6 +166,7 @@ socket.socketroute = function(io, user) {
       var customerData = socket.customerQueue[orgName].shift();
       var room_name = socket.rooms[orgName].shift();
       io.to(customerData.userId).emit('customerRoom', room_name);
+      io.to(user.id).emit('customerDetails', customerData);
       sessionController.addSession(socket.staffDetails[orgName][user.id].staffId, room_name, customerData);
     }
     queueStatus(orgName);
@@ -210,6 +211,7 @@ socket.socketroute = function(io, user) {
       }
       io.to(user.id).emit('customerRoom', room_name);
       var customerData = socket.customerQueue[orgName].shift();
+      io.to(staffId).emit('customerDetails', customerData);
       sessionController.addSession(socket.staffDetails[orgName][staffId].staffId, room_name, customerData);
     }
     queueStatus(orgName);
