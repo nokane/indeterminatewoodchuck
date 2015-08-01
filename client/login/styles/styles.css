@@ -210,28 +210,24 @@ label {
   float: none;
 }
 
-/******** Getting Started ********/
-.hljs {
-  background-color: #f5f5f5;
-}
-
-<<<<<<< 56e816c359dda0643eccbc2799dd928fa10ad772
 .column.feat-column {
-    float: left;
-    display: flex;
-    padding: 15px;
+  float: left;
+  display: flex;
+  padding: 15px;
 }
 
 .img-icon {
-    margin-top: auto;
-    margin-bottom: auto;
-    padding-right: 15px;
-=======
-.social {
+  margin-top: auto;
+  margin-bottom: auto;
+  padding-right: 15px;
   display: inline-block !important;
->>>>>>> (fix) social icons stay on same row
 }
 
 .thumbnail {
   border: none;
+}
+
+/******** Getting Started ********/
+.hljs {
+  background-color: #f5f5f5;
 }
