@@ -66,13 +66,13 @@ var Main = React.createClass({
             <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
               <ul className="nav navbar-nav navbar-left">
                 <li>
-                  <Link activeStyle={{color: '#2980B9'}} to={"/about"}>About</Link>
+                  <Link activeStyle={{color: '#2980B9'}} to={"/"}>About</Link>
                 </li>
                 <li>
                   <Link activeStyle={{color: '#2980B9'}} to={"/getting-started"}>Getting Started</Link>
                 </li>
                 <li>
-                  <Link activeStyle={{color: '#2980B9'}} to={"/"}>Sign Up</Link>
+                  <Link activeStyle={{color: '#2980B9'}} to={"/signup"}>Sign Up</Link>
                 </li>
               </ul>
               <UserLogin fieldValues={this.state.fieldValues} saveValues={this.saveValues} handleError={this.handleError} />
@@ -94,10 +94,11 @@ var Main = React.createClass({
 
 var routes = (
   <Route handler={Main}>
-    <DefaultRoute handler={Login} />
+    <DefaultRoute handler={AboutPage} />
     <Route path='about' handler={AboutPage} />
     <Route path='getting-started' handler={GettingStarted} />
-    <NotFoundRoute handler={Login} />
+    <Route path='signup' handler={Login} />
+    <NotFoundRoute handler={AboutPage} />
   </Route>
 );
 
