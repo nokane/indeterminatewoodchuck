@@ -203,7 +203,7 @@ label {
         margin: 15px 0;
     }
     /* since 3.1.0 */
-    .navbar-collapse.collapse.in { 
+    .navbar-collapse.collapse.in {
         display: block!important;
     }
     .collapsing {
@@ -283,5 +283,12 @@ label {
 }
 
 .overall-nav {
-  top: 100px;
+  top: 85px;
+}
+
+.jump {
+  display: block;
+  position: relative;
+  top: -50px;
+  visibility: hidden;
 }

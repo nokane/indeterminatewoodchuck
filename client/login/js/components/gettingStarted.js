@@ -20,13 +20,12 @@ var AboutPage = React.createClass({
               </li>
               <li><a href="#/getting-started#sec2">Styling</a></li>
               <li><a href="#/getting-started#sec3">FAQ</a></li>
-              <li><a href="#/getting-started#sec4">Section 4</a></li>
             </ul>
           </div>
                 <div className="col-md-9">
 
 
-                      <h2 id="sec0"><a name="/getting-started#sec0">Getting Started</a></h2>
+                      <h2 id="sec0"><a className="jump" name="/getting-started#sec0"></a>Getting Started</h2>
 
                       <p>Inject the Portalize script by inserting the following line of code into your HTML file:</p>
                       <pre><code className='hljs html'>
@@ -42,7 +41,7 @@ var AboutPage = React.createClass({
 
 
 
-                      <h2 id="sec1"><a name="/getting-started#sec1">Choosing a Customer Interface Style</a></h2>
+                      <h2 id="sec1"><a className="jump" name="/getting-started#sec1"></a>Choosing a Customer Interface Style</h2>
                       <p>
                         You have two options for displaying the Portalize interface to your customers. Your first option
                         is to display a button which is fixed to the bottom of the user’s screen, which displays the the
@@ -52,7 +51,7 @@ var AboutPage = React.createClass({
                         and the <span><a href='http://sheltered-citadel-9273.herokuapp.com/index-alt.html' target="_blank">embedded interface</a></span>.
                       </p>
 
-                      <h3 id="sec1-1"><a name="/getting-started#sec1-1">Sliding Panel Interface</a></h3>
+                      <h3 id="sec1-1"><a className="jump" name="/getting-started#sec1-1"></a>Sliding Panel Interface</h3>
                       <p>
                         Adding Portalize to your site using the sliding panel interface is the quickest way to get started.
                         Simply create a new instance of the <b>PortalizeSlide</b> object, passing in the name of your organization
@@ -66,7 +65,7 @@ var AboutPage = React.createClass({
                         was created on the Portalize <span><a href='http://www.portalize.io/login/' target="_blank">login page</a></span>.
                       </p>
 
-                      <h3 id="sec1-2"><a name="/getting-started#sec1-2">Embedded Interface</a></h3>
+                      <h3 id="sec1-2"><a className="jump" name="/getting-started#sec1-2"></a>Embedded Interface</h3>
                       <p>
                         Portalize can also be added to your site by attaching specific IDs to HTML elements you manually create
                         on your site.  This allows for greater customization of the Portalize interface, but requires a few
@@ -101,7 +100,7 @@ var AboutPage = React.createClass({
 
 
 
-                      <h2 id="sec2"><a name="/getting-started#sec2">Styling</a></h2>
+                      <h2 id="sec2"><a className="jump" name="/getting-started#sec2"></a>Styling</h2>
                       <p>
                         Elements within the Portalize user interface are very customizable and can be styled by manipulating each
                         element’s CSS properties through their ID selectors.  If you intend to override Portalize’s default CSS properties,
@@ -142,7 +141,7 @@ var AboutPage = React.createClass({
                         </div>
                       </div>
 
-                      <h2 id="sec3">Frequently Asked Questions (FAQ)</h2>
+                      <h2 id="sec3"><a className="jump" name="/getting-started#sec3"></a>Frequently Asked Questions (FAQ)</h2>
                         <h3>What is Portalize?</h3>
                         <p>Portalize is a customer support solution that allows
                         businesses to add video chat functionality to their websites and manage customer
