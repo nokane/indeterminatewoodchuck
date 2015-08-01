@@ -1,5 +1,4 @@
 var React           = require('react');
-var Link            = require('react-router').Link;
 var assign          = require('object-assign');
 
 var AboutPage = React.createClass({
