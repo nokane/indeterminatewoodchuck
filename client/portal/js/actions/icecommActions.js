@@ -60,8 +60,14 @@ var icecommActions = {
   },
 
   disconnect: function(){
-    var leaveCode = 'chropdhopycdchardosdchroyp';
-    comm.send(leaveCode);
+    try {
+      var leaveCode = 'chropdhopycdchardosdchroyp';
+      comm.send(leaveCode);      
+    }
+
+    catch(err) {
+      console.log(err);
+    }
 
     AppDispatcher.dispatch({
       actionType: appConstants.STOP_REMOTE_CONN
