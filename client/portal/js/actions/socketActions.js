@@ -26,6 +26,13 @@ var socketActions = {
       });
     });
 
+    socket.on('customerDetails', function(data) {
+      AppDispatcher.dispatch({
+        actionType: appConstants.CUSTOMER_DETAILS,
+        data: data
+      });
+    });
+
   },
   staffReady: function(web_name) {
     socket.emit('staffReady', web_name);
