@@ -37,7 +37,7 @@ var Footer = React.createClass({
                 <ul className="list-inline">
                   <li>
                     <a href="https://github.com/indeterminatewoodchuck/indeterminatewoodchuck" className="btn-social btn-outline">
-                      <i className="fa fa-github-alt fa-2x"></i>
+                      <i className="fa fa-github fa-2x share"></i>
                     </a>
                   </li>
                 </ul>
