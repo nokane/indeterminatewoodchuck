@@ -17,17 +17,17 @@ var Footer = React.createClass({
                 <ul className="list-inline">
                   <li>
                     <a href="https://www.facebook.com/sharer/sharer.php?u=portalize.io" className="btn-social btn-outline">
-                      <i className="fa fa-fw fa-facebook"></i>
-                    </a>
-                  </li>
-                  <li>
-                    <a href="https://plus.google.com/share?url=portalize.io" className="btn-social btn-outline">
-                      <i className="fa fa-fw fa-google-plus"></i>
+                      <i className="fa fa-facebook fa-2x share"></i>
                     </a>
                   </li>
                   <li>
                     <a href="https://twitter.com/share?text=Portalize&url=portilize.io" className="btn-social btn-outline">
-                      <i className="fa fa-fw fa-twitter"></i>
+                      <i className="fa fa-twitter fa-2x share"></i>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="https://plus.google.com/share?url=portalize.io" className="btn-social btn-outline">
+                      <i className="fa fa-google-plus fa-2x share"></i>
                     </a>
                   </li>
                 </ul>

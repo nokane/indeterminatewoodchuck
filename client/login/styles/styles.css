@@ -301,10 +301,13 @@ footer h3 {
 
 footer .footer-above {
   padding-top: 50px;
-
 }
 
 footer .footer-below {
   padding: 25px 0;
+}
 
+.share {
+  margin-left: 10px;
+  margin-right: 10px;
 }
