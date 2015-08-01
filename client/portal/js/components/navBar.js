@@ -29,7 +29,7 @@ var NavBar = React.createClass({
                 <Link activeStyle={{color: '#2980B9'}} to={"/"}>Chat Portal</Link>
               </li>
               <li>
-                <Link activeStyle={{color: '#2980B9'}} to={"/session-history"}>Session Portal</Link>
+                <Link activeStyle={{color: '#2980B9'}} to={"/session-history"}>Session History</Link>
               </li>
             </ul>
 
