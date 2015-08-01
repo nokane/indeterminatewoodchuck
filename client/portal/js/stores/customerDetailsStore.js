@@ -12,11 +12,11 @@ var state = {
 };
 
 
-var setCustomerDetails = function(peer) {
-  _videoStreams.remote = peer;
+var setCustomerDetails = function(customerDetails) {
+  _state = customerDetails;
 };
 
-var videoChatStore = objectAssign({}, EventEmitter.prototype, {
+var customerDetailsStore = objectAssign({}, EventEmitter.prototype, {
   addChangeListener: function(cb){
     this.on(CHANGE, cb);
   },
@@ -28,19 +28,13 @@ var videoChatStore = objectAssign({}, EventEmitter.prototype, {
   }
 });
 
-videoChatStore.dispatchToken = AppDispatcher.register(function(payload) {
+customerDetailsStore.dispatchToken = AppDispatcher.register(function(payload) {
   if (payload.actionType === appConstants.START_LOCAL_CONN) {
-    setLocalStream(payload.peer);
-    videoChatStore.emit(CHANGE);
-  } else if (payload.actionType === appConstants.START_REMOTE_CONN) {
-    setRemoteStream(payload.peer);
-    videoChatStore.emit(CHANGE);
-  } else if (payload.actionType === appConstants.STOP_REMOTE_CONN) {
-    setRemoteStream(null);
-    videoChatStore.emit(CHANGE);
-  } 
+    setCustomerDetails(payload.customerDetails);
+    customerDetailsStore.emit(CHANGE);
+  }
 
   return true;
 });
 
-module.exports = videoChatStore;
+module.exports = customerDetailsStore;
