@@ -43,7 +43,7 @@ var Footer = React.createClass({
             <div className="container">
                 <div className="row col-md-12">
                     <div className="col-xs-12">
-                        Copyright &copy; Your Website 2014
+                        Copyright &copy; Portalize 2014
                     </div>
                 </div>
             </div>
