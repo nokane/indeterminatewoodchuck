@@ -48,11 +48,13 @@ var SessionHistory = React.createClass({
 
     return (
       <table className='table table-striped'>
-        <caption>
-          <button type="button" className="refresh btn btn-default" onClick={ this.getEmployeeSessionData }>
-            <span className="glyphicon glyphicon-refresh" aria-hidden="true"></span>
-          </button>
-          <span>Session History Log</span>
+        <caption className='log-title'>
+          <h2>
+            <span>Session History Log</span>
+            <button type="button" className="refresh btn btn-default" onClick={ this.getEmployeeSessionData }>
+              <span className="glyphicon glyphicon-refresh" aria-hidden="true"></span>
+            </button>
+          </h2>
         </caption>
         <thead>
           <tr>

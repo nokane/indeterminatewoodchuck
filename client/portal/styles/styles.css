@@ -152,5 +152,9 @@ div#localStreamVideo {
 }
 
 .table > tbody > tr > td {
-     vertical-align: middle;
+  vertical-align: middle;
+}
+
+.log-title {
+  text-align: center;
 }
