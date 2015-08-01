@@ -37,7 +37,7 @@ var UserLogin = React.createClass({
              _this.props.handleError("userLoginErrorMessage", answer.message);
            }
            else {
-             window.location.href=window.location.origin;
+             window.location.href=window.location.origin + '/portal';
            }
         }
       }
