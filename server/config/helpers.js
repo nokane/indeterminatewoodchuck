@@ -10,7 +10,7 @@ module.exports = {
       jwt.verify(token, 'disdasecretyo', function(err, decoded){
         if( err ){
           console.log('The token provided was invalid, redirecting to login.');
-          return res.redirect('/login');
+          return res.redirect('/');
           // return res.json({ success: false, message: 'Failed to authenticate token.' });
         } else {
           req.decoded = decoded; // if everything is good, then save to request for use in other routes
@@ -21,7 +21,7 @@ module.exports = {
     } else { // if there is no token then return an error
       // return res.status(403).send({ success: false, message: 'No token provided' });
       console.log('No token provided, redirecting to login.');
-      return res.redirect('/login');
+      return res.redirect('/');
     }
   },
 
