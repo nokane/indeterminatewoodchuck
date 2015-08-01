@@ -15,13 +15,13 @@ var About = React.createClass({
               <p className="text-muted text-center">Product Owner</p>
               <div className="text-center row">
                 <ul className="nav navbar navbar-nav about-us-nav">
-                  <li>
+                  <li className="social">
                     <a href="https://github.com/nokane" target="_blank"><i className="fa fa-github-square fa-1x"></i></a>
                   </li>
-                  <li>
+                  <li className="social">
                     <a href="#" target="_blank"><i className="fa fa-linkedin-square fa-1x"></i></a>
                   </li>
-                  <li>
+                  <li className="social">
                     <a href="#" target="_blank"><i className="fa fa-angellist fa-1x"></i></a>
                   </li>
                 </ul>
@@ -33,13 +33,13 @@ var About = React.createClass({
               <p className="text-muted text-center">Scrum Master</p>
               <div className="text-center row">
                 <ul className="nav navbar navbar-nav about-us-nav">
-                  <li>
+                  <li className="social">
                     <a href="https://github.com/brettkan" target="_blank"><i className="fa fa-github-square fa-1x"></i></a>
                   </li>
-                  <li>
+                  <li className="social">
                     <a href="#" target="_blank"><i className="fa fa-linkedin-square fa-1x"></i></a>
                   </li>
-                  <li>
+                  <li className="social">
                     <a href="#" target="_blank"><i className="fa fa-angellist fa-1x"></i></a>
                   </li>
                 </ul>
@@ -51,13 +51,13 @@ var About = React.createClass({
               <p className="text-muted text-center">Full-Stack Engineer</p>
               <div className="text-center row">
                 <ul className="nav navbar navbar-nav about-us-nav">
-                  <li>
+                  <li className="social">
                     <a href="https://github.com/lyip1992" target="_blank"><i className="fa fa-github-square fa-1x"></i></a>
                   </li>
-                  <li>
+                  <li className="social">
                     <a href="#" target="_blank"><i className="fa fa-linkedin-square fa-1x"></i></a>
                   </li>
-                  <li>
+                  <li className="social">
                     <a href="#" target="_blank"><i className="fa fa-angellist fa-1x"></i></a>
                   </li>
                 </ul>
@@ -69,13 +69,13 @@ var About = React.createClass({
               <p className="text-muted text-center">Full-Stack Engineer</p>
               <div className="text-center row">
                 <ul className="nav navbar navbar-nav about-us-nav">
-                  <li>
+                  <li className="social">
                     <a href="https://github.com/paulinoj" target="_blank"><i className="fa fa-github-square fa-1x"></i></a>
                   </li>
-                  <li>
+                  <li className="social">
                     <a href="#" target="_blank"><i className="fa fa-linkedin-square fa-1x"></i></a>
                   </li>
-                  <li>
+                  <li className="social">
                     <a href="#" target="_blank"><i className="fa fa-angellist fa-1x"></i></a>
                   </li>
                 </ul>
