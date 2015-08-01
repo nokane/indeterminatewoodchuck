@@ -1,13 +1,9 @@
 var React = require('react');
 var customerDetailsStore = require('../stores/customerDetailsStore');
-var VideoElement = require('./videoElement.js');
 
 var CustomerDetails = React.createClass({
   getInitialState: function(){
-    return { 
-      localStream: null,
-      remoteStream: null
-    };
+    return customerDetailsStore.getState();
   },
 
   componentDidMount: function(){
@@ -19,23 +15,18 @@ var CustomerDetails = React.createClass({
   },
 
   _onChange: function() {
-    this.setState({
-      localStream: customerDetailsStore.getLocalStream(),
-      remoteStream: customerDetailsStore.getRemoteStream()
-    });
+    this.setState(customerDetailsStore.getState());
   },
 
   render: function(){
     return (
-        <div id='remoteStreamVideo'>
-          {this.state.remoteStream ? <VideoElement key='remoteStream' value={this.state.remoteStream} size="640" /> : 
-          <div></div>}
-          <div id='localStreamVideo'>
-            {this.state.localStream ? <VideoElement key='localStream' value={this.state.localStream} size="160" /> :
-            <div></div>}
-          </div>
+        <div className='customerDetails'>
+          <h7>Current Customer Details:</h7>
+          <div>Name: {this.state.name}</div>
+          <div>Email: {this.state.email}</div>
+          <div>Question: {this.state.question}</div>
         </div>
-    )
+    );
   }
 });
 

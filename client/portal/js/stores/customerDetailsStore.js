@@ -5,10 +5,10 @@ var EventEmitter = require('events').EventEmitter;
 
 var CHANGE = 'CHANGE';
 
-var state = {
-  customerName: null,
-  customerEmail: null,
-  customerQuestion: null
+var _state = {
+  name: null,
+  email: null,
+  question: null
 };
 
 
@@ -30,6 +30,7 @@ var customerDetailsStore = objectAssign({}, EventEmitter.prototype, {
 
 customerDetailsStore.dispatchToken = AppDispatcher.register(function(payload) {
   if (payload.actionType === appConstants.CUSTOMER_DETAILS) {
+    console.log('CUSTOMER DETAILS STORE IS HEARING DISPATCH WITH PAYLOAD: ', payload);
     setCustomerDetails(payload.data);
     customerDetailsStore.emit(CHANGE);
   }
