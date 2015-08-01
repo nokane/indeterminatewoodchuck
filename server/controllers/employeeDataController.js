@@ -15,19 +15,20 @@ module.exports = {
   },
 
   getEmployeeSessionData: function(req, res){
-    db.Session.findAll({attributes: ['cust_name', 'cust_email', 'createdAt', 'question', 'UserId'], where: { OrganizationId: req.decoded.OrganizationId }, 
+    db.Session.findAll({attributes: ['cust_name', 'cust_email', 'createdAt', 'question', 'UserId'], where: { OrganizationId: req.decoded.OrganizationId },
       include: [ { model: db.Organization, attributes: ['name'] },
                  { model: db.User, attributes: ['first_name', 'last_name', 'email', 'title'] }
-               ] }).then(function(sessions){
+               ],
+      order: '"createdAt" DESC' }).then(function(sessions){
 
       var flattenObject = function(ob) {
-        var toReturn = {};        
+        var toReturn = {};
         for (var i in ob) {
-          if (!ob.hasOwnProperty(i)) continue;          
+          if (!ob.hasOwnProperty(i)) continue;
           if ((typeof ob[i]) == 'object') {
             var flatObject = flattenObject(ob[i]);
             for (var x in flatObject) {
-              if (!flatObject.hasOwnProperty(x)) continue;              
+              if (!flatObject.hasOwnProperty(x)) continue;
                 toReturn[x] = flatObject[x];
             }
           } else {
