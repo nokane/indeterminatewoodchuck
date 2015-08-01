@@ -13,7 +13,7 @@ var Footer = React.createClass({
                 <p>944 Market St.<br></br>San Francisco, CA 94102</p>
               </div>
               <div className="footer-col col-xs-4">
-                <h3>Share Us!</h3>
+                <h3>Share Us</h3>
                 <ul className="list-inline">
                   <li>
                     <a href="https://www.facebook.com/sharer/sharer.php?u=portalize.io" className="btn-social btn-outline">
@@ -33,8 +33,14 @@ var Footer = React.createClass({
                 </ul>
               </div>
               <div className="footer-col col-xs-4">
-                <h3>Developers</h3>
-                <p>Portalize is a free to use, open source application. Feel free to  <a href="https://github.com/indeterminatewoodchuck/indeterminatewoodchuck">contribute</a>!</p>
+                <h3>Find Us On Github</h3>
+                <ul className="list-inline">
+                  <li>
+                    <a href="https://github.com/indeterminatewoodchuck/indeterminatewoodchuck" className="btn-social btn-outline">
+                      <i className="fa fa-github-alt fa-2x"></i>
+                    </a>
+                  </li>
+                </ul>
               </div>
             </div>
           </div>
