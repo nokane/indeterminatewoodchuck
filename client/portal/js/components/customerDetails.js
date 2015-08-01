@@ -20,11 +20,13 @@ var CustomerDetails = React.createClass({
 
   render: function(){
     return (
-        <div className='customerDetails'>
-          <h7>Current Customer Details:</h7>
-          <div>Name: {this.state.name}</div>
-          <div>Email: {this.state.email}</div>
-          <div>Question: {this.state.question}</div>
+        <div className='customerDetailsBox'>
+          <h4 className='queue-count'>Current Customer Details:</h4>
+          <div className='customerDetails'>
+            <div><strong>Customer</strong>: {this.state.name}</div>
+            <div><strong>Email: </strong>{this.state.email}</div>
+            <div><strong>Request: </strong>{this.state.question}</div>
+          </div>
         </div>
     );
   }
