@@ -87,6 +87,7 @@ var Main = React.createClass({
         </div>
 
         <RouteHandler />
+        <hr className="primary"></hr>
         <Footer />
       </div>
     )
