@@ -10,15 +10,29 @@ var NavBar = React.createClass({
 
   render: function() {
     return (
-      <nav className='navbar navbar-default'>
-        <div className='container-fluid'>
-          <div className='navbar-brand'>Portalize</div>
-          <div className='navbar-brand links'>
-            <div className='portal-btn'><Link to={"/"}>Chat Portal</Link></div>
-            <span> / </span>
-            <div className='portal-btn'><Link to={"/session-history"}>Session Portal</Link></div>
+      <nav className="navbar navbar-default navbar-fixed-top">
+        <div className="container-fluid">
+
+          <div className="navbar-header">
+            <button type="button" className="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+              <span className="sr-only">Toggle navigation</span>
+              <span className="icon-bar"></span>
+              <span className="icon-bar"></span>
+              <span className="icon-bar"></span>
+            </button>
+            <a className="navbar-brand page-scroll" href="#page-top">Portalize</a>
           </div>
-          <div className='collapse navbar-collapse'>
+
+          <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul className="nav navbar-nav navbar-left">
+              <li>
+                <Link activeStyle={{color: '#2980B9'}} to={"/"}>Chat Portal</Link>
+              </li>
+              <li>
+                <Link activeStyle={{color: '#2980B9'}} to={"/session-history"}>Session Portal</Link>
+              </li>
+            </ul>
+
             <ul className='nav navbar-nav navbar-right'>
               <li className='dropdown'>
                 <a href='#' className='dropdown-toggle' data-toggle='dropdown' role='button' aria-haspopup='true' aria-expanded='false'>{this.props.firstName} {this.props.lastName} <span className='caret'></span></a>
@@ -30,9 +44,8 @@ var NavBar = React.createClass({
                 </ul>
               </li>
             </ul>
-            <ul className='nav navbar-right'>
-            </ul>
           </div>
+
         </div>
       </nav>
     );

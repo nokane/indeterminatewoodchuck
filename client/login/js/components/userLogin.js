@@ -4,14 +4,17 @@ var helper = require('./helper.js');
 var UserLogin = React.createClass({
   render: function() {
     return (
-      <div className="form-fields">
-        <label>Email</label>
-        <input className='shortfield' type="email" ref="email" />
-        <span>        </span>
-        <label>Password</label>
-        <input className='shortfield' type="password" ref="password" />
-        <span>        </span><button className='btn btn-default custom' onClick={this.handleLogin}>Login</button>
-      </div>
+      <form className="navbar-form navbar-right">
+        <div className="form-group">
+          <label className="navbar-label">Email: </label>
+          <input className='form-control' type="email" ref="email" />
+          
+          <label className="navbar-label">Password: </label>
+          <input className='form-control' type="password" ref="password" />
+          
+          <button type="submit" className='btn btn-default navbar-btn' onClick={this.handleLogin}>Login</button>
+        </div>
+      </form>
     )
   },
 
