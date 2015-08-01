@@ -219,7 +219,8 @@ label {
 .img-icon {
   margin-top: auto;
   margin-bottom: auto;
-  padding-right: 15px;
+  min-width: 65px;
+  padding-right:15px;
   display: inline-block !important;
 }
 
