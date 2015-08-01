@@ -179,8 +179,6 @@ var AboutPage = React.createClass({
                         <h3>Are Portalize&#39;s connections secure?</h3>
                         <p>The WebRTC technology utilized by Portalize allows it to offer safe, private,
                         real-time communications.</p>
-                        <h3>How much does it cost to use Portalize?</h3>
-                        <p>To be determined.</p>
                 </div>
           </div>
       </div>
