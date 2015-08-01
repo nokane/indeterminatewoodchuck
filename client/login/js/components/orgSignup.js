@@ -6,7 +6,7 @@ var OrgSignup = React.createClass({
     return (
       <div>
         <div>
-          <h4>Create Organization</h4>
+          <h3>Create Organization</h3>
           <ul className="form-fields">
             <li>
               <label>Business Name</label>

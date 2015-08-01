@@ -102,6 +102,11 @@ label {
   margin-left: 25px;
 }
 
+.org-account-query {
+  margin-top: 12px;
+  margin-bottom: 12px;
+}
+
 /******** Navbar ********/
 
 .navbar-btn {
