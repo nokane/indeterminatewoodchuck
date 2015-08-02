@@ -115,6 +115,7 @@ div#localStreamVideo {
   width: 100%;
   padding: 5px;
   border: 2px solid #ccc;
+  overflow-y: scroll;
   background-color: #fff;
   border-radius: 4px;
 }
