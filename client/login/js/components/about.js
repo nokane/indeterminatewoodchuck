@@ -37,10 +37,10 @@ var About = React.createClass({
                     <a href="https://github.com/brettkan" target="_blank"><i className="fa fa-github-square fa-1x"></i></a>
                   </li>
                   <li className="social">
-                    <a href="#" target="_blank"><i className="fa fa-linkedin-square fa-1x"></i></a>
+                    <a href="https://www.linkedin.com/in/brettkan" target="_blank"><i className="fa fa-linkedin-square fa-1x"></i></a>
                   </li>
                   <li className="social">
-                    <a href="#" target="_blank"><i className="fa fa-angellist fa-1x"></i></a>
+                    <a href="https://angel.co/brettkan" target="_blank"><i className="fa fa-angellist fa-1x"></i></a>
                   </li>
                 </ul>
               </div>
@@ -55,10 +55,10 @@ var About = React.createClass({
                     <a href="https://github.com/lyip1992" target="_blank"><i className="fa fa-github-square fa-1x"></i></a>
                   </li>
                   <li className="social">
-                    <a href="#" target="_blank"><i className="fa fa-linkedin-square fa-1x"></i></a>
+                    <a href="https://www.linkedin.com/in/leonyip" target="_blank"><i className="fa fa-linkedin-square fa-1x"></i></a>
                   </li>
                   <li className="social">
-                    <a href="#" target="_blank"><i className="fa fa-angellist fa-1x"></i></a>
+                    <a href="https://angel.co/leon-yip" target="_blank"><i className="fa fa-angellist fa-1x"></i></a>
                   </li>
                 </ul>
               </div>
@@ -73,7 +73,7 @@ var About = React.createClass({
                     <a href="https://github.com/paulinoj" target="_blank"><i className="fa fa-github-square fa-1x"></i></a>
                   </li>
                   <li className="social">
-                    <a href="#" target="_blank"><i className="fa fa-linkedin-square fa-1x"></i></a>
+                    <a href="www.linkedin.com/in/paulinoj" target="_blank"><i className="fa fa-linkedin-square fa-1x"></i></a>
                   </li>
                   <li className="social">
                     <a href="#" target="_blank"><i className="fa fa-angellist fa-1x"></i></a>
