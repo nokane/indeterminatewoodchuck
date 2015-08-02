@@ -2,6 +2,7 @@ var morgan = require('morgan');
 var bodyParser = require('body-parser');
 var helpers = require('./helpers.js');
 var cookieParser = require('cookie-parser');
+var favicon = require('serve-favicon');
 
 module.exports = function(app, express, server, io){
 
@@ -9,6 +10,7 @@ module.exports = function(app, express, server, io){
   var employeeDataRouter = express.Router(); // api for employee data
 
   // url encoding, json parser, and terminal logs
+  app.use(favicon(__dirname + '/../../favicon.ico'));
   app.use(bodyParser.urlencoded({extended: true}));
   app.use(bodyParser.json());
   app.use(morgan('dev'));
