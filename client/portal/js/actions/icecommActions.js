@@ -37,8 +37,8 @@ comm.on('data', function(message) {
   AppDispatcher.dispatch({
     actionType: appConstants.SEND_TEXT_MESSAGE,
     // Change to reflect customer name
-    user: 'customer',
-    message: message.data
+    user: message.data.user,
+    message: message.data.text
   });
 });
 
@@ -53,9 +53,8 @@ var icecommActions = {
     comm.send(message);
     AppDispatcher.dispatch({
       actionType: appConstants.SEND_TEXT_MESSAGE,
-      // Change to reflect staff name
-      user: 'staff',
-      message: message
+      user: message.user,
+      message: message.text
     });
   },
 

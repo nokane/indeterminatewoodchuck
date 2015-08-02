@@ -19,7 +19,6 @@ var clearMessages = function() {
 };
 
 var setConnect = function(status){
-  console.log('button status now changing to: ', status);
   _state.connected = status;
 };
 
@@ -43,7 +42,6 @@ textChatStore.dispatchToken = AppDispatcher.register(function(payload) {
     clearMessages();
     textChatStore.emit(CHANGE);
   } else if( payload.actionType === appConstants.CONNECT_STATUS ){
-    console.log('do we even get to the button reset value');
     setConnect(payload.connected);
     textChatStore.emit(CHANGE);
   }
