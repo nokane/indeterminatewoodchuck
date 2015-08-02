@@ -11,7 +11,7 @@ var About = React.createClass({
           <div className="member-profiles row text-left">
             <div className="member-profile col-xs-3" id="jack-profile">
               <img src="./assets/team/niall.jpeg" className="profile-image center-block" />
-              <h3 className="text-center row profile-name">Niall OKane</h3>
+              <h3 className="text-center row profile-name">Niall O'Kane</h3>
               <p className="text-muted text-center">Product Owner</p>
               <div className="text-center row">
                 <ul className="nav navbar navbar-nav about-us-nav">

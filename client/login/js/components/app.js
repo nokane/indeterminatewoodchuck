@@ -5,6 +5,7 @@ var Error           = require('./error.js');
 
 var AboutPage       = require('./aboutPage.js');
 var GettingStarted  = require('./gettingStarted.js');
+var Footer          = require('./footer');
 
 var assign          = require('object-assign');
 var Router = require('react-router');
@@ -39,7 +40,7 @@ var Main = React.createClass({
       newFields[key] = fieldValues[key];
     }
     this.setState({
-      fieldValues: newFields 
+      fieldValues: newFields
     });
   },
 
@@ -50,7 +51,7 @@ var Main = React.createClass({
   render: function() {
     return (
       <div className = 'container'>
-      
+
         <nav id="mainNav" className="navbar navbar-default navbar-fixed-top">
           <div className="container-fluid">
             <div className="navbar-header">
@@ -86,7 +87,8 @@ var Main = React.createClass({
         </div>
 
         <RouteHandler />
-
+        <hr className="primary"></hr>
+        <Footer />
       </div>
     )
   }

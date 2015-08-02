@@ -292,3 +292,18 @@ label {
   top: -50px;
   visibility: hidden;
 }
+
+/******** Footer ********/
+
+footer h3 {
+  margin-bottom: 25px;
+}
+
+footer .footer-below {
+  padding: 25px 0;
+}
+
+.share {
+  margin-left: 10px;
+  margin-right: 10px;
+}
