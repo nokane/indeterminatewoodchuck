@@ -53,9 +53,8 @@ var icecommActions = {
     comm.send(message);
     AppDispatcher.dispatch({
       actionType: appConstants.SEND_TEXT_MESSAGE,
-      // Change to reflect staff name
-      user: 'staff',
-      message: message
+      user: message.user,
+      message: message.text
     });
   },
 

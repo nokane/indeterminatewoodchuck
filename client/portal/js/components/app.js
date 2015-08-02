@@ -54,7 +54,7 @@ var Main = React.createClass({
         <div className = 'row'>
           <NavBar firstName={firstName} lastName={lastName} email={email} web_name={web_name} />
         </div>
-        <RouteHandler web_name={web_name} />
+        <RouteHandler firstName={firstName} web_name={web_name} />
       </div>
     );
   }

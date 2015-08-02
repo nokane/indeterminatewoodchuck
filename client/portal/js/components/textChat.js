@@ -27,7 +27,10 @@ var TextChat = React.createClass({
   onKeyDown: function(event) {
     if (event.keyCode === 13) {
       event.preventDefault();
-      var message = React.findDOMNode(this.refs.messageInput).value;
+      var message = {
+        user: this.props.firstName,
+        text: React.findDOMNode(this.refs.messageInput).value
+      };
       icecommActions.sendTextMessage(message);
       React.findDOMNode(this.refs.messageInput).value = '';
     }
@@ -35,7 +38,10 @@ var TextChat = React.createClass({
 
   handleSubmit: function(event) {
     event.preventDefault();
-    var message = event.target[0].value;
+    var message = {
+      user: this.props.firstName,
+      text: event.target[0].value
+    };
     icecommActions.sendTextMessage(message);
     React.findDOMNode(this.refs.messageInput).value = '';
   },
@@ -47,10 +53,10 @@ var TextChat = React.createClass({
       return (<div key={index}><span className='userPrompt'>{user}</span>: {text}</div>);
     });
 
-    var disabledInput = <input className='form-control' ref='messageInput' type='text' value='' placeholder='Type your message here' disabled />
-    var disabledButton = <button className='btn btn-primary' type='submit' disabled>Submit</button>
-    var input = <input className='form-control' ref='messageInput' onKeyDown={this.onKeyDown} type='text' placeholder='Type your message here' required/>
-    var button = <button className='btn btn-primary' type='submit'>Submit</button>
+    var disabledInput = <input className='form-control' ref='messageInput' type='text' value='' placeholder='Type your message here' disabled />;
+    var disabledButton = <button className='btn btn-primary' type='submit' disabled>Submit</button>;
+    var input = <input className='form-control' ref='messageInput' onKeyDown={this.onKeyDown} type='text' placeholder='Type your message here' required/>;
+    var button = <button className='btn btn-primary' type='submit'>Submit</button>;
 
     return (
       <div>
