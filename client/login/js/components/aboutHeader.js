@@ -6,6 +6,8 @@ var AboutHeader = React.createClass({
     return (
       <div className='about-header'>
 
+        <img className='portal-img' src='./assets/about/portal_side.png' alt='' />
+        <img className='customer-img' src='./assets/about/customer_side.png' alt='' />
       </div>
     );
   }
