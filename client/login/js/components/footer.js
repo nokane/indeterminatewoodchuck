@@ -8,11 +8,7 @@ var Footer = React.createClass({
         <div className="footer-above">
           <div className="container">
             <div className="row col-md-12">
-              <div className="footer-col col-xs-4">
-                <h3>Location</h3>
-                <p>944 Market St.<br></br>San Francisco, CA 94102</p>
-              </div>
-              <div className="footer-col col-xs-4">
+              <div className="footer-col col-xs-6">
                 <h3>Share Us</h3>
                 <ul className="list-inline">
                   <li>
@@ -32,7 +28,7 @@ var Footer = React.createClass({
                   </li>
                 </ul>
               </div>
-              <div className="footer-col col-xs-4">
+              <div className="footer-col col-xs-6">
                 <h3>Find Us On Github</h3>
                 <ul className="list-inline">
                   <li>
