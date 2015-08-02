@@ -240,10 +240,13 @@ Portalize.prototype.setupPeerConnListeners = function(){
     // after connecting, set up listener for text chat submit
     var submitForm = document.getElementById('portalize-chat-form');
     var handleSubmit = function(event) {
-      var message = event.target[0].value;
+      var message = {
+        user: this.customerName,
+        text: event.target[0].value
+      };
       event.preventDefault();
       this.comm.send(message);
-      appendTextMessage(this.customerName, message);
+      appendTextMessage(this.customerName, message.text);
       document.getElementById('portalize-text-chat-input').value = '';
     }.bind(this);
 
@@ -266,7 +269,7 @@ Portalize.prototype.setupPeerConnListeners = function(){
       disconnect();
     }
 
-    appendTextMessage('staff', message.data);
+    appendTextMessage(message.data.user, message.data.text);
   });
 
   // listener to close video streams and leave room when peer disconnects
