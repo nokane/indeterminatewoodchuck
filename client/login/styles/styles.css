@@ -293,17 +293,28 @@ label {
   font-family: 'Open Sans','Helvetica Neue',Arial,sans-serif;
   margin-left: auto;
   margin-right: auto;
-  padding-top: 50px;
+  padding-top: 5px;
   font-size: 20px;
   text-align: center;
 }
 
+.image-caption {
+  font-size: 18px;
+}
+
+.about-images {
+  text-align: center;
+  padding-top: 50px;
+}
+
 .div-portal-img {
   text-align: center;
+  padding-bottom: 10px;
 }
 
 .div-customer-img {
   text-align: center;
+  padding-top: 10px;
 }
 
 .customer-img {
