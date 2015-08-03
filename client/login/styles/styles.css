@@ -88,12 +88,17 @@ label {
   margin-bottom: 2px;
 }
 .errorView {
-  margin-bottom: 0px;
-  padding-bottom: 0px;
-  color: red;
-  height: 6px;
+  margin-top: 1px;
+  padding-top: 1px;
+  margin-bottom: 1px;
+  padding-bottom: 1px;
+  height: 20px;
+  text-align: center;
 }
-
+.red-box {
+  color: white;
+  background-color: red;  
+}
 .portal-btn {
   display: inline-block;
 }

@@ -7,7 +7,7 @@ var Error = React.createClass({
   render: function() {
     return (
       <div>
-        <div className='errorView'>Error:  {this.props.errorMessage}</div>
+        <div className='errorView red-box'>Error:  {this.props.errorMessage}</div>
       </div>
     )
   }

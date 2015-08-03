@@ -44,6 +44,8 @@ var Login = React.createClass({
     var newState = {};
     newState[section] = errorMessage;
     this.setState(newState);
+    var _this = this;
+    setTimeout(function() {_this.clearErrors()}, 2000);
   },
 
   saveValues: function(fieldValues) {
@@ -87,7 +89,7 @@ var Login = React.createClass({
                                  saveValues={this.saveValues} clearErrors={this.clearErrors}
                                  handleError={this.handleError} />:<div></div>}
             {this.state.orgSignupErrorMessage ? <Error errorMessage={this.state.orgSignupErrorMessage} /> :
-            this.state.orgLoginErrorMessage ? <Error errorMessage={this.state.orgLoginErrorMessage} /> : <div className='errorView'> </div> }
+            this.state.orgLoginErrorMessage ? <Error errorMessage={this.state.orgLoginErrorMessage} /> : <div className='errorView'></div> }
           </div>
         </div>
       </div>
