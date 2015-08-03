@@ -11,7 +11,6 @@ var AboutPage = React.createClass({
     return (
       <div>
         <AboutHeader />
-        <hr className="primary"></hr>
         <Intro />
         <hr className="primary"></hr>
         <Features />
