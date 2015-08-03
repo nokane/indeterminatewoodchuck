@@ -14,7 +14,7 @@ var AboutHeader = React.createClass({
           </div>
         </div>
         <div className='about-images'>
-        <span className='image-caption'>CONNECTING YOUR SUPPORT STAFF ...</span>
+        <span className='image-caption'>CONNECT YOUR SUPPORT STAFF</span>
           <div className='div-portal-img'>
             <img className='portal-img' src='./assets/about/portal_side.png' alt='' />
           </div>
