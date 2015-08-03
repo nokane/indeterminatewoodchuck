@@ -28,6 +28,8 @@ var Main = React.createClass({
     var newState = {};
     newState[section] = errorMessage;
     this.setState(newState);
+    var _this = this;
+    setTimeout(function() {_this.clearErrors()}, 2000);
   },
 
   saveValues: function(fieldValues) {
@@ -78,14 +80,10 @@ var Main = React.createClass({
               </ul>
               <UserLogin fieldValues={this.state.fieldValues} saveValues={this.saveValues} handleError={this.handleError} />
             </div>
+            {this.state.userLoginErrorMessage ? <Error errorMessage={this.state.userLoginErrorMessage} /> :
+            <div></div> }
           </div>
         </nav>
-
-        <div className='column'>
-            {this.state.userLoginErrorMessage ? <Error errorMessage={this.state.userLoginErrorMessage} /> :
-            <div className='errorView'></div> }
-        </div>
-
         <RouteHandler />
         <hr className="primary"></hr>
         <Footer />
