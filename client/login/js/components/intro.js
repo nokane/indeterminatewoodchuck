@@ -11,7 +11,7 @@ var Intro = React.createClass({
           customers. With just a few lines of code from the Portalize JavaScript library, businesses
           are able to add a customer side video chat interface to their website. In addition, 
           Portalize provides support staff with a portal to interact with their customers. Our service makes it easy
-          for businesses to provide live customer support, improving their customers' shopping experience
+          for businesses to provide live customer support, improving their customers' shopping experience.
         </span>
       </div>
     );

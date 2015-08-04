@@ -14,11 +14,10 @@ var AboutHeader = React.createClass({
           </div>
         </div>
         <div className='about-images'>
-        <span className='image-caption'>Connect your support staff ...</span>
+        <span className='image-caption'>Connect your support staff with your customers</span>
           <div className='div-portal-img'>
             <img className='portal-img' src='./assets/about/portal_side.png' alt='' />
           </div>
-          <span className='image-caption'>with your customers</span>
           <div className='div-customer-img'>
             <img className='customer-img' src='./assets/about/customer_side.png' alt='' />
           </div>
