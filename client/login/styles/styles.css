@@ -277,6 +277,63 @@ label {
 .thumbnail {
   border: none;
 }
+.portalize-title {
+  font-family: 'Open Sans','Helvetica Neue',Arial,sans-serif;
+  margin-left: auto;
+  margin-right: auto;
+  padding-top: 50px;
+  width:50%;
+  padding-bottom: 10px;
+  font-size: 50px;
+  font-weight: 700;
+  text-align: center;
+}
+
+.title-caption {
+  font-family: 'Open Sans','Helvetica Neue',Arial,sans-serif;
+  margin-left: auto;
+  margin-right: auto;
+  padding-top: 5px;
+  font-size: 20px;
+  text-align: center;
+}
+
+.image-caption {
+  font-size: 18px;
+}
+
+.about-images {
+  text-align: center;
+  padding-top: 50px;
+}
+
+.div-portal-img {
+  text-align: center;
+  padding-bottom: 10px;
+}
+
+.div-customer-img {
+  text-align: center;
+  padding-top: 10px;
+}
+
+.customer-img {
+  width: 600px;
+}
+
+.portal-img {
+  width: 600px;
+}
+
+.intro-text {
+  max-width: 750px;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 16px;
+  padding-top: 50px;
+  padding-bottom: 20px;
+}
+
 
 /******** Getting Started ********/
 .hljs {
