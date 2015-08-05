@@ -32,7 +32,7 @@ var AboutPage = React.createClass({
                       </code></pre>
                       <p>
                         In addition, include the Portalize CSS link in your HTML file to import the Portalize default styles.
-                        Place this link <b>before</b> all other CSS links in your HTML file if you plan on overriding the default CSS styles.
+                        Place this link <strong>before</strong> all other CSS links in your HTML file if you plan on overriding the default CSS styles.
                       </p>
                       <pre><code className='hljs html'>
                         &lt;link href="https://portalize.io/librarystyles" rel="stylesheet"&gt;
@@ -53,7 +53,7 @@ var AboutPage = React.createClass({
                       <h3 id="sec1-1"><a className="jump" name="/getting-started#sec1-1"></a>Sliding Panel Interface</h3>
                       <p>
                         Adding Portalize to your site using the sliding panel interface is the quickest way to get started.
-                        Simply create a new instance of the <b>PortalizeSlide</b> class, passing in the name of your organization
+                        Simply create a new instance of the <strong>PortalizeSlide</strong> class, passing in the name of your organization
                         as the argument, and the Portalize interface will be dynamically created on your site.
                       </p>
                       <pre><code className='hljs javascript'>
@@ -68,7 +68,7 @@ var AboutPage = React.createClass({
                       <p>
                         Portalize can also be added to your site by attaching specific IDs to HTML elements you manually create
                         on your site.  This allows for greater customization of the Portalize interface, but requires a few
-                        extra steps. Begin by creating a new instance of the <b>PortalizeEmbed</b> class, passing in the name of your
+                        extra steps. Begin by creating a new instance of the <strong>PortalizeEmbed</strong> class, passing in the name of your
                         organization as the argument.
                       </p>
                       <pre><code className='hljs javascript'>
@@ -103,7 +103,7 @@ var AboutPage = React.createClass({
                       <p>
                         Elements within the Portalize user interface are very customizable and can be styled by manipulating each
                         element’s CSS properties through their ID selectors.  If you intend to override Portalize’s default CSS properties,
-                        please ensure that the Portalize stylesheet link is placed <b>before</b> all other stylesheet links in your HTML file.
+                        please ensure that the Portalize stylesheet link is placed <strong>before</strong> all other stylesheet links in your HTML file.
                       </p>
                       <p>
                         Each element within Portalize’s user interface has a unique ID attribute, which is used to manipulate the CSS properties
