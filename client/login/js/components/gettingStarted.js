@@ -31,7 +31,7 @@ var AboutPage = React.createClass({
                         &lt;script src="http://www.portalize.io/library"&gt;&lt;/script&gt;
                       </code></pre>
                       <p>
-                        Additionally, add the Portalize CSS link to your HTML file to import the Portalize default styles.
+                        In addition, include the Portalize CSS link in your HTML file to import the Portalize default styles.
                         Place this link <b>before</b> all other CSS links in your HTML file if you plan on overriding the default CSS styles.
                       </p>
                       <pre><code className='hljs html'>
@@ -43,8 +43,8 @@ var AboutPage = React.createClass({
                       <h2 id="sec1"><a className="jump" name="/getting-started#sec1"></a>Choosing a Customer Interface Style</h2>
                       <p>
                         You have two options for displaying the Portalize interface to your customers. Your first option
-                        is to display a button which is fixed to the bottom of the user’s screen, which displays the the
-                        full Portalize interface through a sliding panel.  Alternatively, you can embed your own button
+                        is to display a button which is fixed to the bottom of the user’s screen, which renders the
+                        full Portalize interface within a sliding panel.  Alternatively, you can embed your own button
                         and div element which will house the Portalize customer interface.  Please see the following links
                         for examples of the <span><a href='http://sheltered-citadel-9273.herokuapp.com/' target="_blank">sliding interface</a> </span>
                         and the <span><a href='http://sheltered-citadel-9273.herokuapp.com/index-alt.html' target="_blank">embedded interface</a></span>.
@@ -53,8 +53,8 @@ var AboutPage = React.createClass({
                       <h3 id="sec1-1"><a className="jump" name="/getting-started#sec1-1"></a>Sliding Panel Interface</h3>
                       <p>
                         Adding Portalize to your site using the sliding panel interface is the quickest way to get started.
-                        Simply create a new instance of the <b>PortalizeSlide</b> object, passing in the name of your organization
-                        as the parameter, and the Portalize interface will be dynamically created on your site.
+                        Simply create a new instance of the <b>PortalizeSlide</b> class, passing in the name of your organization
+                        as the argument, and the Portalize interface will be dynamically created on your site.
                       </p>
                       <pre><code className='hljs javascript'>
                         var portalize = new PortalizeSlide(‘YOUR_ORG_NAME_HERE’);
@@ -68,8 +68,8 @@ var AboutPage = React.createClass({
                       <p>
                         Portalize can also be added to your site by attaching specific IDs to HTML elements you manually create
                         on your site.  This allows for greater customization of the Portalize interface, but requires a few
-                        extra steps. Begin by creating a new instance of the <b>PortalizeEmbed</b> object, passing in the name of your
-                        organization as the parameter.
+                        extra steps. Begin by creating a new instance of the <b>PortalizeEmbed</b> class, passing in the name of your
+                        organization as the argument.
                       </p>
                       <pre><code className='hljs javascript'>
                         var portalize = new PortalizeEmbed(‘YOUR_ORG_NAME_HERE’);
@@ -153,7 +153,7 @@ var AboutPage = React.createClass({
                         company account.  Logging in will grant them access to the portal page that receives
                         the communication feeds from your company&#39;s customers.</p>
                         <p>Additionally, in order to implement Video Chat on your customer-facing pages
-                        using the Portalize Chat Library, you will need to call our library API by inserting
+                        using the Portalize Chat Library, you will need to call our library by inserting
                         the following script tag into the html code of your customer pages:</p>
                         <pre><code className='hljs javascript'>
                           &lt;script src="http://portalize.io/library"&gt;&lt;/script&gt;
