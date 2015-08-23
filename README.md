@@ -1,4 +1,4 @@
-# Supportal
+# Portalize
 
 > A video customer support system for e-commerce businesses.
 
@@ -18,9 +18,6 @@
 1. [Team](#team)
 1. [Contributing](#contributing)
 
-## Usage
-
-> Some usage instructions
 
 ## Requirements
 
@@ -66,11 +63,6 @@ gulp setup —user MAC_USERNAME
 ```
 
 Make sure to switch out MAC_USERNAME with your Mac's username
-
-### Roadmap
-
-View the project roadmap [here](LINK_TO_PROJECT_ISSUES)
-
 
 ## Contributing
 
