@@ -11,7 +11,7 @@ var About = React.createClass({
           <div className="member-profiles row text-left">
             <div className="member-profile col-xs-3" id="jack-profile">
               <img src="./assets/team/niall.jpeg" className="profile-image center-block" />
-              <h3 className="text-center row profile-name">Niall O'Kane</h3>
+              <h3 className="text-center row profile-name">Niall OKane</h3>
               <p className="text-muted text-center">Product Owner</p>
               <div className="text-center row">
                 <ul className="nav navbar navbar-nav about-us-nav">
@@ -19,10 +19,10 @@ var About = React.createClass({
                     <a href="https://github.com/nokane" target="_blank"><i className="fa fa-github-square fa-1x"></i></a>
                   </li>
                   <li className="social">
-                    <a href="#" target="_blank"><i className="fa fa-linkedin-square fa-1x"></i></a>
+                    <a href="https://www.linkedin.com/pub/niall-o-kane/aa/63b/826" target="_blank"><i className="fa fa-linkedin-square fa-1x"></i></a>
                   </li>
                   <li className="social">
-                    <a href="#" target="_blank"><i className="fa fa-angellist fa-1x"></i></a>
+                    <a href="https://angel.co/niall-o-kane" target="_blank"><i className="fa fa-angellist fa-1x"></i></a>
                   </li>
                 </ul>
               </div>
@@ -73,10 +73,10 @@ var About = React.createClass({
                     <a href="https://github.com/paulinoj" target="_blank"><i className="fa fa-github-square fa-1x"></i></a>
                   </li>
                   <li className="social">
-                    <a href="www.linkedin.com/in/paulinoj" target="_blank"><i className="fa fa-linkedin-square fa-1x"></i></a>
+                    <a href="https://www.linkedin.com/in/paulinoj" target="_blank"><i className="fa fa-linkedin-square fa-1x"></i></a>
                   </li>
                   <li className="social">
-                    <a href="#" target="_blank"><i className="fa fa-angellist fa-1x"></i></a>
+                    <a href="https://angel.co/john-paulino" target="_blank"><i className="fa fa-angellist fa-1x"></i></a>
                   </li>
                 </ul>
               </div>
