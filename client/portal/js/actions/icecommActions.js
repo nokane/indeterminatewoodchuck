@@ -1,7 +1,7 @@
 var AppDispatcher = require('../dispatchers/appDispatcher');
 var appConstants = require('../constants/appConstants');
 
-var comm = new Icecomm('ZZ2RA1DsHd9xdCqdoeJ8Wwra5A5fUKipAVrvzX6vOGHlLiAdO', { debug: true })
+var comm = new Icecomm('3kB4PpZaNNFN4r3xhmOVgcPn2D8rzcOTtQFh4gRwmAsaGTPwlm', { debug: true })
 
 comm.on('local', function(peer) {
   AppDispatcher.dispatch({
@@ -61,7 +61,7 @@ var icecommActions = {
   disconnect: function(){
     try {
       var leaveCode = 'chropdhopycdchardosdchroyp';
-      comm.send(leaveCode);      
+      comm.send(leaveCode);
     }
 
     catch(err) {

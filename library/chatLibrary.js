@@ -22,11 +22,11 @@ Portalize.prototype.init = function(){
 
   socketScript.onload = function(){
     // need to change io connection point if want to test locally
-    this.socket = io('http://www.portalize.io');
+    this.socket = io('http://localhost:3000');
   }.bind(this);
 
   icecommScript.onload = function(){
-    this.comm = new Icecomm('ZZ2RA1DsHd9xdCqdoeJ8Wwra5A5fUKipAVrvzX6vOGHlLiAdO');
+    this.comm = new Icecomm('3kB4PpZaNNFN4r3xhmOVgcPn2D8rzcOTtQFh4gRwmAsaGTPwlm');
   }.bind(this);
 
   head.appendChild(bootStrapLink);
@@ -43,7 +43,7 @@ Portalize.prototype.createDOMElements = function() {
 
   var createChatButton = function() {
     if (this.displayOption === 'slide') {
-      this.chatButton = document.createElement('button');      
+      this.chatButton = document.createElement('button');
       this.chatButton.id = 'portalize-' + this.displayOption + '-init-button';
       this.chatButton.textContent = 'Chat with a representative';
     } else if (this.displayOption === 'embed') {
@@ -51,7 +51,7 @@ Portalize.prototype.createDOMElements = function() {
       this.chatButton = document.getElementById('portalize-' + this.displayOption + '-init-button');
     }
     this.chatButton.className = 'btn btn-default';
- 
+
     // Cached content from business
     this.chatButtonContent = this.chatButton.textContent;
   }.bind(this);
@@ -281,10 +281,10 @@ Portalize.prototype.setupPeerConnListeners = function(){
 
 var PortalizeEmbed = function(orgName) {
   Portalize.call(this, orgName, 'embed');
-  
+
   // Add initial click handler to chatButton
   this.chatButton.addEventListener('click', this._initialClickHandler.bind(this), false);
-  
+
   // Add cancel click handler to disconnectButton
   this.disconnectButton.addEventListener('click', this._cancelClickHandler.bind(this), false);
 };
